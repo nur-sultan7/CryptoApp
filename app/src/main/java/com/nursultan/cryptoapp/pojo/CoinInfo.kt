@@ -5,25 +5,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
- data class CoinInfo(
-    @SerializedName("Id")
-    @Expose
-    public val id: String? = null,
+data class CoinInfo(
 
-    @SerializedName("Name")
-    @Expose
-    public val name: String? = null,
+   @SerializedName("Name")
+   @Expose
+   val name: String? = null
 
-    @SerializedName("FullName")
-    @Expose
-    public val fullName: String? = null,
-     
-
-    @SerializedName("ImageUrl")
-    @Expose
-    public val imageUrl: String? = null,
-
-    @SerializedName("Url")
-    @Expose
-    public val url: String? = null
 )
