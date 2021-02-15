@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
-
+import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 
 
 @Entity(tableName = "full_price_list")
@@ -191,3 +191,9 @@ data class CoinPriceInfo(
      @Expose
       val imageurl: String? = null
 )
+{
+    fun getFormattedTime():String
+    {
+        return convertFromTimestampToTime(lastupdate)
+    }
+}
