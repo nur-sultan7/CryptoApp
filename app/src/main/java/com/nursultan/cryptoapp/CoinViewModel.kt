@@ -11,6 +11,7 @@ import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
@@ -32,6 +33,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .map { it.data?.map { it2 -> it2.coinInfo?.name }?.joinToString(",") }
             .flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it!!) }
             .map { getPriceListFromRawData(it) }
+            .delaySubscription(5, TimeUnit.SECONDS)
+            .repeat()
+            .retry()
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
