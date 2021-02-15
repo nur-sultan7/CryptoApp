@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 
 import com.google.gson.annotations.SerializedName
+import com.nursultan.cryptoapp.api.ApiFactory.BASE_IMAGE_URL
 import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 
 
@@ -195,5 +196,8 @@ data class CoinPriceInfo(
     fun getFormattedTime():String
     {
         return convertFromTimestampToTime(lastupdate)
+    }
+    fun getFullImageURL(): String {
+        return BASE_IMAGE_URL+imageurl
     }
 }
