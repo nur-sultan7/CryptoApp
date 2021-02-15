@@ -19,19 +19,20 @@ class CoinViewModel(application: Application): AndroidViewModel(application) {
 
     fun getData()
     {
-        val disposable = ApiFactory.apiService.getTopCoinsInfo()
+        val disposable = ApiFactory.apiService.getTopCoinsInfo(limit = 50)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    val coinsString = it.data?.map { it2:Datum -> it2.coinInfo?.name }?.joinToString { "," }
-                    Log.d("TEST_DATA", coinsString)
+                    val coinsString = it.data?.map { it2 -> it2.coinInfo?.name }?.joinToString (",")
+                    Log.d("TEST_DATA", (coinsString).toString())
                 }
                     ,
                 {
 
                 }
             )
+        compositeDisposable.add(disposable)
     }
 
     override fun onCleared() {
