@@ -190,7 +190,7 @@ data class CoinPriceInfo(
 
     @SerializedName("IMAGEURL")
      @Expose
-      val imageurl: String? = null
+      val imageUrl: String? = null
 )
 {
     fun getFormattedTime():String
@@ -198,6 +198,6 @@ data class CoinPriceInfo(
         return convertFromTimestampToTime(lastupdate)
     }
     fun getFullImageURL(): String {
-        return BASE_IMAGE_URL+imageurl
+        return BASE_IMAGE_URL+imageUrl
     }
 }

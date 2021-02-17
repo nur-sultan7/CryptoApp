@@ -33,7 +33,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .map { it.data?.map { it2 -> it2.coinInfo?.name }?.joinToString(",") }
             .flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it!!) }
             .map { getPriceListFromRawData(it) }
-            .delaySubscription(5, TimeUnit.SECONDS)
+            .delaySubscription(10, TimeUnit.SECONDS)
             .repeat()
             .retry()
             .subscribeOn(Schedulers.io())
