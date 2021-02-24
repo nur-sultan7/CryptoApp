@@ -12,10 +12,9 @@ import kotlinx.android.synthetic.main.item_coin_price_info.view.*
 
 class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
     var coinPriceInfoList = listOf<CoinPriceInfo>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+//        set(value) {
+//            field = value
+//        }
     private  var  onCoinClickListener: OnCoinClickListener? =null
 
     interface OnCoinClickListener{
