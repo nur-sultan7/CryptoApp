@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_coin_detail.*
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -24,7 +26,16 @@ class CoinDetailActivity : AppCompatActivity() {
         val fromSymbol= intent.getStringExtra(EXTRA_FROM_SYMBOL)
         viewModel= ViewModelProviders.of(this)[CoinViewModel::class.java]
         viewModel.getCoinPriceInfo(fromSymbol?:"").observe(this, Observer {
-            Log.d("DETAIL_INFO", it.toString())
+            tvFSym.text=it.fromsymbol
+            tvTSym.text=it.tosymbol
+            tvPrice.text=it.price.toString()
+            tvMinDay.text=it.lowday.toString()
+            tvMaxDay.text= it.highday.toString()
+            tvLastMarket.text=it.lastmarket
+            tvLastUpdate.text=it.getFormattedTime()
+            Picasso.get()
+                .load(it.getFullImageURL())
+                .into(ivLogoCoin)
         })
     }
 

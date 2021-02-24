@@ -3,4 +3,10 @@
     <string name="symbols_template">%s/%s</string>
     <string name="last_update_template">Время последнего обновления: %s</string>
     <string name="coin_image">coin image</string>
+    <string name="coin_price">Цена:</string>
+    <string name="coin_min_price_label">Минимальная цена:</string>
+    <string name="coin_max_price_label">Максимальная цена:</string>
+    <string name="coin_last_market_label">Последняя сделка:</string>
+    <string name="coin_last_update_label">Обновлено:</string>
+    <string name="coin_fsym_tsym">/</string>
 </resources>
