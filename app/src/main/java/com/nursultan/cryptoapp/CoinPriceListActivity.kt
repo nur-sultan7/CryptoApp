@@ -1,5 +1,6 @@
 package com.nursultan.cryptoapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CoinViewModel;
     private val compositeDisposable = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin_price_list)
@@ -27,7 +29,9 @@ class CoinPriceListActivity : AppCompatActivity() {
         })
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
             override fun onClick(coinPriceInfo: CoinPriceInfo) {
-                Log.d("TEST_ON_COIN_CLICK",coinPriceInfo.fromsymbol)
+                val intent = Intent(this@CoinPriceListActivity, CoinDetailActivity::class.java)
+                intent.putExtra(CoinDetailActivity.EXTRA_FROM_SYMBOL,coinPriceInfo.fromsymbol)
+                startActivity(intent)
             }
         })
 
