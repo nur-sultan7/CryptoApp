@@ -54,7 +54,7 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
     inner class CoinInfoViewHolder(itemView: View) : RecyclerView.ViewHolder( itemView) {
         val tvSymbols = itemView.tvSymbols
         val tvPrice = itemView.tvPrice
-        val tvLastUpdate = itemView.tvLastUpdate
+        val tvLastUpdate = itemView.tvLastUpdateLabel
         val ivLogoCoin = itemView.ivLogoCoin
         val dd = itemView
         init {

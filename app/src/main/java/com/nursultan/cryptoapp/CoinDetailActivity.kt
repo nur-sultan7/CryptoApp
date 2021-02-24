@@ -1,5 +1,7 @@
 package com.nursultan.cryptoapp
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 
 class CoinDetailActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: CoinViewModel;
+    private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,5 +31,12 @@ class CoinDetailActivity : AppCompatActivity() {
     companion object
     {
         const val EXTRA_FROM_SYMBOL ="fSym"
+
+        fun newIntent(context: Context, fromSymbol: String):Intent
+        {
+            val intent =Intent(context, CoinDetailActivity::class.java)
+            intent.putExtra(EXTRA_FROM_SYMBOL,fromSymbol)
+            return intent
+        }
     }
 }
