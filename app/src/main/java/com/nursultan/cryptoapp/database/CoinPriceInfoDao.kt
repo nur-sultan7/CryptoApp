@@ -24,7 +24,7 @@ interface CoinPriceInfoDao {
     fun insertDailyInfo(listDailyInfo: List<DailyInfoDatum>)
 
     @Query("select * from daily_info_data where fSym==:fSym")
-    fun getSymbolDailyInfo(fSym: String):List<DailyInfoDatum>
+    fun getCoinDailyInfo(fSym: String): LiveData<List<DailyInfoDatum>>
 
     @Query("delete from daily_info_data where fSym==:fSym")
     fun deleteSymbolDailyInfo(fSym: String)

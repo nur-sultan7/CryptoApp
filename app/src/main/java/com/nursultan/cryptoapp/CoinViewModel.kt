@@ -23,10 +23,15 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         loadData()
+        Log.d("VIEW_MODEL","is init")
     }
 
     fun getCoinPriceInfo(fSym: String): LiveData<CoinPriceInfo> {
         return db.coinPriceInfoDao().getCoinPriceInfo(fSym)
+    }
+    fun getCoinDailyInfo(fSym: String): LiveData<List<DailyInfoDatum>>
+    {
+        return db.coinPriceInfoDao().getCoinDailyInfo(fSym)
     }
 
     private fun loadData() {
@@ -57,7 +62,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribe(
                 {
                     it.forEach { dailyInfo->dailyInfo.fSym=fSym }
-                    Log.d("DAILY", it.toString())
+                    db.coinPriceInfoDao().insertDailyInfo(it)
                 }
             ,
                 {
