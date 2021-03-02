@@ -9,6 +9,7 @@ import com.nursultan.cryptoapp.api.ApiFactory
 import com.nursultan.cryptoapp.database.AppDatabase
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
+import com.nursultan.cryptoapp.pojo.DailyInfoDatum
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -47,6 +48,24 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 }
             )
         compositeDisposable.add(disposable)
+    }
+     fun loadDailyInfoData(fSym: String)
+    {
+        val disposable=ApiFactory.apiService.getDailyData(fSym)
+            .map { it.data.data }
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                {
+                    it.forEach { dailyInfo->dailyInfo.fSym=fSym }
+                    Log.d("DAILY", it.toString())
+                }
+            ,
+                {
+
+                }
+            )
+        compositeDisposable.add(disposable)
+
     }
 
     fun getPriceListFromRawData(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {

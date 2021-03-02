@@ -2,17 +2,20 @@ package com.nursultan.cryptoapp
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.DataPointInterface
+import com.jjoe64.graphview.series.LineGraphSeries
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_coin_detail.*
 
 class CoinDetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CoinViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,13 @@ class CoinDetailActivity : AppCompatActivity() {
                 .load(it.getFullImageURL())
                 .into(ivLogoCoin)
         })
+        viewModel.loadDailyInfoData("BTC")
+        val series = LineGraphSeries<DataPoint>(arrayOf(DataPoint(1.0,5.0),DataPoint(2.0, 54.4),
+            DataPoint(3.0, 54.4), DataPoint(4.0, 84.4),
+            DataPoint(5.0, 84.4)
+        ))
+
+        graphCoinPrice.addSeries(series)
     }
 
     companion object

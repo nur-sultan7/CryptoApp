@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.nursultan.cryptoapp.pojo.CoinInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
+import com.nursultan.cryptoapp.pojo.DailyInfoDatum
 
 @Dao
 interface CoinPriceInfoDao {
@@ -18,4 +19,13 @@ interface CoinPriceInfoDao {
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
     fun insertPriceList(priceList: List<CoinPriceInfo>)
+
+    @Insert
+    fun insertDailyInfo(listDailyInfo: List<DailyInfoDatum>)
+
+    @Query("select * from daily_info_data where fSym==:fSym")
+    fun getSymbolDailyInfo(fSym: String):List<DailyInfoDatum>
+
+    @Query("delete from daily_info_data where fSym==:fSym")
+    fun deleteSymbolDailyInfo(fSym: String)
 }

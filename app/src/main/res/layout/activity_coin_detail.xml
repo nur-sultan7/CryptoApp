@@ -256,4 +256,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graphCoinPrice"
+        android:layout_width="0dp"
+        android:layout_height="200dip"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
