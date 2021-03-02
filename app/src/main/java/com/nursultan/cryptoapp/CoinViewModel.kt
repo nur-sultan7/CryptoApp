@@ -23,7 +23,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         loadData()
-        Log.d("VIEW_MODEL","is init")
+//        Log.d("VIEW_MODEL","is init")
     }
 
     fun getCoinPriceInfo(fSym: String): LiveData<CoinPriceInfo> {

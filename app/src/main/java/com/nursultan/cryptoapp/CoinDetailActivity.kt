@@ -11,6 +11,7 @@ import com.jjoe64.graphview.series.DataPointInterface
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_coin_detail.*
+import java.util.*
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -40,12 +41,15 @@ class CoinDetailActivity : AppCompatActivity() {
                 .load(it.getFullImageURL())
                 .into(ivLogoCoin)
         })
-        viewModel.loadDailyInfoData("BTC")
-        val series = LineGraphSeries<DataPoint>(arrayOf(DataPoint(1.0,5.0),DataPoint(2.0, 54.4),
-            DataPoint(3.0, 54.4), DataPoint(4.0, 84.4),
-            DataPoint(5.0, 84.4)
-        ))
-
+        viewModel.loadDailyInfoData(fromSymbol?:"")
+        val  listOfDailyInfo = mutableListOf<DataPoint>()
+        viewModel.getCoinDailyInfo(fromSymbol?:"").observe(this, Observer {
+            for (di in it)
+            {
+                listOfDailyInfo.add(DataPoint(Date(di.time), di.close))
+            }
+        })
+        val series = LineGraphSeries<DataPoint>(listOfDailyInfo.toTypedArray())
         graphCoinPrice.addSeries(series)
     }
 

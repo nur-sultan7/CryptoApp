@@ -15,7 +15,7 @@ data class DailyInfoDatum(
 
     @SerializedName("time")
     @Expose
-    val time: Int,
+    val time: Long,
 
     @SerializedName("high")
     @Expose
