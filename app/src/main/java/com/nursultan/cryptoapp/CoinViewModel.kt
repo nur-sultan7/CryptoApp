@@ -61,8 +61,10 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    it.forEach { dailyInfo->dailyInfo.fSym=fSym }
-                    db.coinPriceInfoDao().insertDailyInfo(it)
+                    it.forEach { dailyInfo->dailyInfo.fSym=fSym
+                        db.coinPriceInfoDao().insertDailyInfo(it)
+                    }
+
                 }
             ,
                 {
