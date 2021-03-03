@@ -10,7 +10,10 @@ import com.nursultan.cryptoapp.database.AppDatabase
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.functions.Action
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
@@ -32,6 +35,24 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     fun getCoinDailyInfo(fSym: String): LiveData<List<DailyInfoDatum>>
     {
         return db.coinPriceInfoDao().getCoinDailyInfo(fSym)
+    }
+    fun deleteCoinDailyInfo(fSym: String)
+    {
+       Completable.fromAction(Action {
+           kotlin.run {
+               db.coinPriceInfoDao().deleteSymbolDailyInfo(fSym)
+           }
+       })
+           .subscribeOn(Schedulers.io())
+           .subscribe(
+               {
+                   Log.d("TEST_DELETE", "Success deleted rows ")
+               }
+           ,
+               {
+                   Log.d("TEST_DELETE", it.message?:"Error")
+               }
+           )
     }
 
     private fun loadData() {
@@ -62,9 +83,8 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribe(
                 {
                     it.forEach { dailyInfo->dailyInfo.fSym=fSym
-                        db.coinPriceInfoDao().insertDailyInfo(it)
                     }
-
+                    db.coinPriceInfoDao().insertDailyInfo(it)
                 }
             ,
                 {

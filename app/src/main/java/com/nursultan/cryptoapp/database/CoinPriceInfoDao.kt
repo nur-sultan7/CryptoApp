@@ -8,6 +8,8 @@ import androidx.room.Query
 import com.nursultan.cryptoapp.pojo.CoinInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface CoinPriceInfoDao {
@@ -23,8 +25,9 @@ interface CoinPriceInfoDao {
     @Insert
     fun insertDailyInfo(listDailyInfo: List<DailyInfoDatum>)
 
-    @Query("select * from daily_info_data where fSym==:fSym order by time desc")
+    @Query("select * from daily_info_data where fSym==:fSym order by time ")
     fun getCoinDailyInfo(fSym: String): LiveData<List<DailyInfoDatum>>
+
 
     @Query("delete from daily_info_data where fSym==:fSym")
     fun deleteSymbolDailyInfo(fSym: String)

@@ -27,7 +27,7 @@ class CoinDetailActivity : AppCompatActivity() {
             finish()
             return
         }
-        val fromSymbol= intent.getStringExtra(EXTRA_FROM_SYMBOL)
+        val fromSymbol= intent.getStringExtra(EXTRA_FROM_SYMBOL)?:return
         viewModel= ViewModelProviders.of(this)[CoinViewModel::class.java]
         viewModel.getCoinPriceInfo(fromSymbol?:"").observe(this, Observer {
             tvFSym.text=it.fromsymbol
@@ -41,16 +41,21 @@ class CoinDetailActivity : AppCompatActivity() {
                 .load(it.getFullImageURL())
                 .into(ivLogoCoin)
         })
-        viewModel.loadDailyInfoData(fromSymbol?:"")
-        val  listOfDailyInfo = mutableListOf<DataPoint>()
-        viewModel.getCoinDailyInfo(fromSymbol?:"").observe(this, Observer {
+        viewModel.deleteCoinDailyInfo(fromSymbol)
+        viewModel.loadDailyInfoData(fromSymbol)
+
+        val series = LineGraphSeries<DataPoint>()
+        viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
             for (di in it)
             {
-                listOfDailyInfo.add(DataPoint(Date(di.time), di.close))
+
+                series.appendData(DataPoint(Date(di.time), di.close),true, 11)
+
             }
+            graphCoinPrice.addSeries(series)
         })
-        val series = LineGraphSeries<DataPoint>(listOfDailyInfo.toTypedArray())
-        graphCoinPrice.addSeries(series)
+
+
     }
 
     companion object
