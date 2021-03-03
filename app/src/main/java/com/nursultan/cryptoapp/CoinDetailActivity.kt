@@ -22,21 +22,20 @@ class CoinDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin_detail)
 
-        if (!intent.hasExtra(EXTRA_FROM_SYMBOL))
-        {
+        if (!intent.hasExtra(EXTRA_FROM_SYMBOL)) {
             finish()
             return
         }
-        val fromSymbol= intent.getStringExtra(EXTRA_FROM_SYMBOL)?:return
-        viewModel= ViewModelProviders.of(this)[CoinViewModel::class.java]
-        viewModel.getCoinPriceInfo(fromSymbol?:"").observe(this, Observer {
-            tvFSym.text=it.fromsymbol
-            tvTSym.text=it.tosymbol
-            tvPrice.text=it.price.toString()
-            tvMinDay.text=it.lowday.toString()
-            tvMaxDay.text= it.highday.toString()
-            tvLastMarket.text=it.lastmarket
-            tvLastUpdate.text=it.getFormattedTime()
+        val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: return
+        viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
+        viewModel.getCoinPriceInfo(fromSymbol ?: "").observe(this, Observer {
+            tvFSym.text = it.fromsymbol
+            tvTSym.text = it.tosymbol
+            tvPrice.text = it.price.toString()
+            tvMinDay.text = it.lowday.toString()
+            tvMaxDay.text = it.highday.toString()
+            tvLastMarket.text = it.lastmarket
+            tvLastUpdate.text = it.getFormattedTime()
             Picasso.get()
                 .load(it.getFullImageURL())
                 .into(ivLogoCoin)
@@ -46,26 +45,19 @@ class CoinDetailActivity : AppCompatActivity() {
 
         val series = LineGraphSeries<DataPoint>()
         viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
-            for (di in it)
-            {
-
-                series.appendData(DataPoint(Date(di.time), di.close),true, 11)
-
+            for (di in it) {
+                series.appendData(DataPoint(Date(di.time), di.close), true, 11)
             }
             graphCoinPrice.addSeries(series)
         })
-
-
     }
 
-    companion object
-    {
-        const val EXTRA_FROM_SYMBOL ="fSym"
+    companion object {
+        const val EXTRA_FROM_SYMBOL = "fSym"
 
-        fun newIntent(context: Context, fromSymbol: String):Intent
-        {
-            val intent =Intent(context, CoinDetailActivity::class.java)
-            intent.putExtra(EXTRA_FROM_SYMBOL,fromSymbol)
+        fun newIntent(context: Context, fromSymbol: String): Intent {
+            val intent = Intent(context, CoinDetailActivity::class.java)
+            intent.putExtra(EXTRA_FROM_SYMBOL, fromSymbol)
             return intent
         }
     }
