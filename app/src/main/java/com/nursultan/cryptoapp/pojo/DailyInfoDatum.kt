@@ -8,11 +8,11 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "daily_info_data")
 data class DailyInfoDatum(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+
 
     var fSym:String="",
 
+    @PrimaryKey
     @SerializedName("time")
     @Expose
     val time: Long,
