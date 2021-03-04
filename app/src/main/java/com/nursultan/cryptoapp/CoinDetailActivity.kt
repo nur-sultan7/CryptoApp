@@ -6,11 +6,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.jjoe64.graphview.LabelFormatter
+import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.DataPointInterface
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_coin_detail.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CoinDetailActivity : AppCompatActivity() {
@@ -42,14 +45,28 @@ class CoinDetailActivity : AppCompatActivity() {
         })
         viewModel.deleteCoinDailyInfo(fromSymbol)
         viewModel.loadDailyInfoData(fromSymbol)
+        val dataFormat = SimpleDateFormat("d MMM", Locale.getDefault())
+        dataFormat.timeZone = TimeZone.getDefault()
 
-        val series = LineGraphSeries<DataPoint>()
+        var series = LineGraphSeries<DataPoint>()
         viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
             for (di in it) {
-                series.appendData(DataPoint(Date(di.time), di.close), true, 11)
+                series.appendData(DataPoint(di.time.toDouble(), di.close), true, 11)
             }
             graphCoinPrice.addSeries(series)
+            graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
+                override fun formatLabel(value: Double, isValueX: Boolean): String {
+                    if (isValueX) {
+                        return dataFormat.format(Date(value.toLong()*1000))
+                    }
+                    return value.toString()
+                }
+                override fun setViewport(viewport: Viewport?) {
+                }
+            }
         })
+
+
     }
 
     companion object {
