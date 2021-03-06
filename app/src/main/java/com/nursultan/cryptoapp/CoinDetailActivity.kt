@@ -53,16 +53,24 @@ class CoinDetailActivity : AppCompatActivity() {
         var series = LineGraphSeries<DataPoint>()
         viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
             for (di in it) {
-                series.appendData(DataPoint(di.time.toDouble(), di.close), true,7)
+                val ff =dataFormat.format(Date(di.time.toLong()*1000))
+                val ddd = di.time.toDouble()
+                val fff =dataFormat.format(Date(ddd.toLong()*1000))
+                series.appendData(DataPoint(di.time.toDouble(), di.close), true,8)
+
             }
             graphCoinPrice.addSeries(series)
 
+
         })
+        graphCoinPrice.title="За последнюю неделю"
+        //graphCoinPrice.
 
         graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX) {
-                    return dataFormat.format(Date(value.toLong()*1000))
+                    val ff =dataFormat.format(Date(value.toLong()*1000000))
+                    return ff
                 }
                 return value.toInt().toString()
             }
