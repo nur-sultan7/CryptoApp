@@ -53,28 +53,45 @@ class CoinDetailActivity : AppCompatActivity() {
         dataFormat.timeZone = TimeZone.getDefault()
 
         var series = LineGraphSeries<DataPoint>()
-        graphCoinPrice.gridLabelRenderer.numVerticalLabels=5
-        graphCoinPrice.gridLabelRenderer.numHorizontalLabels=4
+
+       // graphCoinPrice.gridLabelRenderer.numVerticalLabels=5
+       // graphCoinPrice.gridLabelRenderer.numHorizontalLabels=4
 
         viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
 
-            if (it.isNotEmpty()) {
+           // if (it.isNotEmpty()) {
                 for (di in it) {
                     val ff = dataFormat.format(Date(di.time.toLong() * 1000))
                     series.appendData(DataPoint(di.time.toDouble(), di.close), true, 7)
                 }
+
+            series.appendData(DataPoint(1614447285.0,50000.0), false, 8)
+            series.appendData(DataPoint(1614547285.0,50000.0), false, 8)
+            series.appendData(DataPoint(1614633685.0,55000.0), false, 8)
+            series.appendData(DataPoint(1614720085.0,51000.0), false, 8)
+            series.appendData(DataPoint(1614806485.0,58000.0), false, 8)
+            series.appendData(DataPoint(1614892885.0,55000.0), false, 8)
+            series.appendData(DataPoint(1614989285.0,53000.0), false, 8)
+            series.appendData(DataPoint(1615065696.0,48000.0), false, 8)
+
 
                 series.color = Color.GREEN;
                 series.isDrawDataPoints = true;
                 series.dataPointsRadius = 10F
                 series.thickness = 8;
                 graphCoinPrice.addSeries(series)
-//                graphCoinPrice.viewport.isXAxisBoundsManual = true
-//                graphCoinPrice.viewport.setMinX((it[0].time).toDouble())
-//                graphCoinPrice.viewport.setMaxX((it[6].time).toDouble())
+           // graphCoinPrice.gridLabelRenderer.setHorizontalLabelsAngle(90)
+            graphCoinPrice.viewport.isXAxisBoundsManual=true
+            graphCoinPrice.viewport.setMaxX(1615065696.0)
+            graphCoinPrice.viewport.setMinX(1614247285.0)
 
 
-            }
+
+
+
+
+          //  }
+
         })
         graphCoinPrice.title="За последнюю неделю"
 
