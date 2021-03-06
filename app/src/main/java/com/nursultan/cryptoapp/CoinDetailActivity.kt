@@ -2,6 +2,7 @@ package com.nursultan.cryptoapp
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_coin_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -51,28 +53,40 @@ class CoinDetailActivity : AppCompatActivity() {
         dataFormat.timeZone = TimeZone.getDefault()
 
         var series = LineGraphSeries<DataPoint>()
+        graphCoinPrice.gridLabelRenderer.numVerticalLabels=5
+        graphCoinPrice.gridLabelRenderer.numHorizontalLabels=4
+
         viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
-            for (di in it) {
-                val ff =dataFormat.format(Date(di.time.toLong()*1000))
-                val ddd = di.time.toDouble()
-                val fff =dataFormat.format(Date(ddd.toLong()*1000))
-                series.appendData(DataPoint(di.time.toDouble(), di.close), true,8)
+
+            if (it.isNotEmpty()) {
+                for (di in it) {
+                    val ff = dataFormat.format(Date(di.time.toLong() * 1000))
+                    series.appendData(DataPoint(di.time.toDouble(), di.close), true, 7)
+                }
+
+                series.color = Color.GREEN;
+                series.isDrawDataPoints = true;
+                series.dataPointsRadius = 10F
+                series.thickness = 8;
+                graphCoinPrice.addSeries(series)
+//                graphCoinPrice.viewport.isXAxisBoundsManual = true
+//                graphCoinPrice.viewport.setMinX((it[0].time).toDouble())
+//                graphCoinPrice.viewport.setMaxX((it[6].time).toDouble())
+
 
             }
-            graphCoinPrice.addSeries(series)
-
-
         })
         graphCoinPrice.title="За последнюю неделю"
+
         //graphCoinPrice.
 
         graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX) {
-                    val ff =dataFormat.format(Date(value.toLong()*1000000))
+                    val ff =dataFormat.format(Date(value.toLong()*1000))
                     return ff
                 }
-                return value.toInt().toString()
+                return value.toString()
             }
             override fun setViewport(viewport: Viewport?) {
             }

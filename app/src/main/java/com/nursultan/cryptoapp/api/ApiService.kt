@@ -12,7 +12,7 @@ interface ApiService {
     fun getDailyData(
         @Query(QUERY_PARAM_FROM_SYMBOL) fSym:String,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String= CURRENCY,
-        @Query(QUERY_PARAM_LIMIT) limit: Int=7
+        @Query(QUERY_PARAM_LIMIT) limit: Int=6
     ):Single<DailyInfoResponse>
 
     @GET("top/totalvolfull")
