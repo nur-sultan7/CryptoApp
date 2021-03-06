@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
@@ -19,6 +20,7 @@ import java.util.*
 class CoinDetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CoinViewModel
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,28 +47,28 @@ class CoinDetailActivity : AppCompatActivity() {
         })
         viewModel.deleteCoinDailyInfo(fromSymbol)
         viewModel.loadDailyInfoData(fromSymbol)
-        val dataFormat = SimpleDateFormat("d MMM", Locale.getDefault())
+        val dataFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
         dataFormat.timeZone = TimeZone.getDefault()
 
         var series = LineGraphSeries<DataPoint>()
         viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
             for (di in it) {
-                series.appendData(DataPoint(di.time.toDouble(), di.close), true, 11)
+                series.appendData(DataPoint(di.time.toDouble(), di.close), true,7)
             }
             graphCoinPrice.addSeries(series)
-            graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
-                override fun formatLabel(value: Double, isValueX: Boolean): String {
-                    if (isValueX) {
-                        return dataFormat.format(Date(value.toLong()*1000))
-                    }
-                    return value.toString()
-                }
-                override fun setViewport(viewport: Viewport?) {
-                }
-            }
+
         })
 
-
+        graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
+            override fun formatLabel(value: Double, isValueX: Boolean): String {
+                if (isValueX) {
+                    return dataFormat.format(Date(value.toLong()*1000))
+                }
+                return value.toInt().toString()
+            }
+            override fun setViewport(viewport: Viewport?) {
+            }
+        }
     }
 
     companion object {
