@@ -4,21 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.DataPointInterface
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_coin_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.roundToInt
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -35,7 +31,7 @@ class CoinDetailActivity : AppCompatActivity() {
         }
         val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: return
         viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
-        viewModel.getCoinPriceInfo(fromSymbol ?: "").observe(this, Observer {
+        viewModel.getCoinPriceInfo(fromSymbol).observe(this, Observer {
             tvFSym.text = it.fromsymbol
             tvTSym.text = it.tosymbol
             tvPrice.text = it.price.toString()
@@ -51,8 +47,8 @@ class CoinDetailActivity : AppCompatActivity() {
         viewModel.loadDailyInfoData(fromSymbol)
         val dataFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
         dataFormat.timeZone = TimeZone.getDefault()
-
-        var series = LineGraphSeries<DataPoint>()
+        graphCoinPrice.title = "За последнюю неделю"
+        val series = LineGraphSeries<DataPoint>()
 
         // graphCoinPrice.gridLabelRenderer.numVerticalLabels=5
         // graphCoinPrice.gridLabelRenderer.numHorizontalLabels=4
@@ -61,13 +57,12 @@ class CoinDetailActivity : AppCompatActivity() {
 
             if (it.isNotEmpty()) {
                 for (di in it) {
-                    val ff = dataFormat.format(Date(di.time.toLong() * 1000))
                     series.appendData(DataPoint(di.time.toDouble(), di.close), true, 8)
                 }
-                series.color = Color.GREEN;
-                series.isDrawDataPoints = true;
+                series.color = Color.GREEN
+                series.isDrawDataPoints = true
                 series.dataPointsRadius = 10F
-                series.thickness = 8;
+                series.thickness = 8
                 graphCoinPrice.addSeries(series)
                 // graphCoinPrice.gridLabelRenderer.setHorizontalLabelsAngle(90)
                 graphCoinPrice.viewport.isXAxisBoundsManual = true
@@ -77,9 +72,8 @@ class CoinDetailActivity : AppCompatActivity() {
             }
 
         })
-        graphCoinPrice.title = "За последнюю неделю"
 
-        //graphCoinPrice.
+
 
         graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
