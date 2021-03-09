@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DiffUtil
 
 import com.nursultan.cryptoapp.adapters.CoinInfoAdapter
@@ -41,8 +42,9 @@ class CoinPriceListActivity : AppCompatActivity() {
                     viewModel.priceListDesc
                 else
                     viewModel.priceListAsc
+                liveListData.observe(this@CoinPriceListActivity, Observer { updateList(it) })
 
-                updateList(liveListData.value?: emptyList())
+               // updateList(liveListData.value?: emptyList())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -51,7 +53,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         spinnerCoinPriceList.setSelection(0)
         val sortIndex = spinnerCoinPriceList.selectedItemPosition
 
-        liveListData.observe(this, Observer { updateList(it) })
+
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
             override fun onClick(coinPriceInfo: CoinPriceInfo) {
                 val intent = CoinDetailActivity.newIntent(
