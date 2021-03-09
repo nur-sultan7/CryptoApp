@@ -9,4 +9,9 @@
     <string name="coin_last_market_label">Последняя сделка:</string>
     <string name="coin_last_update_label">Обновлено:</string>
     <string name="coin_fsym_tsym">/</string>
+    <string-array name="sortCategories">
+        <item>По убыванию</item>
+        <item>По возрастанию</item>
+
+    </string-array>
 </resources>

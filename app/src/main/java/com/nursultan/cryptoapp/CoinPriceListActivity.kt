@@ -1,7 +1,10 @@
 package com.nursultan.cryptoapp
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
@@ -17,19 +20,38 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CoinViewModel
     private val compositeDisposable = CompositeDisposable()
+    private lateinit var adapter: CoinInfoAdapter
+    private lateinit var liveListData: LiveData<List<CoinPriceInfo>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin_price_list)
-        val adapter = CoinInfoAdapter(this)
+        adapter = CoinInfoAdapter(this)
         rvCoinPriceList.adapter = adapter
         viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
-        viewModel.priceList.observe(this, Observer {
-           val coinDiffUtilCallback = CoinDiffUtilCallback(adapter.coinPriceInfoList, it)
-            val diffResult = DiffUtil.calculateDiff(coinDiffUtilCallback)
-            adapter.coinPriceInfoList = it
-            diffResult.dispatchUpdatesTo(adapter)
-        })
+        liveListData=viewModel.priceListDesc
+        spinnerCoinPriceList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                liveListData = if (position == 0)
+                    viewModel.priceListDesc
+                else
+                    viewModel.priceListAsc
+
+                updateList(liveListData.value?: emptyList())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+        spinnerCoinPriceList.setSelection(0)
+        val sortIndex = spinnerCoinPriceList.selectedItemPosition
+
+        liveListData.observe(this, Observer { updateList(it) })
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
             override fun onClick(coinPriceInfo: CoinPriceInfo) {
                 val intent = CoinDetailActivity.newIntent(
@@ -40,6 +62,13 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun updateList(coinPriceList: List<CoinPriceInfo>) {
+        val coinDiffUtilCallback = CoinDiffUtilCallback(adapter.coinPriceInfoList, coinPriceList)
+        val diffResult = DiffUtil.calculateDiff(coinDiffUtilCallback)
+        adapter.coinPriceInfoList = coinPriceList
+        diffResult.dispatchUpdatesTo(adapter)
     }
 
 }
