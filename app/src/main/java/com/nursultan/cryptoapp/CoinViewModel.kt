@@ -10,7 +10,6 @@ import com.nursultan.cryptoapp.database.AppDatabase
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Action
@@ -27,7 +26,6 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         loadData()
-//        Log.d("VIEW_MODEL","is init")
     }
 
     fun getCoinPriceInfo(fSym: String): LiveData<CoinPriceInfo> {
@@ -95,7 +93,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun getPriceListFromRawData(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
+    private fun getPriceListFromRawData(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
         val result = ArrayList<CoinPriceInfo>()
         val priceDataJsonObject = coinPriceInfoRawData.coinPriceInfoJsonObject ?: return result
         val coinsKeys = priceDataJsonObject.keySet()
