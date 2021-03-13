@@ -38,7 +38,7 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
             with(coinPI)
             {
                 tvSymbols.text = String.format(context.resources.getString(R.string.symbols_template), fromsymbol, tosymbol)
-                tvPrice.text = price.toString()
+                tvPrice.text = price.toString().take(8)
                 tvLastUpdate.text = String.format(context.resources.getString(R.string.last_update_template),getFormattedTime())
                 Picasso.get()
                     .load(getFullImageURL())

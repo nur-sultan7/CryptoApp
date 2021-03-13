@@ -35,7 +35,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     {
         return db.coinPriceInfoDao().getCoinDailyInfo(fSym)
     }
-    fun deleteCoinDailyInfo(fSym: String)
+    private fun deleteCoinDailyInfo(fSym: String)
     {
        Completable.fromAction(Action {
            kotlin.run {
@@ -65,6 +65,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
+
                     db.coinPriceInfoDao().insertPriceList(it)
                     Log.d("TEST_DATA", "Success load $it")
                 },
@@ -76,6 +77,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     }
      fun loadDailyInfoData(fSym: String)
     {
+        deleteCoinDailyInfo(fSym)
         val disposable=ApiFactory.apiService.getDailyData(fSym)
             .map { it.data.data }
             .subscribeOn(Schedulers.io())

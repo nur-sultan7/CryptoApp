@@ -51,7 +51,6 @@ class CoinPriceListActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
-
     }
 
     private fun updateList(coinPriceList: List<CoinPriceInfo>) {
@@ -60,5 +59,4 @@ class CoinPriceListActivity : AppCompatActivity() {
         adapter.coinPriceInfoList = coinPriceList
         diffResult.dispatchUpdatesTo(adapter)
     }
-
 }
