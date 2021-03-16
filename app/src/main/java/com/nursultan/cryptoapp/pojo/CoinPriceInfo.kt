@@ -10,7 +10,7 @@ import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 
 
 @Entity(tableName = "full_price_list")
-data class CoinPriceInfo(
+open class CoinPriceInfo(
     @SerializedName("TYPE")
      @Expose
       val type: String? = null,
@@ -193,6 +193,8 @@ data class CoinPriceInfo(
       val imageUrl: String? = null
 )
 {
+
+
     fun getFormattedTime():String
     {
         return convertFromTimestampToTime(lastupdate)

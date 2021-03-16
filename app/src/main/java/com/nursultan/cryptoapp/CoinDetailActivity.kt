@@ -20,7 +20,15 @@ import java.util.*
 import kotlin.math.round
 
 class CoinDetailActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_FROM_SYMBOL = "fSym"
 
+        fun newIntent(context: Context, fromSymbol: String): Intent {
+            val intent = Intent(context, CoinDetailActivity::class.java)
+            intent.putExtra(EXTRA_FROM_SYMBOL, fromSymbol)
+            return intent
+        }
+    }
     private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,16 +92,6 @@ class CoinDetailActivity : AppCompatActivity() {
             }
             override fun setViewport(viewport: Viewport?) {
             }
-        }
-    }
-
-    companion object {
-        const val EXTRA_FROM_SYMBOL = "fSym"
-
-        fun newIntent(context: Context, fromSymbol: String): Intent {
-            val intent = Intent(context, CoinDetailActivity::class.java)
-            intent.putExtra(EXTRA_FROM_SYMBOL, fromSymbol)
-            return intent
         }
     }
 }
