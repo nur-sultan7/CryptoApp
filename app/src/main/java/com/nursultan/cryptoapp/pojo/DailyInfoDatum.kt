@@ -50,7 +50,6 @@ open class DailyInfoDatum(
 {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-
     constructor(
         time: Long,
         high: Double,
@@ -64,7 +63,5 @@ open class DailyInfoDatum(
         fSym: String,
         isFav: Boolean
     ) : this(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol,isFav,fSym)
-    init {
 
-    }
 }

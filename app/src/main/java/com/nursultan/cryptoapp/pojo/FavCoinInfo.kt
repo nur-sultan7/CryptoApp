@@ -15,8 +15,10 @@ open class FavCoinInfo(
     volumeTo: Double,
     close: Double,
     conversionType: String,
-    conversionSymbol: String
-) : DailyInfoDatum(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol) {
+    conversionSymbol: String,
+    isFav:Boolean,
+    fSym: String
+) : DailyInfoDatum(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol,isFav, fSym) {
     constructor(datum: DailyInfoDatum) : this(
         datum.time,
         datum.high,
@@ -26,7 +28,9 @@ open class FavCoinInfo(
         datum.volumeTo,
         datum.close,
         datum.conversionType,
-        datum.conversionSymbol
+        datum.conversionSymbol,
+        datum.isFav,
+        datum.fSym
     )
 }
 
