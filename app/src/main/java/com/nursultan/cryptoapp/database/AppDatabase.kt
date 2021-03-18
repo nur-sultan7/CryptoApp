@@ -7,9 +7,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
-import com.nursultan.cryptoapp.pojo.FavCoinPriceInfo
+import com.nursultan.cryptoapp.pojo.FavCoinInfo
 
-@Database(entities = [CoinPriceInfo::class, DailyInfoDatum::class, FavCoinPriceInfo::class], version = 17, exportSchema = false)
+
+@Database(
+    entities = [CoinPriceInfo::class, DailyInfoDatum::class, FavCoinInfo::class],
+    version = 18,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         private var db: AppDatabase? = null
@@ -34,5 +39,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
+
     abstract fun coinPriceInfoDao(): CoinPriceInfoDao
 }

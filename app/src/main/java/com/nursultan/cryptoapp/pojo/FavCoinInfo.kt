@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+
 @Entity(tableName = "fav_coin_price_info_table")
 open class FavCoinInfo(
     time: Long,
@@ -15,18 +16,30 @@ open class FavCoinInfo(
     close: Double,
     conversionType: String,
     conversionSymbol: String
-) : DailyInfoDatum(
-    type,
-    market,
-    fromSymbol,
-    toSymbol,
-    price,
-    lastUpdate,
-    openDay,
-    highDay,
-    lowDay,
-    lastMarket,
-    volumeHour,
-    volumeHourTo,
-    imageUrl
-)
+) : DailyInfoDatum(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol) {
+    constructor(datum: DailyInfoDatum) : this(
+        datum.time,
+        datum.high,
+        datum.low,
+        datum.open,
+        datum.volumeFrom,
+        datum.volumeTo,
+        datum.close,
+        datum.conversionType,
+        datum.conversionSymbol
+    )
+}
+
+
+//) : DailyInfoDatum(
+//    time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol
+//)
+//time: Long,
+//high: Double,
+//low: Double,
+//open: Double,
+//volumeFrom: Double,
+//volumeTo: Double,
+//close: Double,
+//conversionType: String,
+//conversionSymbol: String

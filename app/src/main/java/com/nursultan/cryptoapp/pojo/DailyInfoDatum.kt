@@ -7,8 +7,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "daily_info_data")
-data class DailyInfoDatum(
-
+open class DailyInfoDatum(
 
     @SerializedName("time")
     @Expose
@@ -44,12 +43,28 @@ data class DailyInfoDatum(
 
     @SerializedName("conversionSymbol")
     @Expose
-    val conversionSymbol: String
+    val conversionSymbol: String,
+    var isFav:Boolean=false,
+    var fSym:String=""
 )
 {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-    var isFav=false
-    var fSym:String="",
 
+    constructor(
+        time: Long,
+        high: Double,
+        low: Double,
+        open: Double,
+        volumeFrom: Double,
+        volumeTo: Double,
+        close: Double,
+        conversionType: String,
+        conversionSymbol: String,
+        fSym: String,
+        isFav: Boolean
+    ) : this(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol,isFav,fSym)
+    init {
+
+    }
 }
