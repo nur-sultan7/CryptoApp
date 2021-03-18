@@ -10,6 +10,7 @@ import com.nursultan.cryptoapp.database.AppDatabase
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
+import com.nursultan.cryptoapp.pojo.FavCoinPriceInfo
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Action
@@ -37,11 +38,11 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     }
     private fun deleteCoinDailyInfo(fSym: String)
     {
-       Completable.fromAction(Action {
+       Completable.fromAction{
            kotlin.run {
                db.coinPriceInfoDao().deleteSymbolDailyInfo(fSym)
            }
-       })
+       }
            .subscribeOn(Schedulers.io())
            .subscribe(
                {
@@ -53,6 +54,15 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                }
            )
     }
+    fun insertFavCoin(coinPriceInfo: CoinPriceInfo)
+    {
+        Completable.fromAction {
+            kotlin.run {
+                db.coinPriceInfoDao().insertFavCoinPriceInfo(coinPriceInfo )
+            }
+        }
+    }
+
 
     private fun loadData() {
         val disposable = ApiFactory.apiService.getTopCoinsInfo(limit = 30)

@@ -51,6 +51,12 @@ class CoinPriceListActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+        adapter.onFavClickListener=object : CoinInfoAdapter.OnFavClickListener{
+            override fun onClick(coinPriceInfo: CoinPriceInfo) {
+
+            }
+
+        }
     }
 
     private fun updateList(coinPriceList: List<CoinPriceInfo>) {

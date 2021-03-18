@@ -4,7 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.like.LikeButton
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.squareup.picasso.Picasso
@@ -16,10 +19,16 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
 //            field = value
 //        }
     private  var  onCoinClickListener: OnCoinClickListener? =null
+    var onFavClickListener: OnFavClickListener?=null
+
 
     interface OnCoinClickListener{
         fun onClick(coinPriceInfo: CoinPriceInfo)
     }
+    interface OnFavClickListener{
+        fun onClick(coinPriceInfo: CoinPriceInfo)
+    }
+
     fun setOnCoinClickListener(onClickListener: OnCoinClickListener)
     {
         this.onCoinClickListener=onClickListener
@@ -51,14 +60,17 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
     override fun getItemCount() = coinPriceInfoList.size
 
     inner class CoinInfoViewHolder(itemView: View) : RecyclerView.ViewHolder( itemView) {
-        val tvSymbols = itemView.tvSymbols
-        val tvPrice = itemView.tvPrice
-        val tvLastUpdate = itemView.tvLastUpdateLabel
-        val ivLogoCoin = itemView.ivLogoCoin
-        val dd = itemView
+        val tvSymbols: TextView = itemView.tvSymbols
+        val tvPrice: TextView = itemView.tvPrice
+        val tvLastUpdate: TextView = itemView.tvLastUpdateLabel
+        val ivLogoCoin: ImageView = itemView.ivLogoCoin
+        val btnFav: LikeButton = itemView.btnFav
         init {
             itemView.setOnClickListener {
                 onCoinClickListener?.onClick(coinPriceInfoList[adapterPosition])
+            }
+            btnFav.setOnClickListener {
+                onFavClickListener?.onClick(coinPriceInfoList[adapterPosition])
             }
         }
     }

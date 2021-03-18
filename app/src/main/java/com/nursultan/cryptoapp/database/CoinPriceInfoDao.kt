@@ -35,8 +35,8 @@ interface CoinPriceInfoDao {
     @Query("delete from daily_info_data where fSym==:fSym")
     fun deleteSymbolDailyInfo(fSym: String)
 
-    @Insert
-    fun insertFavCoinPriceInfo(favCoin: FavCoinPriceInfo)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFavCoinPriceInfo(favCoin: CoinPriceInfo)
     @Query("delete from fav_coin_price_info_table where fromsymbol==:fSym")
     fun deleteFavCoinPriceInfo(fSym: String)
 }
