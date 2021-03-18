@@ -26,7 +26,7 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
         fun onClick(coinPriceInfo: CoinPriceInfo)
     }
     interface OnFavClickListener{
-        fun onClick(coinPriceInfo: CoinPriceInfo)
+        fun onClick(coinPriceInfo: CoinPriceInfo, isFav: Boolean)
     }
 
     fun setOnCoinClickListener(onClickListener: OnCoinClickListener)
@@ -70,7 +70,8 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
                 onCoinClickListener?.onClick(coinPriceInfoList[adapterPosition])
             }
             btnFav.setOnClickListener {
-                onFavClickListener?.onClick(coinPriceInfoList[adapterPosition])
+                onFavClickListener?.onClick(coinPriceInfoList[adapterPosition], btnFav.isLiked)
+                btnFav.isLiked = !btnFav.isLiked
             }
         }
     }

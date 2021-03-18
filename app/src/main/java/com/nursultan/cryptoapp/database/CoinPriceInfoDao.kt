@@ -14,13 +14,14 @@ import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface CoinPriceInfoDao {
-    @Query("Select * from full_price_list order by price desc")
+
+    @Query("select * from full_price_list order by price desc")
     fun getPriceListDesc(): LiveData<List<CoinPriceInfo>>
 
-    @Query("Select * from full_price_list order by price asc")
+    @Query("select * from full_price_list order by price asc")
     fun getPriceListAsc(): LiveData<List<CoinPriceInfo>>
 
-    @Query("select * from full_price_list where fromsymbol==:fSym limit 1")
+    @Query("select * from full_price_list where fromSymbol==:fSym limit 1")
     fun getCoinPriceInfo(fSym : String): LiveData<CoinPriceInfo>
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
@@ -37,6 +38,10 @@ interface CoinPriceInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavCoinPriceInfo(favCoin: CoinPriceInfo)
-    @Query("delete from fav_coin_price_info_table where fromsymbol==:fSym")
+
+    @Query("delete from fav_coin_price_info_table where fromSymbol==:fSym")
     fun deleteFavCoinPriceInfo(fSym: String)
+
+    @Query("select * from fav_coin_price_info_table where fromSymbol==:fSym limit 1")
+    fun isItFav(fSym: String): Int
 }

@@ -11,6 +11,7 @@ import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 
 @Entity(tableName = "full_price_list")
 open class CoinPriceInfo(
+
     @SerializedName("TYPE")
      @Expose
       var type: String? = null,
@@ -35,7 +36,6 @@ open class CoinPriceInfo(
     @SerializedName("LASTUPDATE")
      @Expose
       var lastUpdate: Long? = null,
-
 
     @SerializedName("OPENDAY")
      @Expose
@@ -65,9 +65,10 @@ open class CoinPriceInfo(
     @SerializedName("IMAGEURL")
      @Expose
       var imageUrl: String? = null
+
+
 )
 {
-
 
     fun getFormattedTime():String
     {

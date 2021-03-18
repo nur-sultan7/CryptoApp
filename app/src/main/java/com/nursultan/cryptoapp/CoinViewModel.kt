@@ -17,7 +17,6 @@ import io.reactivex.rxjava3.functions.Action
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
     private val db = AppDatabase.getInstance(application)
     private val compositeDisposable = CompositeDisposable()
@@ -32,33 +31,40 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     fun getCoinPriceInfo(fSym: String): LiveData<CoinPriceInfo> {
         return db.coinPriceInfoDao().getCoinPriceInfo(fSym)
     }
-    fun getCoinDailyInfo(fSym: String): LiveData<List<DailyInfoDatum>>
-    {
+
+    fun getCoinDailyInfo(fSym: String): LiveData<List<DailyInfoDatum>> {
         return db.coinPriceInfoDao().getCoinDailyInfo(fSym)
     }
-    private fun deleteCoinDailyInfo(fSym: String)
-    {
-       Completable.fromAction{
-           kotlin.run {
-               db.coinPriceInfoDao().deleteSymbolDailyInfo(fSym)
-           }
-       }
-           .subscribeOn(Schedulers.io())
-           .subscribe(
-               {
-                   Log.d("TEST_DELETE", "Success deleted rows ")
-               }
-           ,
-               {
-                   Log.d("TEST_DELETE", it.message?:"Error")
-               }
-           )
-    }
-    fun insertFavCoin(coinPriceInfo: CoinPriceInfo)
-    {
+
+    private fun deleteCoinDailyInfo(fSym: String) {
         Completable.fromAction {
             kotlin.run {
-                db.coinPriceInfoDao().insertFavCoinPriceInfo(coinPriceInfo )
+                db.coinPriceInfoDao().deleteSymbolDailyInfo(fSym)
+            }
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                {
+                    Log.d("TEST_DELETE", "Success deleted rows ")
+                },
+                {
+                    Log.d("TEST_DELETE", it.message ?: "Error")
+                }
+            )
+    }
+
+    fun insertFavCoin(coinPriceInfo: CoinPriceInfo) {
+        Completable.fromAction {
+            kotlin.run {
+                db.coinPriceInfoDao().insertFavCoinPriceInfo(coinPriceInfo)
+            }
+        }
+    }
+
+    fun deleteFavCoin(coinPriceInfo: CoinPriceInfo) {
+        Completable.fromAction {
+            kotlin.run {
+                db.coinPriceInfoDao().deleteFavCoinPriceInfo(coinPriceInfo.fromSymbol)
             }
         }
     }
@@ -85,18 +91,20 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             )
         compositeDisposable.add(disposable)
     }
-     fun loadDailyInfoData(fSym: String)
-    {
+
+    fun loadDailyInfoData(fSym: String) {
         deleteCoinDailyInfo(fSym)
-        val disposable=ApiFactory.apiService.getDailyData(fSym)
+        val disposable = ApiFactory.apiService.getDailyData(fSym)
             .map { it.data.data }
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    it.forEach { dailyInfo->dailyInfo.fSym=fSym }
+                    it.forEach { dailyInfo ->
+                        dailyInfo.fSym = fSym
+                        dailyInfo
+                    }
                     db.coinPriceInfoDao().insertDailyInfo(it)
-                }
-            ,
+                },
                 {
 
                 }

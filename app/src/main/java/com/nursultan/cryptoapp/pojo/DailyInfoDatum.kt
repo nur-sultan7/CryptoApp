@@ -9,7 +9,6 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "daily_info_data")
 data class DailyInfoDatum(
 
-    var fSym:String="",
 
     @SerializedName("time")
     @Expose
@@ -50,4 +49,7 @@ data class DailyInfoDatum(
 {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+    var isFav=false
+    var fSym:String="",
+
 }

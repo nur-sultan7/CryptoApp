@@ -52,10 +52,20 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
         })
         adapter.onFavClickListener=object : CoinInfoAdapter.OnFavClickListener{
-            override fun onClick(coinPriceInfo: CoinPriceInfo) {
-
+            override fun onClick(coinPriceInfo: CoinPriceInfo, isFav : Boolean) {
+                if (isFav)
+                    viewModel.deleteFavCoin(coinPriceInfo)
+                else
+                    viewModel.insertFavCoin(coinPriceInfo)
+                with(viewModel)
+                {
+                       when(isFav)
+                       {
+                           true->deleteFavCoin(coinPriceInfo)
+                           false->insertFavCoin(coinPriceInfo)
+                       }
+                }
             }
-
         }
     }
 
