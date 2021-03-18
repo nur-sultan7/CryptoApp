@@ -98,7 +98,6 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 {
                     it.forEach { dailyInfo ->
                         dailyInfo.fSym = fSym
-                        dailyInfo
                     }
                     db.coinPriceInfoDao().insertDailyInfo(it)
                 },

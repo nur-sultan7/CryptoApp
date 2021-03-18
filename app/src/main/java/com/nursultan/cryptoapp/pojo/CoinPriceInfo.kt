@@ -49,7 +49,6 @@ open class CoinPriceInfo(
      @Expose
       var lowDay: Double? = null,
 
-
     @SerializedName("LASTMARKET")
      @Expose
       var lastMarket: String? = null,
@@ -65,11 +64,8 @@ open class CoinPriceInfo(
     @SerializedName("IMAGEURL")
      @Expose
       var imageUrl: String? = null
-
-
 )
 {
-
     fun getFormattedTime():String
     {
         return convertFromTimestampToTime(lastUpdate)

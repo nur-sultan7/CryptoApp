@@ -3,7 +3,6 @@ package com.nursultan.cryptoapp.pojo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "daily_info_data")
@@ -44,7 +43,6 @@ open class DailyInfoDatum(
     @SerializedName("conversionSymbol")
     @Expose
     val conversionSymbol: String,
-    var isFav:Boolean=false,
     var fSym:String=""
 )
 {
@@ -62,6 +60,5 @@ open class DailyInfoDatum(
         conversionSymbol: String,
         fSym: String,
         isFav: Boolean
-    ) : this(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol,isFav,fSym)
-
+    ) : this(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol,fSym)
 }

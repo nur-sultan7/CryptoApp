@@ -7,43 +7,33 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "fav_coin_price_info_table")
 open class FavCoinInfo(
-    time: Long,
-    high: Double,
-    low: Double,
-    open: Double,
-    volumeFrom: Double,
-    volumeTo: Double,
-    close: Double,
-    conversionType: String,
-    conversionSymbol: String,
-    isFav:Boolean,
-    fSym: String
-) : DailyInfoDatum(time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol,isFav, fSym) {
-    constructor(datum: DailyInfoDatum) : this(
-        datum.time,
-        datum.high,
-        datum.low,
-        datum.open,
-        datum.volumeFrom,
-        datum.volumeTo,
-        datum.close,
-        datum.conversionType,
-        datum.conversionSymbol,
-        datum.isFav,
-        datum.fSym
+    type: String? = null,
+    market: String? = null,
+    fromSymbol: String,
+    toSymbol: String? = null,
+    price: Double? = null,
+    lastUpdate: Long? = null,
+    openDay: Double? = null,
+    highDay: Double? = null,
+    lowDay: Double? = null,
+    lastMarket: String? = null,
+    volumeHour: Double? = null,
+    volumeHourTo: Double? = null,
+    imageUrl: String? = null
+) : CoinPriceInfo(type, market, fromSymbol, toSymbol, price, lastUpdate, openDay, highDay, lowDay, lastMarket, volumeHour, volumeHourTo, imageUrl) {
+    constructor(datum: CoinPriceInfo) : this(
+        datum.type,
+        datum.market,
+        datum.fromSymbol,
+        datum.toSymbol,
+        datum.price,
+        datum.lastUpdate,
+        datum.openDay,
+        datum.highDay,
+        datum.lowDay,
+        datum.lastMarket,
+        datum.volumeHour,
+        datum.volumeHourTo,
+        datum.imageUrl
     )
 }
-
-
-//) : DailyInfoDatum(
-//    time, high, low, open, volumeFrom, volumeTo, close, conversionType, conversionSymbol
-//)
-//time: Long,
-//high: Double,
-//low: Double,
-//open: Double,
-//volumeFrom: Double,
-//volumeTo: Double,
-//close: Double,
-//conversionType: String,
-//conversionSymbol: String
