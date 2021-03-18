@@ -5,21 +5,32 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 @Entity(tableName = "fav_coin_price_info_table")
-class FavCoinPriceInfo(
-    coinPriceInfo: CoinPriceInfo
+open class FavCoinPriceInfo(
+    type: String? = null,
+    market: String? = null,
+    fromSymbol: String,
+    toSymbol: String? = null,
+    price: Double? = null,
+    lastUpdate: Long? = null,
+    openDay: Double? = null,
+    highDay: Double? = null,
+    lowDay: Double? = null,
+    lastMarket: String? = null,
+    volumeHour: Double? = null,
+    volumeHourTo: Double? = null,
+    imageUrl: String? = null
 ) : CoinPriceInfo(
-    coinPriceInfo.type,
-    coinPriceInfo.market,
-    coinPriceInfo.fromsymbol,
-    coinPriceInfo.tosymbol,
-    coinPriceInfo.price,
-    coinPriceInfo.lastupdate,
-    coinPriceInfo.openday,
-    coinPriceInfo.highday,
-    coinPriceInfo.lowday,
-    coinPriceInfo.lastmarket,
-    coinPriceInfo.holumehour,
-    coinPriceInfo.volumehourto,
-    coinPriceInfo.imageUrl
-) {
-}
+    type,
+    market,
+    fromSymbol,
+    toSymbol,
+    price,
+    lastUpdate,
+    openDay,
+    highDay,
+    lowDay,
+    lastMarket,
+    volumeHour,
+    volumeHourTo,
+    imageUrl
+)

@@ -18,7 +18,7 @@ class CoinDiffUtilCallback(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val coinOld = oldList[oldItemPosition]
         val coinNew = newList[newItemPosition]
-        return coinOld.fromsymbol == coinNew.fromsymbol
+        return coinOld.fromSymbol == coinNew.fromSymbol
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
@@ -41,12 +40,12 @@ class CoinDetailActivity : AppCompatActivity() {
         val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: return
         viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
         viewModel.getCoinPriceInfo(fromSymbol).observe(this, Observer {
-            tvFSym.text = it.fromsymbol
-            tvTSym.text = it.tosymbol
+            tvFSym.text = it.fromSymbol
+            tvTSym.text = it.toSymbol
             tvPrice.text = it.price.toString()
-            tvMinDay.text = it.lowday.toString()
-            tvMaxDay.text = it.highday.toString()
-            tvLastMarket.text = it.lastmarket
+            tvMinDay.text = it.lowDay.toString()
+            tvMaxDay.text = it.highDay.toString()
+            tvLastMarket.text = it.lastMarket
             tvLastUpdate.text = it.getFormattedTime()
             Picasso.get()
                 .load(it.getFullImageURL())

@@ -46,7 +46,7 @@ class CoinPriceListActivity : AppCompatActivity() {
             override fun onClick(coinPriceInfo: CoinPriceInfo) {
                 val intent = CoinDetailActivity.newIntent(
                     this@CoinPriceListActivity,
-                    coinPriceInfo.fromsymbol
+                    coinPriceInfo.fromSymbol
                 )
                 startActivity(intent)
             }
