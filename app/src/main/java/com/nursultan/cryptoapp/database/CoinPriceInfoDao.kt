@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.nursultan.cryptoapp.pojo.CoinInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
+import com.nursultan.cryptoapp.pojo.FavCoinInfo
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -37,11 +38,11 @@ interface CoinPriceInfoDao {
     fun deleteSymbolDailyInfo(fSym: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavCoinPriceInfo(favCoin: CoinPriceInfo)
+    fun insertFavCoinPriceInfo(favCoin: FavCoinInfo)
 
-    @Query("delete from fav_coin_price_info_table where fSym==:fSym")
+    @Query("delete from fav_coin_price_info_table where fromSymbol==:fSym")
     fun deleteFavCoinPriceInfo(fSym: String)
 
-    @Query("select * from fav_coin_price_info_table where fSym==:fSym limit 1")
-    fun isItFav(fSym: String): Int
+    @Query("select * from fav_coin_price_info_table")
+    fun isItFav(): LiveData<List<FavCoinInfo>>
 }

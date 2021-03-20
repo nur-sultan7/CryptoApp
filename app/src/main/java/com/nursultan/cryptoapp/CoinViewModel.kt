@@ -10,6 +10,7 @@ import com.nursultan.cryptoapp.database.AppDatabase
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
+import com.nursultan.cryptoapp.pojo.FavCoinInfo
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -21,6 +22,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     val priceListDesc = db.coinPriceInfoDao().getPriceListDesc()
     val priceListAsc = db.coinPriceInfoDao().getPriceListAsc()
+    val favList = db.coinPriceInfoDao().isItFav()
 
     init {
         loadData()
@@ -51,12 +53,22 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             )
     }
 
-    fun insertFavCoin(coinPriceInfo: CoinPriceInfo) {
+    fun insertFavCoin(coinPriceInfo: FavCoinInfo) {
         Completable.fromAction {
             kotlin.run {
                 db.coinPriceInfoDao().insertFavCoinPriceInfo(coinPriceInfo)
             }
         }
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                {
+                    Log.d("TEST_INSERT", "Successfully insert fav coin")
+                }
+            ,
+                {
+                    Log.d("TEST_INSERT", it.message?:"Error")
+                }
+            )
     }
 
     fun deleteFavCoin(coinPriceInfo: CoinPriceInfo) {
@@ -79,6 +91,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
+//                    it.forEach { coin ->
+//
+//                    }
                     db.coinPriceInfoDao().insertPriceList(it)
                     Log.d("TEST_DATA", "Success load $it")
                 },

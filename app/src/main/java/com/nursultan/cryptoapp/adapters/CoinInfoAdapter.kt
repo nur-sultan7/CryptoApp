@@ -49,7 +49,7 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
                 tvSymbols.text = String.format(context.resources.getString(R.string.symbols_template), fromSymbol, toSymbol)
                 tvPrice.text = price.toString().take(8)
                 tvLastUpdate.text = String.format(context.resources.getString(R.string.last_update_template),getFormattedTime())
-                //btnFav.isLiked
+                btnFav.isLiked=isFav
                 Picasso.get()
                     .load(getFullImageURL())
                     .into(ivLogoCoin)

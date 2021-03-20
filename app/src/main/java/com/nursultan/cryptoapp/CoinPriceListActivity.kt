@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.nursultan.cryptoapp.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.adapters.CoinInfoAdapter.OnCoinClickListener
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
+import com.nursultan.cryptoapp.pojo.FavCoinInfo
 import com.nursultan.cryptoapp.utils.CoinDiffUtilCallback
 import kotlinx.android.synthetic.main.activity_coin_price_list.*
 
@@ -41,6 +42,8 @@ class CoinPriceListActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
+        viewModel.favList.observe(this, Observer {
+            it })
         spinnerCoinPriceList.setSelection(0)
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
             override fun onClick(coinPriceInfo: CoinPriceInfo) {
@@ -53,16 +56,15 @@ class CoinPriceListActivity : AppCompatActivity() {
         })
         adapter.onFavClickListener=object : CoinInfoAdapter.OnFavClickListener{
             override fun onClick(coinPriceInfo: CoinPriceInfo, isFav : Boolean) {
-                if (isFav)
-                    viewModel.deleteFavCoin(coinPriceInfo)
-                else
-                    viewModel.insertFavCoin(coinPriceInfo)
+
                 with(viewModel)
                 {
                        when(isFav)
                        {
-                           true->deleteFavCoin(coinPriceInfo)
-                           false->insertFavCoin(coinPriceInfo)
+                           true->
+                               deleteFavCoin(FavCoinInfo(coinPriceInfo))
+                           false->
+                               insertFavCoin(FavCoinInfo(coinPriceInfo))
                        }
                 }
             }
