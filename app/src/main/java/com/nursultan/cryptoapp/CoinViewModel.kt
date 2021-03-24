@@ -22,7 +22,14 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     val priceListDesc = db.coinPriceInfoDao().getPriceListDesc()
     val priceListAsc = db.coinPriceInfoDao().getPriceListAsc()
-    val favList = db.coinPriceInfoDao().isItFav()
+    fun getPriceList(desc: Boolean):LiveData<List<CoinPriceInfo>>
+    {
+        return if (desc)
+            db.coinPriceInfoDao().getPriceListDesc()
+        else
+            db.coinPriceInfoDao().getPriceListAsc()
+    }
+
 
     init {
         loadData()
@@ -91,9 +98,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-//                    it.forEach { coin ->
-//
-//                    }
+                    it.forEach {coin->
+                        coin.isFav = db.coinPriceInfoDao().isItFav(coin.fromSymbol)
+                    }
                     db.coinPriceInfoDao().insertPriceList(it)
                     Log.d("TEST_DATA", "Success load $it")
                 },

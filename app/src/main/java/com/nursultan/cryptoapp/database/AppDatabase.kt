@@ -12,7 +12,7 @@ import com.nursultan.cryptoapp.pojo.FavCoinInfo
 
 @Database(
     entities = [CoinPriceInfo::class, DailyInfoDatum::class, FavCoinInfo::class],
-    version = 20,
+    version = 22,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

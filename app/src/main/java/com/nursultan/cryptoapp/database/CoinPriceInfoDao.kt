@@ -43,6 +43,6 @@ interface CoinPriceInfoDao {
     @Query("delete from fav_coin_price_info_table where fromSymbol==:fSym")
     fun deleteFavCoinPriceInfo(fSym: String)
 
-    @Query("select * from fav_coin_price_info_table")
-    fun isItFav(): LiveData<List<FavCoinInfo>>
+    @Query("select exists (select * from fav_coin_price_info_table where fromSymbol==:fSym limit 1)")
+    fun isItFav(fSym: String):Boolean
 }

@@ -32,18 +32,16 @@ class CoinPriceListActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 liveListData.removeObservers(this@CoinPriceListActivity)
-                liveListData = if (position == 0)
-                    viewModel.priceListDesc
-                else
-                    viewModel.priceListAsc
-                liveListData.observe(this@CoinPriceListActivity, Observer { updateList(it) })
+                liveListData = viewModel.getPriceList(position==0)
+                liveListData.observe(this@CoinPriceListActivity, Observer {
+                    updateList(it)
+                })
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
-        viewModel.favList.observe(this, Observer {
-            it })
+
         spinnerCoinPriceList.setSelection(0)
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
             override fun onClick(coinPriceInfo: CoinPriceInfo) {
