@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<group android:id="@+id/main_menu_group">
-    <item android:id="@+id/main_menu_main_cat"
-
-        android:title="Топ 30" />
-    <item android:id="@+id/main_menu_fav_cat"
-
-        android:title="Избранное" />
-</group>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <group android:id="@+id/main_menu_group">
+        <item
+            android:id="@+id/main_menu_top_30_cat"
+            android:title="@string/main_menu_top_30_title"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/main_menu_fav_cat"
+            android:title="@string/main_menu_favorite_title"
+            app:showAsAction="never" />
+    </group>
 </menu>

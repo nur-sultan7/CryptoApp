@@ -9,6 +9,8 @@
     <string name="coin_last_market_label">Последняя сделка:</string>
     <string name="coin_last_update_label">Обновлено:</string>
     <string name="coin_fsym_tsym">/</string>
+    <string name="main_menu_top_30_title">Топ 30</string>
+    <string name="main_menu_favorite_title">Избранное</string>
     <string-array name="sortCategories">
         <item>По убыванию</item>
         <item>По возрастанию</item>
