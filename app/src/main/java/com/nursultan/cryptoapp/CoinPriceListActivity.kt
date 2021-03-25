@@ -28,7 +28,7 @@ class CoinPriceListActivity : AppCompatActivity() {
            val favCategory = menu.findItem(R.id.main_menu_fav_cat)
            val top30Category = menu.findItem(R.id.main_menu_top_30_cat)
            favCategory.setOnMenuItemClickListener {
-
+               startActivity(CoinFavActivity.newIntent(this@CoinPriceListActivity))
                true  }
            top30Category.setOnMenuItemClickListener {
                true
