@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CryptoApp</string>
+    <string name="app_name">CryptoTime</string>
     <string name="symbols_template">%s/%s</string>
     <string name="last_update_template">Время последнего обновления: %s</string>
     <string name="coin_image">coin image</string>
@@ -16,4 +16,25 @@
         <item>По возрастанию</item>
 
     </string-array>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login">Вход</string>
+    <string name="login_title">Логин</string>
+    <string name="password_hint">Пароль</string>
+    <string name="app_logo">app logo</string>
+    <string name="lets_registrate">Нет аккаунта? Зарегистрируйся!</string>
+    <string name="button_title">Button</string>
+    <string name="registration_btn_title">Зарегистрироваться</string>
+    <string name="id_wallet_title">ID кошелька</string>
+    <string name="email_title">Email</string>
+    <string name="password_retry_title">Повторите пароль</string>
+    <string name="password_title">Пароль</string>
+
 </resources>
