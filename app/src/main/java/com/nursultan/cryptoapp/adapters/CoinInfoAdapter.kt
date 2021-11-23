@@ -61,10 +61,10 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
     override fun getItemCount() = coinPriceInfoList.size
 
     inner class CoinInfoViewHolder(itemView: View) : RecyclerView.ViewHolder( itemView) {
-        val tvSymbols: TextView = itemView.tvSymbols
-        val tvPrice: TextView = itemView.tvPrice
+        val tvSymbols: TextView = itemView.tvSymbols10
+        val tvPrice: TextView = itemView.tvPrice10
         val tvLastUpdate: TextView = itemView.tvLastUpdateLabel
-        val ivLogoCoin: ImageView = itemView.ivLogoCoin
+        val ivLogoCoin: ImageView = itemView.ivLogoCoin10
         val btnFav: LikeButton = itemView.btnFav
         init {
             itemView.setOnClickListener {

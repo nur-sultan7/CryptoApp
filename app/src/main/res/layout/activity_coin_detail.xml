@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/ivLogoCoin"
+        android:id="@+id/ivLogoCoin10"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="24dp"
@@ -43,7 +43,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivLogoCoin" />
+        app:layout_constraintTop_toBottomOf="@+id/ivLogoCoin10" />
 
     <TextView
         android:id="@+id/tvTSym"
@@ -88,7 +88,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvPrice"
+                android:id="@+id/tvPrice10"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

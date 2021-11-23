@@ -42,14 +42,14 @@ class CoinDetailActivity : AppCompatActivity() {
         viewModel.getCoinPriceInfo(fromSymbol).observe(this, Observer {
             tvFSym.text = it.fromSymbol
             tvTSym.text = it.toSymbol
-            tvPrice.text = it.price.toString()
+            tvPrice10.text = it.price.toString()
             tvMinDay.text = it.lowDay.toString()
             tvMaxDay.text = it.highDay.toString()
             tvLastMarket.text = it.lastMarket
             tvLastUpdate.text = it.getFormattedTime()
             Picasso.get()
                 .load(it.getFullImageURL())
-                .into(ivLogoCoin)
+                .into(ivLogoCoin10)
         })
 
         viewModel.loadDailyInfoData(fromSymbol)

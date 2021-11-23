@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvSymbols"
+            android:id="@+id/tvSymbols10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="14dp"
@@ -26,7 +26,7 @@
             tools:text="BTC/USD" />
 
         <TextView
-            android:id="@+id/tvPrice"
+            android:id="@+id/tvPrice10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLength="8"
@@ -35,7 +35,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSymbols"
+            app:layout_constraintTop_toBottomOf="@+id/tvSymbols10"
             tools:text="7900" />
 
         <TextView
@@ -45,11 +45,11 @@
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrice"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrice10"
             tools:text="Время последнего обновления: 15:15:15" />
 
         <ImageView
-            android:id="@+id/ivLogoCoin"
+            android:id="@+id/ivLogoCoin10"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"

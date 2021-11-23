@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".WalletActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -29,7 +32,7 @@
         </activity>
         <activity android:name=".CoinFavActivity" />
         <activity android:name=".CoinDetailActivity" />
-        <activity android:name=".CoinPriceListActivity"></activity>
+        <activity android:name=".CoinPriceListActivity" />
     </application>
 
 </manifest>
