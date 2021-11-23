@@ -20,7 +20,21 @@ open class FavCoinInfo(
     volumeHour: Double? = null,
     volumeHourTo: Double? = null,
     imageUrl: String? = null
-) : CoinPriceInfo(type, market, fromSymbol, toSymbol, price, lastUpdate, openDay, highDay, lowDay, lastMarket, volumeHour, volumeHourTo, imageUrl) {
+) : CoinPriceInfo(
+    type,
+    market,
+    fromSymbol,
+    toSymbol,
+    price,
+    lastUpdate,
+    openDay,
+    highDay,
+    lowDay,
+    lastMarket,
+    volumeHour,
+    volumeHourTo,
+    imageUrl
+) {
     constructor(datum: CoinPriceInfo) : this(
         datum.type,
         datum.market,

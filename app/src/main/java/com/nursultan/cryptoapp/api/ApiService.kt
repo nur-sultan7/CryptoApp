@@ -31,6 +31,7 @@ interface ApiService {
 
     ): Single<CoinPriceInfoRawData>
 
+
     companion object
     {
         private const val QUERY_PARAM_API="api_key"
