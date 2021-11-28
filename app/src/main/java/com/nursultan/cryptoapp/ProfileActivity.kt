@@ -37,9 +37,14 @@ class ProfileActivity : AppCompatActivity() {
 
         })
         addUser()
+        binding.bntWallet.setOnClickListener {
+            val intent = Intent(this,WalletActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
+
 
     private fun addUser() {
         val user = User("Zalina", "Takaeva", "zalina21", "fadsf5445", 5000)

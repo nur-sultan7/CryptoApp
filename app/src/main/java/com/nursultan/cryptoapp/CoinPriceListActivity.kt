@@ -24,21 +24,27 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-       menu?.let {
-           val favCategory = menu.findItem(R.id.main_menu_fav_cat)
-           val top30Category = menu.findItem(R.id.main_menu_top_30_cat)
-           val profileCategory = menu.findItem(R.id.main_menu_profile)
-           profileCategory.setOnMenuItemClickListener {
-               startActivity(ProfileActivity.newIntent(this))
-               true
-           }
-           favCategory.setOnMenuItemClickListener {
-               startActivity(CoinFavActivity.newIntent(this@CoinPriceListActivity))
-               true  }
-           top30Category.setOnMenuItemClickListener {
-               true
-           }
-       }
+        menu?.let {
+            val favCategory = menu.findItem(R.id.main_menu_fav_cat)
+            val top30Category = menu.findItem(R.id.main_menu_top_30_cat)
+            val profileCategory = menu.findItem(R.id.main_menu_profile)
+            val walletCategory = menu.findItem(R.id.main_menu_wallet)
+            walletCategory.setOnMenuItemClickListener {
+                startActivity(WalletActivity.newIntent(this))
+                true
+            }
+            profileCategory.setOnMenuItemClickListener {
+                startActivity(ProfileActivity.newIntent(this))
+                true
+            }
+            favCategory.setOnMenuItemClickListener {
+                startActivity(CoinFavActivity.newIntent(this@CoinPriceListActivity))
+                true
+            }
+            top30Category.setOnMenuItemClickListener {
+                true
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

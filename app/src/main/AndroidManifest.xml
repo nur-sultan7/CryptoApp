@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".WalletActivity"
-            android:exported="false" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
