@@ -47,8 +47,7 @@ open class CoinInWallet(
         datum.volumeHour,
         datum.volumeHourTo,
         datum.imageUrl
-    )
-    {
+    ) {
         val count = count
     }
 }

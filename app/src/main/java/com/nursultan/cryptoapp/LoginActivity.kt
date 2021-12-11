@@ -14,8 +14,8 @@ class LoginActivity : AppCompatActivity() {
         setClickListeners()
 
     }
-    private fun setClickListeners()
-    {
+
+    private fun setClickListeners() {
         bindingVIew.tvRegistrationBtn.setOnClickListener {
             val intent = Intent(applicationContext, RegistrationActivity::class.java)
             startActivity(intent)

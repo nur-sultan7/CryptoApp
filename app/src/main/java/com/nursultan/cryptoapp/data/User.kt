@@ -5,14 +5,13 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 
 @Entity(tableName = "users")
-class User (
+class User(
     val firstName: String,
     val lastName: String,
     val login: String,
     val password: String,
     val money: Int
-        )
-{
-    @PrimaryKey (autoGenerate = true)
+) {
+    @PrimaryKey(autoGenerate = true)
     lateinit var id: Integer
 }

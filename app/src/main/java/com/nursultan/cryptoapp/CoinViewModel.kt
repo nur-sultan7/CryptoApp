@@ -22,8 +22,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     val priceListDesc = db.coinPriceInfoDao().getPriceListDesc()
     val priceListAsc = db.coinPriceInfoDao().getPriceListAsc()
-    fun getPriceList(desc: Boolean):LiveData<List<CoinPriceInfo>>
-    {
+    fun getPriceList(desc: Boolean): LiveData<List<CoinPriceInfo>> {
         return if (desc)
             db.coinPriceInfoDao().getPriceListDesc()
         else
@@ -70,10 +69,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribe(
                 {
                     Log.d("TEST_INSERT", "Successfully insert fav coin")
-                }
-            ,
+                },
                 {
-                    Log.d("TEST_INSERT", it.message?:"Error")
+                    Log.d("TEST_INSERT", it.message ?: "Error")
                 }
             )
     }
@@ -98,7 +96,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
-                    it.forEach {coin->
+                    it.forEach { coin ->
                         coin.isFav = db.coinPriceInfoDao().isItFav(coin.fromSymbol)
                     }
                     db.coinPriceInfoDao().insertPriceList(it)

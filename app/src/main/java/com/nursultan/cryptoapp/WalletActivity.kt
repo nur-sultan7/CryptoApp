@@ -10,6 +10,7 @@ class WalletActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
     }
+
     companion object {
         fun newIntent(context: Context): Intent {
             return Intent(context, WalletActivity::class.java)

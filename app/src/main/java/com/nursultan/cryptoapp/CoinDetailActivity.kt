@@ -28,6 +28,7 @@ class CoinDetailActivity : AppCompatActivity() {
             return intent
         }
     }
+
     private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +73,8 @@ class CoinDetailActivity : AppCompatActivity() {
                 graphCoinPrice.addSeries(series)
                 // graphCoinPrice.gridLabelRenderer.setHorizontalLabelsAngle(90)
                 graphCoinPrice.viewport.isXAxisBoundsManual = true
-                graphCoinPrice.viewport.setMinX((it[0].time-160_000).toDouble())
-                graphCoinPrice.viewport.setMaxX((it[6].time+160_000).toDouble())
+                graphCoinPrice.viewport.setMinX((it[0].time - 160_000).toDouble())
+                graphCoinPrice.viewport.setMaxX((it[6].time + 160_000).toDouble())
             }
         })
         graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
@@ -81,7 +82,7 @@ class CoinDetailActivity : AppCompatActivity() {
                 if (isValueX) {
                     return dataFormat.format(Date(value.toLong() * 1000))
                 }
-                val roundedValue = round(value*1000_000)/1000_000
+                val roundedValue = round(value * 1000_000) / 1000_000
                 return if (roundedValue > 1) {
 
                     roundedValue.toInt().toString()
@@ -89,6 +90,7 @@ class CoinDetailActivity : AppCompatActivity() {
                     roundedValue.toString().take(8)
 
             }
+
             override fun setViewport(viewport: Viewport?) {
             }
         }
