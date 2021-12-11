@@ -2,10 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-   android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -266,8 +265,8 @@
                     android:layout_marginStart="16dp"
                     android:background="#4CAF50"
                     android:text="Купить"
-                    android:textSize="12sp"
                     android:textColor="@color/white"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tvPrice10"
                     app:layout_constraintStart_toEndOf="@+id/tvPrice10"
                     app:layout_constraintTop_toTopOf="@+id/tvPrice10" />
