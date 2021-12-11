@@ -28,8 +28,7 @@
                 android:entries="@array/sortCategories"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
