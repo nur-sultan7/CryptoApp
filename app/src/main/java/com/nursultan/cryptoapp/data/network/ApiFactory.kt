@@ -1,6 +1,5 @@
-package com.nursultan.cryptoapp.api
+package com.nursultan.cryptoapp.data.network
 
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import retrofit2.Retrofit
 
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory

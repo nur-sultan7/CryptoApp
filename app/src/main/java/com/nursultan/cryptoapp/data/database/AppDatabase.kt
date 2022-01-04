@@ -1,13 +1,13 @@
-package com.nursultan.cryptoapp.database
+package com.nursultan.cryptoapp.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 
 import androidx.room.RoomDatabase
-import com.nursultan.cryptoapp.pojo.CoinPriceInfo
-import com.nursultan.cryptoapp.pojo.DailyInfoDatum
-import com.nursultan.cryptoapp.pojo.FavCoinInfo
+import com.nursultan.cryptoapp.data.model.CoinPriceInfo
+import com.nursultan.cryptoapp.data.model.DailyInfoDatum
+import com.nursultan.cryptoapp.data.model.FavCoinInfo
 
 
 @Database(

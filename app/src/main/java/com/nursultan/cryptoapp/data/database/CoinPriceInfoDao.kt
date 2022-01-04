@@ -1,13 +1,13 @@
-package com.nursultan.cryptoapp.database
+package com.nursultan.cryptoapp.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.nursultan.cryptoapp.pojo.CoinPriceInfo
-import com.nursultan.cryptoapp.pojo.DailyInfoDatum
-import com.nursultan.cryptoapp.pojo.FavCoinInfo
+import com.nursultan.cryptoapp.data.model.CoinPriceInfo
+import com.nursultan.cryptoapp.data.model.DailyInfoDatum
+import com.nursultan.cryptoapp.data.model.FavCoinInfo
 
 @Dao
 interface CoinPriceInfoDao {

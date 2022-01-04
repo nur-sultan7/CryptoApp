@@ -1,7 +1,7 @@
 package com.nursultan.cryptoapp.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.nursultan.cryptoapp.pojo.CoinPriceInfo
+import com.nursultan.cryptoapp.data.model.CoinPriceInfo
 
 class CoinDiffUtilCallback(
     private val oldList: List<CoinPriceInfo>,

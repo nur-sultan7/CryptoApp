@@ -1,16 +1,16 @@
-package com.nursultan.cryptoapp
+package com.nursultan.cryptoapp.presentation
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.google.gson.Gson
-import com.nursultan.cryptoapp.api.ApiFactory
-import com.nursultan.cryptoapp.database.AppDatabase
-import com.nursultan.cryptoapp.pojo.CoinPriceInfo
-import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
-import com.nursultan.cryptoapp.pojo.DailyInfoDatum
-import com.nursultan.cryptoapp.pojo.FavCoinInfo
+import com.nursultan.cryptoapp.data.network.ApiFactory
+import com.nursultan.cryptoapp.data.database.AppDatabase
+import com.nursultan.cryptoapp.data.model.CoinPriceInfo
+import com.nursultan.cryptoapp.data.model.CoinPriceInfoRawData
+import com.nursultan.cryptoapp.data.model.DailyInfoDatum
+import com.nursultan.cryptoapp.data.model.FavCoinInfo
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers

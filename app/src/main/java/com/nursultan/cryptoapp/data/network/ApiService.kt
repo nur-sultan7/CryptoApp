@@ -1,8 +1,8 @@
-package com.nursultan.cryptoapp.api
+package com.nursultan.cryptoapp.data.network
 
-import com.nursultan.cryptoapp.pojo.CoinInfoListOfData
-import com.nursultan.cryptoapp.pojo.CoinPriceInfoRawData
-import com.nursultan.cryptoapp.pojo.DailyInfoResponse
+import com.nursultan.cryptoapp.data.model.CoinInfoListOfData
+import com.nursultan.cryptoapp.data.model.CoinPriceInfoRawData
+import com.nursultan.cryptoapp.data.model.DailyInfoResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

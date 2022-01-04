@@ -1,9 +1,6 @@
-package com.nursultan.cryptoapp.pojo
+package com.nursultan.cryptoapp.data.model
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "fav_coin_price_info_table")
 open class FavCoinInfo(

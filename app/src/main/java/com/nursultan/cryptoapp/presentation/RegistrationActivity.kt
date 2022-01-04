@@ -1,7 +1,8 @@
-package com.nursultan.cryptoapp
+package com.nursultan.cryptoapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.nursultan.cryptoapp.R
 
 class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.pojo
+package com.nursultan.cryptoapp.data.model
 
 import android.media.Rating
 import com.google.gson.annotations.Expose

@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.adapters
+package com.nursultan.cryptoapp.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.nursultan.cryptoapp.R
-import com.nursultan.cryptoapp.pojo.CoinPriceInfo
+import com.nursultan.cryptoapp.data.model.CoinPriceInfo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_coin_price_info.view.*
 

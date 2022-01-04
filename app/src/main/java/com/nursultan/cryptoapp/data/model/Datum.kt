@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.pojo
+package com.nursultan.cryptoapp.data.model
 
 import com.google.gson.annotations.Expose
 

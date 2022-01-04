@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp
+package com.nursultan.cryptoapp.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,11 @@ import android.os.Bundle
 import com.nursultan.cryptoapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var bindingVIew: ActivityLoginBinding
+    private val bindingVIew by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindingVIew = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bindingVIew.root)
         setClickListeners()
 

@@ -1,10 +1,11 @@
-package com.nursultan.cryptoapp
+package com.nursultan.cryptoapp.presentation
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import com.nursultan.cryptoapp.R
 
 class CoinFavActivity : AppCompatActivity() {
 

@@ -17,16 +17,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".presentation.RegistrationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".presentation.LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
-        <activity android:name=".CoinFavActivity" />
-        <activity android:name=".CoinDetailActivity" />
-        <activity android:name=".CoinPriceListActivity">
+        <activity android:name=".presentation.CoinFavActivity" />
+        <activity android:name=".presentation.CoinDetailActivity" />
+        <activity android:name=".presentation.CoinPriceListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

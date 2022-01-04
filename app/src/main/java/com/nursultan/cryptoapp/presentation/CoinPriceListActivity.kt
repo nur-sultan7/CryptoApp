@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp
+package com.nursultan.cryptoapp.presentation
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,11 +9,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
-import com.nursultan.cryptoapp.adapters.CoinInfoAdapter
-import com.nursultan.cryptoapp.adapters.CoinInfoAdapter.OnCoinClickListener
+import com.nursultan.cryptoapp.R
+import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
+import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter.OnCoinClickListener
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
-import com.nursultan.cryptoapp.pojo.CoinPriceInfo
-import com.nursultan.cryptoapp.pojo.FavCoinInfo
+import com.nursultan.cryptoapp.data.model.CoinPriceInfo
+import com.nursultan.cryptoapp.data.model.FavCoinInfo
 import com.nursultan.cryptoapp.utils.CoinDiffUtilCallback
 
 class CoinPriceListActivity : AppCompatActivity() {
