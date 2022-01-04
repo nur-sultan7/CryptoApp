@@ -11,14 +11,19 @@ import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import com.nursultan.cryptoapp.databinding.ActivityCoinDetailBinding
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_coin_detail.*
 
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.round
 
 class CoinDetailActivity : AppCompatActivity() {
+    private val binding by lazy {
+        ActivityCoinDetailBinding.inflate(layoutInflater)
+    }
+    private lateinit var _binding : ActivityCoinDetailBinding
+
     companion object {
         const val EXTRA_FROM_SYMBOL = "fSym"
 
@@ -33,7 +38,8 @@ class CoinDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_detail)
+        _binding = ActivityCoinDetailBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
         if (!intent.hasExtra(EXTRA_FROM_SYMBOL)) {
             finish()
             return
