@@ -258,18 +258,7 @@
                     app:layout_constraintTop_toTopOf="@+id/tvLastUpdateLabel"
                     tools:text="14:10:22" />
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="70dp"
-                    android:layout_height="27dp"
-                    android:layout_marginStart="16dp"
-                    android:background="#4CAF50"
-                    android:text="Купить"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvPrice10"
-                    app:layout_constraintStart_toEndOf="@+id/tvPrice10"
-                    app:layout_constraintTop_toTopOf="@+id/tvPrice10" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

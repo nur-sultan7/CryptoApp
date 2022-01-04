@@ -15,24 +15,24 @@
         <activity
             android:name=".WalletActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".RegistrationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
+        <activity android:name=".CoinFavActivity" />
+        <activity android:name=".CoinDetailActivity" />
+        <activity android:name=".CoinPriceListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CoinFavActivity" />
-        <activity android:name=".CoinDetailActivity" />
-        <activity android:name=".CoinPriceListActivity" />
     </application>
 
 </manifest>

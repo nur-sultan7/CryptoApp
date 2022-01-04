@@ -5,19 +5,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.nursultan.cryptoapp.data.User
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.DailyInfoDatum
 import com.nursultan.cryptoapp.pojo.FavCoinInfo
 
 @Dao
 interface CoinPriceInfoDao {
-    @Insert(onConflict= OnConflictStrategy.REPLACE)
-    fun insertUser(
-        users: User
-    )
-    @Query("select * from users where login==:login limit 1")
-    fun getUserByLogin(login:String): LiveData<User>
 
 
     @Query("select * from full_price_list order by price desc")
