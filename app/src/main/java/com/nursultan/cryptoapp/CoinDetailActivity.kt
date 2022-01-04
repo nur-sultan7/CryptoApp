@@ -22,7 +22,6 @@ class CoinDetailActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityCoinDetailBinding.inflate(layoutInflater)
     }
-    private lateinit var _binding : ActivityCoinDetailBinding
 
     companion object {
         const val EXTRA_FROM_SYMBOL = "fSym"
@@ -38,8 +37,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityCoinDetailBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
+        setContentView(binding.root)
         if (!intent.hasExtra(EXTRA_FROM_SYMBOL)) {
             finish()
             return
@@ -47,22 +45,22 @@ class CoinDetailActivity : AppCompatActivity() {
         val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: return
         viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
         viewModel.getCoinPriceInfo(fromSymbol).observe(this, Observer {
-            tvFSym.text = it.fromSymbol
-            tvTSym.text = it.toSymbol
-            tvPrice10.text = it.price.toString()
-            tvMinDay.text = it.lowDay.toString()
-            tvMaxDay.text = it.highDay.toString()
-            tvLastMarket.text = it.lastMarket
-            tvLastUpdate.text = it.getFormattedTime()
+            binding.tvFSym.text = it.fromSymbol
+            binding.tvTSym.text = it.toSymbol
+            binding.tvPrice10.text = it.price.toString()
+            binding.tvMinDay.text = it.lowDay.toString()
+            binding.tvMaxDay.text = it.highDay.toString()
+            binding.tvLastMarket.text = it.lastMarket
+            binding.tvLastUpdate.text = it.getFormattedTime()
             Picasso.get()
                 .load(it.getFullImageURL())
-                .into(ivLogoCoin10)
+                .into(binding.ivLogoCoin10)
         })
 
         viewModel.loadDailyInfoData(fromSymbol)
         val dataFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
         dataFormat.timeZone = TimeZone.getDefault()
-        graphCoinPrice.title = "За последнюю неделю"
+        binding.graphCoinPrice.title = "За последнюю неделю"
         val series = LineGraphSeries<DataPoint>()
         series.color = Color.GREEN
         series.isDrawDataPoints = true
@@ -76,14 +74,14 @@ class CoinDetailActivity : AppCompatActivity() {
                 for (di in it) {
                     series.appendData(DataPoint(di.time.toDouble(), di.close), true, 8)
                 }
-                graphCoinPrice.addSeries(series)
+                binding.graphCoinPrice.addSeries(series)
                 // graphCoinPrice.gridLabelRenderer.setHorizontalLabelsAngle(90)
-                graphCoinPrice.viewport.isXAxisBoundsManual = true
-                graphCoinPrice.viewport.setMinX((it[0].time - 160_000).toDouble())
-                graphCoinPrice.viewport.setMaxX((it[6].time + 160_000).toDouble())
+                binding.graphCoinPrice.viewport.isXAxisBoundsManual = true
+                binding.graphCoinPrice.viewport.setMinX((it[0].time - 160_000).toDouble())
+                binding.graphCoinPrice.viewport.setMaxX((it[6].time + 160_000).toDouble())
             }
         })
-        graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
+        binding.graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX) {
                     return dataFormat.format(Date(value.toLong() * 1000))
