@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.domain
+package com.nursultan.cryptoapp.domain.entity
 
 data class CoinInfo(
     val fromSymbol: String,
