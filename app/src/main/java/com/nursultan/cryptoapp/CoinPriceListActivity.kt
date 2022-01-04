@@ -11,13 +11,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DiffUtil
 import com.nursultan.cryptoapp.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.adapters.CoinInfoAdapter.OnCoinClickListener
+import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.pojo.CoinPriceInfo
 import com.nursultan.cryptoapp.pojo.FavCoinInfo
 import com.nursultan.cryptoapp.utils.CoinDiffUtilCallback
-import kotlinx.android.synthetic.main.activity_coin_price_list.*
 
 class CoinPriceListActivity : AppCompatActivity() {
-
+    private val binding by lazy {
+        ActivityCoinPriceListBinding.inflate(layoutInflater)
+    }
     private lateinit var viewModel: CoinViewModel
     private lateinit var adapter: CoinInfoAdapter
     private lateinit var liveListData: LiveData<List<CoinPriceInfo>>
@@ -40,12 +42,12 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_price_list)
+        setContentView(binding.root)
         adapter = CoinInfoAdapter(this)
-        rvCoinPriceList.adapter = adapter
+        binding.rvCoinPriceList.adapter = adapter
         viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
         liveListData = viewModel.priceListDesc
-        spinnerCoinPriceList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinnerCoinPriceList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
@@ -60,7 +62,7 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
         }
 
-        spinnerCoinPriceList.setSelection(0)
+        binding.spinnerCoinPriceList.setSelection(0)
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
             override fun onClick(coinPriceInfo: CoinPriceInfo) {
                 val intent = CoinDetailActivity.newIntent(
