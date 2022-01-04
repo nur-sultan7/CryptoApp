@@ -24,11 +24,10 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     val priceListAsc = db.coinPriceInfoDao().getPriceListAsc()
     fun getPriceList(desc: Boolean): LiveData<List<CoinPriceInfo>> {
         return if (desc)
-            db.coinPriceInfoDao().getPriceListDesc()
+            priceListDesc
         else
-            db.coinPriceInfoDao().getPriceListAsc()
+            priceListAsc
     }
-
 
     init {
         loadData()

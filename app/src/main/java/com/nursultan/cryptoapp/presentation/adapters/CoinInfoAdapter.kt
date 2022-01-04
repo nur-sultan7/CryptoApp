@@ -13,25 +13,27 @@ import com.nursultan.cryptoapp.data.model.CoinPriceInfo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_coin_price_info.view.*
 
-class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
+class CoinInfoAdapter(private val context: Context) :
+    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
     var coinPriceInfoList = listOf<CoinPriceInfo>()
-//        set(value) {
+
+    //        set(value) {
 //            field = value
 //        }
-    private  var  onCoinClickListener: OnCoinClickListener? =null
-    var onFavClickListener: OnFavClickListener?=null
+    private var onCoinClickListener: OnCoinClickListener? = null
+    var onFavClickListener: OnFavClickListener? = null
 
 
-    interface OnCoinClickListener{
+    interface OnCoinClickListener {
         fun onClick(coinPriceInfo: CoinPriceInfo)
     }
-    interface OnFavClickListener{
+
+    interface OnFavClickListener {
         fun onClick(coinPriceInfo: CoinPriceInfo, isFav: Boolean)
     }
 
-    fun setOnCoinClickListener(onClickListener: OnCoinClickListener)
-    {
-        this.onCoinClickListener=onClickListener
+    fun setOnCoinClickListener(onClickListener: OnCoinClickListener) {
+        this.onCoinClickListener = onClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
@@ -46,10 +48,17 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
         {
             with(coinPI)
             {
-                tvSymbols.text = String.format(context.resources.getString(R.string.symbols_template), fromSymbol, toSymbol)
+                tvSymbols.text = String.format(
+                    context.resources.getString(R.string.symbols_template),
+                    fromSymbol,
+                    toSymbol
+                )
                 tvPrice.text = price.toString().take(8)
-                tvLastUpdate.text = String.format(context.resources.getString(R.string.last_update_template),getFormattedTime())
-                btnFav.isLiked=isFav
+                tvLastUpdate.text = String.format(
+                    context.resources.getString(R.string.last_update_template),
+                    getFormattedTime()
+                )
+                btnFav.isLiked = isFav
                 Picasso.get()
                     .load(getFullImageURL())
                     .into(ivLogoCoin)
@@ -60,12 +69,13 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
 
     override fun getItemCount() = coinPriceInfoList.size
 
-    inner class CoinInfoViewHolder(itemView: View) : RecyclerView.ViewHolder( itemView) {
+    inner class CoinInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvSymbols: TextView = itemView.tvSymbols10
         val tvPrice: TextView = itemView.tvPrice10
         val tvLastUpdate: TextView = itemView.tvLastUpdateLabel
         val ivLogoCoin: ImageView = itemView.ivLogoCoin10
         val btnFav: LikeButton = itemView.btnFav
+
         init {
             itemView.setOnClickListener {
                 onCoinClickListener?.onClick(coinPriceInfoList[adapterPosition])
