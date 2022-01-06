@@ -20,9 +20,9 @@ interface CoinPriceInfoDao {
     fun getPriceListAsc(): LiveData<List<CoinPriceInfo>>
 
     @Query("select * from full_price_list where fromSymbol==:fSym limit 1")
-    fun getCoinPriceInfo(fSym : String): LiveData<CoinPriceInfo>
+    fun getCoinPriceInfo(fSym: String): LiveData<CoinPriceInfo>
 
-    @Insert(onConflict= OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPriceList(priceList: List<CoinPriceInfo>)
 
     @Insert
@@ -41,5 +41,5 @@ interface CoinPriceInfoDao {
     fun deleteFavCoinPriceInfo(fSym: String)
 
     @Query("select exists (select * from fav_coin_price_info_table where fromSymbol==:fSym limit 1)")
-    fun isItFav(fSym: String):Boolean
+    fun isItFav(fSym: String): Boolean
 }
