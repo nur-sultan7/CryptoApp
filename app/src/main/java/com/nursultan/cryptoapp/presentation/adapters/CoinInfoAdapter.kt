@@ -11,15 +11,11 @@ import com.like.LikeButton
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.data.model.CoinPriceInfo
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_coin_price_info.view.*
 
 class CoinInfoAdapter(private val context: Context) :
     RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
     var coinPriceInfoList = listOf<CoinPriceInfo>()
 
-    //        set(value) {
-//            field = value
-//        }
     private var onCoinClickListener: OnCoinClickListener? = null
     var onFavClickListener: OnFavClickListener? = null
 
