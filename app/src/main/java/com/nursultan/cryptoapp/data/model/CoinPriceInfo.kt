@@ -13,65 +13,64 @@ import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 open class CoinPriceInfo(
 
     @SerializedName("TYPE")
-     @Expose
-      var type: String? = null,
+    @Expose
+    var type: String? = null,
 
     @SerializedName("MARKET")
-     @Expose
-      var market: String? = null,
+    @Expose
+    var market: String? = null,
 
     @PrimaryKey
     @SerializedName("FROMSYMBOL")
-     @Expose
-      var fromSymbol: String,
+    @Expose
+    var fromSymbol: String,
 
     @SerializedName("TOSYMBOL")
-     @Expose
-      var toSymbol: String? = null,
+    @Expose
+    var toSymbol: String? = null,
 
     @SerializedName("PRICE")
-     @Expose
-      var price: Double? = null,
+    @Expose
+    var price: Double? = null,
 
     @SerializedName("LASTUPDATE")
-     @Expose
-      var lastUpdate: Long? = null,
+    @Expose
+    var lastUpdate: Long? = null,
 
     @SerializedName("OPENDAY")
-     @Expose
-      var openDay: Double? = null,
+    @Expose
+    var openDay: Double? = null,
 
     @SerializedName("HIGHDAY")
-     @Expose
-      var highDay: Double? = null,
+    @Expose
+    var highDay: Double? = null,
 
     @SerializedName("LOWDAY")
-     @Expose
-      var lowDay: Double? = null,
+    @Expose
+    var lowDay: Double? = null,
 
     @SerializedName("LASTMARKET")
-     @Expose
-      var lastMarket: String? = null,
+    @Expose
+    var lastMarket: String? = null,
 
     @SerializedName("VOLUMEHOUR")
-     @Expose
-      var volumeHour: Double? = null,
+    @Expose
+    var volumeHour: Double? = null,
 
     @SerializedName("VOLUMEHOURTO")
-     @Expose
-      var volumeHourTo: Double? = null,
+    @Expose
+    var volumeHourTo: Double? = null,
 
     @SerializedName("IMAGEURL")
-     @Expose
-      var imageUrl: String? = null
-)
-{
-    var isFav: Boolean=false
-    fun getFormattedTime():String
-    {
+    @Expose
+    var imageUrl: String? = null
+) {
+    var isFav: Boolean = false
+    fun getFormattedTime(): String {
         return convertFromTimestampToTime(lastUpdate)
     }
+
     fun getFullImageURL(): String {
-        return BASE_IMAGE_URL+imageUrl
+        return BASE_IMAGE_URL + imageUrl
     }
 }
