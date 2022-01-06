@@ -66,6 +66,7 @@ open class CoinPriceInfo(
     var imageUrl: String? = null
 ) {
     var isFav: Boolean = false
+
     fun getFormattedTime(): String {
         return convertFromTimestampToTime(lastUpdate)
     }
