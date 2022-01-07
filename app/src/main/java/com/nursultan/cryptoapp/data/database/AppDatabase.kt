@@ -5,13 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 
 import androidx.room.RoomDatabase
-import com.nursultan.cryptoapp.data.model.CoinPriceInfo
-import com.nursultan.cryptoapp.data.model.DailyInfoDatum
-import com.nursultan.cryptoapp.data.model.FavCoinInfo
+import com.nursultan.cryptoapp.data.database.model.CoinDailyInfoDbModel
+import com.nursultan.cryptoapp.data.database.model.CoinInfoDbModel
+import com.nursultan.cryptoapp.data.database.model.FavCoinInfoDbModel
 
 
 @Database(
-    entities = [CoinPriceInfo::class, DailyInfoDatum::class, FavCoinInfo::class],
+    entities = [CoinInfoDbModel::class, CoinDailyInfoDbModel::class, FavCoinInfoDbModel::class],
     version = 27,
     exportSchema = false
 )
@@ -40,5 +40,5 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun coinPriceInfoDao(): CoinPriceInfoDao
+    abstract fun coinPriceInfoDao(): CoinInfoDao
 }

@@ -9,23 +9,23 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.nursultan.cryptoapp.R
-import com.nursultan.cryptoapp.data.model.CoinPriceInfo
+import com.nursultan.cryptoapp.data.model.CoinInfoDto
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
     RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
-    var coinPriceInfoList = listOf<CoinPriceInfo>()
+    var coinPriceInfoList = listOf<CoinInfoDto>()
 
     private var onCoinClickListener: OnCoinClickListener? = null
     var onFavClickListener: OnFavClickListener? = null
 
 
     interface OnCoinClickListener {
-        fun onClick(coinPriceInfo: CoinPriceInfo)
+        fun onClick(coinPriceInfo: CoinInfoDto)
     }
 
     interface OnFavClickListener {
-        fun onClick(coinPriceInfo: CoinPriceInfo, isFav: Boolean)
+        fun onClick(coinPriceInfo: CoinInfoDto, isFav: Boolean)
     }
 
     fun setOnCoinClickListener(onClickListener: OnCoinClickListener) {

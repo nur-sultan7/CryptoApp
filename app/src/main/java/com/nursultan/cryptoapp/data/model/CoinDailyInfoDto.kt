@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "daily_info_data")
-open class DailyInfoDatum(
+open class CoinDailyInfoDto(
 
     @SerializedName("time")
     @Expose

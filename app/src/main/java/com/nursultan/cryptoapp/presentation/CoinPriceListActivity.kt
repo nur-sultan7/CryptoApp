@@ -13,8 +13,8 @@ import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter.OnCoinClickListener
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
-import com.nursultan.cryptoapp.data.model.CoinPriceInfo
-import com.nursultan.cryptoapp.data.model.FavCoinInfo
+import com.nursultan.cryptoapp.data.model.CoinInfoDto
+import com.nursultan.cryptoapp.data.database.model.FavCoinInfoDbModel
 import com.nursultan.cryptoapp.utils.CoinDiffUtilCallback
 
 class CoinPriceListActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class CoinPriceListActivity : AppCompatActivity() {
     }
     private lateinit var viewModel: CoinViewModel
     private lateinit var adapter: CoinInfoAdapter
-    private lateinit var liveListData: LiveData<List<CoinPriceInfo>>
+    private lateinit var liveListData: LiveData<List<CoinInfoDto>>
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -65,7 +65,7 @@ class CoinPriceListActivity : AppCompatActivity() {
 
         binding.spinnerCoinPriceList.setSelection(0)
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
-            override fun onClick(coinPriceInfo: CoinPriceInfo) {
+            override fun onClick(coinPriceInfo: CoinInfoDto) {
                 val intent = CoinDetailActivity.newIntent(
                     this@CoinPriceListActivity,
                     coinPriceInfo.fromSymbol
@@ -74,22 +74,22 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
         })
         adapter.onFavClickListener = object : CoinInfoAdapter.OnFavClickListener {
-            override fun onClick(coinPriceInfo: CoinPriceInfo, isFav: Boolean) {
+            override fun onClick(coinPriceInfo: CoinInfoDto, isFav: Boolean) {
 
                 with(viewModel)
                 {
                     when (isFav) {
                         true ->
-                            deleteFavCoin(FavCoinInfo(coinPriceInfo))
+                            deleteFavCoin(FavCoinInfoDbModel(coinPriceInfo))
                         false ->
-                            insertFavCoin(FavCoinInfo(coinPriceInfo))
+                            insertFavCoin(FavCoinInfoDbModel(coinPriceInfo))
                     }
                 }
             }
         }
     }
 
-    private fun updateList(coinPriceList: List<CoinPriceInfo>) {
+    private fun updateList(coinPriceList: List<CoinInfoDto>) {
         val coinDiffUtilCallback = CoinDiffUtilCallback(adapter.coinPriceInfoList, coinPriceList)
         val diffResult = DiffUtil.calculateDiff(coinDiffUtilCallback)
         adapter.coinPriceInfoList = coinPriceList

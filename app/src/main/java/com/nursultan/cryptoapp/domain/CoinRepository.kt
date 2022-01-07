@@ -10,8 +10,12 @@ interface CoinRepository {
 
     fun getCoinInfoListDesc(): LiveData<List<CoinInfo>>
 
-    fun getCoinInfo(): LiveData<CoinInfo>
+    fun getCoinInfo(fSymbol: String): LiveData<CoinInfo>
 
-    fun getCoinDailyInfoList(): LiveData<List<CoinDailyInfo>>
+    fun getCoinDailyInfoList(fSymbol: String): LiveData<List<CoinDailyInfo>>
+
+    suspend fun loadCoinInfoData()
+
+    suspend fun loadCoinDailyData()
 
 }

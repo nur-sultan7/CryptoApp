@@ -7,10 +7,10 @@ import androidx.lifecycle.LiveData
 import com.google.gson.Gson
 import com.nursultan.cryptoapp.data.network.ApiFactory
 import com.nursultan.cryptoapp.data.database.AppDatabase
-import com.nursultan.cryptoapp.data.model.CoinPriceInfo
-import com.nursultan.cryptoapp.data.model.CoinPriceInfoRawData
-import com.nursultan.cryptoapp.data.model.DailyInfoDatum
-import com.nursultan.cryptoapp.data.model.FavCoinInfo
+import com.nursultan.cryptoapp.data.model.CoinInfoDto
+import com.nursultan.cryptoapp.data.model.CoinInfoJsonContainerDto
+import com.nursultan.cryptoapp.data.model.CoinDailyInfoDto
+import com.nursultan.cryptoapp.data.database.model.FavCoinInfoDbModel
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -22,7 +22,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     val priceListDesc = db.coinPriceInfoDao().getPriceListDesc()
     val priceListAsc = db.coinPriceInfoDao().getPriceListAsc()
-    fun getPriceList(desc: Boolean): LiveData<List<CoinPriceInfo>> {
+    fun getPriceList(desc: Boolean): LiveData<List<CoinInfoDto>> {
         return if (desc)
             priceListDesc
         else
@@ -33,18 +33,18 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
         loadData()
     }
 
-    fun getCoinPriceInfo(fSym: String): LiveData<CoinPriceInfo> {
-        return db.coinPriceInfoDao().getCoinPriceInfo(fSym)
+    fun getCoinPriceInfo(fSym: String): LiveData<CoinInfoDto> {
+        return db.coinPriceInfoDao().getCoinInfo(fSym)
     }
 
-    fun getCoinDailyInfo(fSym: String): LiveData<List<DailyInfoDatum>> {
+    fun getCoinDailyInfo(fSym: String): LiveData<List<CoinDailyInfoDto>> {
         return db.coinPriceInfoDao().getCoinDailyInfo(fSym)
     }
 
     private fun deleteCoinDailyInfo(fSym: String) {
         Completable.fromAction {
             kotlin.run {
-                db.coinPriceInfoDao().deleteSymbolDailyInfo(fSym)
+                db.coinPriceInfoDao().deleteCoinDailyInfo(fSym)
             }
         }
             .subscribeOn(Schedulers.io())
@@ -58,10 +58,10 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             )
     }
 
-    fun insertFavCoin(coinPriceInfo: FavCoinInfo) {
+    fun insertFavCoin(coinPriceInfoDbModel: FavCoinInfoDbModel) {
         Completable.fromAction {
             kotlin.run {
-                db.coinPriceInfoDao().insertFavCoinPriceInfo(coinPriceInfo)
+                db.coinPriceInfoDao().insertFavCoinPriceInfo(coinPriceInfoDbModel)
             }
         }
             .subscribeOn(Schedulers.io())
@@ -75,7 +75,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
             )
     }
 
-    fun deleteFavCoin(coinPriceInfo: CoinPriceInfo) {
+    fun deleteFavCoin(coinPriceInfo: CoinInfoDto) {
         Completable.fromAction {
             kotlin.run {
                 db.coinPriceInfoDao().deleteFavCoinPriceInfo(coinPriceInfo.fromSymbol)
@@ -86,7 +86,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun loadData() {
         val disposable = ApiFactory.apiService.getTopCoinsInfo(limit = 30)
-            .map { it.data?.map { it2 -> it2.coinInfo?.name }?.joinToString(",") }
+            .map { it.names?.map { it2 -> it2.coinName?.name }?.joinToString(",") }
             .flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it!!) }
             .map { getPriceListFromRawData(it) }
             .delaySubscription(10, TimeUnit.SECONDS)
@@ -98,7 +98,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                     it.forEach { coin ->
                         coin.isFav = db.coinPriceInfoDao().isItFav(coin.fromSymbol)
                     }
-                    db.coinPriceInfoDao().insertPriceList(it)
+                    db.coinPriceInfoDao().insertCoinInfoList(it)
                     Log.d("TEST_DATA", "Success load $it")
                 },
                 {
@@ -110,8 +110,8 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadDailyInfoData(fSym: String) {
         deleteCoinDailyInfo(fSym)
-        val disposable = ApiFactory.apiService.getDailyData(fSym)
-            .map { it.data.data }
+        val disposable = ApiFactory.apiService.getCoinDailyData(fSym)
+            .map { it.data.coinsDailyInfo }
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {
@@ -128,9 +128,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    private fun getPriceListFromRawData(coinPriceInfoRawData: CoinPriceInfoRawData): List<CoinPriceInfo> {
-        val result = ArrayList<CoinPriceInfo>()
-        val priceDataJsonObject = coinPriceInfoRawData.coinPriceInfoJsonObject ?: return result
+    private fun getPriceListFromRawData(coinPriceInfoRawData: CoinInfoJsonContainerDto): List<CoinInfoDto> {
+        val result = ArrayList<CoinInfoDto>()
+        val priceDataJsonObject = coinPriceInfoRawData.json ?: return result
         val coinsKeys = priceDataJsonObject.keySet()
         for (coinKey in coinsKeys) {
             val currenciesJsonObject = priceDataJsonObject.getAsJsonObject(coinKey)
@@ -139,7 +139,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 val priceInfo = Gson()
                     .fromJson(
                         currenciesJsonObject.getAsJsonObject(currencyKey),
-                        CoinPriceInfo::class.java
+                        CoinInfoDto::class.java
                     )
                 result.add(priceInfo)
             }

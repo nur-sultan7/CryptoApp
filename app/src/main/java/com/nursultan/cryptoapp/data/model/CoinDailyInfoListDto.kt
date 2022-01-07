@@ -5,10 +5,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class DailyInfoData(
+data class CoinDailyInfoListDto(
 
     @SerializedName("Data")
     @Expose
-    var data: MutableList<DailyInfoDatum>
+    var coinsDailyInfo: MutableList<CoinDailyInfoDto>
 
 )

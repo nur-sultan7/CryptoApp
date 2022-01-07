@@ -1,9 +1,10 @@
-package com.nursultan.cryptoapp.data.model
+package com.nursultan.cryptoapp.data.database.model
 
 import androidx.room.Entity
+import com.nursultan.cryptoapp.data.model.CoinInfoDto
 
 @Entity(tableName = "fav_coin_price_info_table")
-open class FavCoinInfo(
+open class FavCoinInfoDbModel(
     type: String? = null,
     market: String? = null,
     fromSymbol: String,
@@ -17,7 +18,7 @@ open class FavCoinInfo(
     volumeHour: Double? = null,
     volumeHourTo: Double? = null,
     imageUrl: String? = null
-) : CoinPriceInfo(
+) : CoinInfoDto(
     type,
     market,
     fromSymbol,
@@ -32,7 +33,7 @@ open class FavCoinInfo(
     volumeHourTo,
     imageUrl
 ) {
-    constructor(datum: CoinPriceInfo) : this(
+    constructor(datum: CoinInfoDto) : this(
         datum.type,
         datum.market,
         datum.fromSymbol,
