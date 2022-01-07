@@ -6,14 +6,15 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import com.nursultan.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
 import com.nursultan.cryptoapp.databinding.ActivityCoinDetailBinding
+import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 import com.squareup.picasso.Picasso
-
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.round
@@ -42,22 +43,22 @@ class CoinDetailActivity : AppCompatActivity() {
             finish()
             return
         }
-        val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: return
-        viewModel = ViewModelProviders.of(this)[CoinViewModel::class.java]
-        viewModel.getCoinPriceInfo(fromSymbol).observe(this, Observer {
+        val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: ""
+        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        viewModel.getCoinInfo(fromSymbol).observe(this) {
             binding.tvFSym.text = it.fromSymbol
             binding.tvTSym.text = it.toSymbol
             binding.tvPrice10.text = it.price.toString()
             binding.tvMinDay.text = it.lowDay.toString()
             binding.tvMaxDay.text = it.highDay.toString()
             binding.tvLastMarket.text = it.lastMarket
-            binding.tvLastUpdate.text = it.getFormattedTime()
+            binding.tvLastUpdate.text = convertFromTimestampToTime(it.lastUpdate)
             Picasso.get()
-                .load(it.getFullImageURL())
+                .load(BASE_IMAGE_URL + it.imageUrl)
                 .into(binding.ivLogoCoin10)
-        })
+        }
 
-        viewModel.loadDailyInfoData(fromSymbol)
+        viewModel.getCoinDailyInfo(fromSymbol)
         val dataFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
         dataFormat.timeZone = TimeZone.getDefault()
         binding.graphCoinPrice.title = "За последнюю неделю"
@@ -68,11 +69,15 @@ class CoinDetailActivity : AppCompatActivity() {
         series.thickness = 8
         // graphCoinPrice.gridLabelRenderer.numVerticalLabels=5
         // graphCoinPrice.gridLabelRenderer.numHorizontalLabels=4
-        viewModel.getCoinDailyInfo(fromSymbol).observe(this, Observer {
+        viewModel.getCoinDailyInfo(fromSymbol).observe(this) {
 
             if (it.isNotEmpty()) {
                 for (di in it) {
-                    series.appendData(DataPoint(di.time.toDouble(), di.close), true, 8)
+                    series.appendData(
+                        DataPoint(di.time.toDouble(), di.close),
+                        true,
+                        8
+                    )
                 }
                 binding.graphCoinPrice.addSeries(series)
                 // graphCoinPrice.gridLabelRenderer.setHorizontalLabelsAngle(90)
@@ -80,7 +85,7 @@ class CoinDetailActivity : AppCompatActivity() {
                 binding.graphCoinPrice.viewport.setMinX((it[0].time - 160_000).toDouble())
                 binding.graphCoinPrice.viewport.setMaxX((it[6].time + 160_000).toDouble())
             }
-        })
+        }
         binding.graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX) {

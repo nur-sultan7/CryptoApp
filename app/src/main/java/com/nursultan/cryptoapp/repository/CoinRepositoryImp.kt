@@ -9,10 +9,9 @@ import com.nursultan.cryptoapp.domain.CoinRepository
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.mapper.CoinInfoMapper
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.delay
 
-class CoinRepositoryImp(private val application: Application) : CoinRepository {
+class CoinRepositoryImp(application: Application) : CoinRepository {
 
     private val coinInfoDao = AppDatabase.getInstance(application).coinPriceInfoDao()
 
@@ -56,13 +55,16 @@ class CoinRepositoryImp(private val application: Application) : CoinRepository {
 
     override suspend fun loadCoinInfoData() {
         while (true) {
-            val topCoins = apiService.getTopCoinsInfo(limit = 50)
-            val fSymbols = mapper.mapCoinNamesListToString(topCoins)
-            val jsonContainer = apiService.getFullPriceList(fSyms = fSymbols)
-            val coinInfoListDto = mapper.mapJsonContainerToCoinInfoList(jsonContainer)
-            coinInfoDao.insertCoinInfoList(coinInfoListDto.map {
-                mapper.mapCoinInfoDtoToModel(it)
-            })
+            try {
+                val topCoins = apiService.getTopCoinsInfo(limit = 50)
+                val fSymbols = mapper.mapCoinNamesListToString(topCoins)
+                val jsonContainer = apiService.getFullPriceList(fSyms = fSymbols)
+                val coinInfoListDto = mapper.mapJsonContainerToCoinInfoList(jsonContainer)
+                coinInfoDao.insertCoinInfoList(coinInfoListDto.map {
+                    mapper.mapCoinInfoDtoToModel(it)
+                })
+            } catch (e: Exception) {
+            }
             delay(5_000)
         }
     }
@@ -70,12 +72,16 @@ class CoinRepositoryImp(private val application: Application) : CoinRepository {
 
     override suspend fun loadCoinDailyData(fSymbol: String) {
         while (true) {
-            coinInfoDao.deleteCoinDailyInfo(fSymbol)
-            val coinDailyData = apiService.getCoinDailyData(fSym = fSymbol)
-            val coinDailyInfoList = coinDailyData.data.coinsDailyInfo.map {
-                mapper.mapCoinDailyInfoDtoToModel(it)
+            try {
+                coinInfoDao.deleteCoinDailyInfo(fSymbol)
+                val coinDailyData = apiService.getCoinDailyData(fSym = fSymbol)
+                val coinDailyInfoList = coinDailyData.data.coinsDailyInfo.map {
+                    mapper.mapCoinDailyInfoDtoToModel(it)
+                }
+                coinInfoDao.insertDailyInfo(coinDailyInfoList)
+            } finally {
+
             }
-            coinInfoDao.insertDailyInfo(coinDailyInfoList)
             delay(5_000)
         }
     }

@@ -2,10 +2,11 @@ package com.nursultan.cryptoapp.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.nursultan.cryptoapp.data.model.CoinInfoDto
+import com.nursultan.cryptoapp.domain.entity.CoinInfo
 
 class CoinDiffUtilCallback(
-    private val oldList: List<CoinInfoDto>,
-    private val newList: List<CoinInfoDto>
+    private val oldList: List<CoinInfo>,
+    private val newList: List<CoinInfo>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
