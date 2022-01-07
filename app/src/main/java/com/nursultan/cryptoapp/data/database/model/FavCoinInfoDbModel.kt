@@ -1,10 +1,14 @@
 package com.nursultan.cryptoapp.data.database.model
 
+
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.nursultan.cryptoapp.data.model.CoinInfoDto
 
 @Entity(tableName = "fav_coin_price_info_table")
 open class FavCoinInfoDbModel(
+    @PrimaryKey(autoGenerate = true)
+    val id :Int=1,
     type: String? = null,
     market: String? = null,
     fromSymbol: String,
@@ -32,20 +36,20 @@ open class FavCoinInfoDbModel(
     volumeHour,
     volumeHourTo,
     imageUrl
-) {
+){
     constructor(datum: CoinInfoDto) : this(
-        datum.type,
-        datum.market,
-        datum.fromSymbol,
-        datum.toSymbol,
-        datum.price,
-        datum.lastUpdate,
-        datum.openDay,
-        datum.highDay,
-        datum.lowDay,
-        datum.lastMarket,
-        datum.volumeHour,
-        datum.volumeHourTo,
-        datum.imageUrl
+        type = datum.type,
+        market = datum.market,
+        fromSymbol = datum.fromSymbol,
+        toSymbol = datum.toSymbol,
+        price = datum.price,
+        lastUpdate = datum.lastUpdate,
+        openDay = datum.openDay,
+        highDay = datum.highDay,
+        lowDay = datum.lowDay,
+        lastMarket = datum.lastMarket,
+        volumeHour = datum.volumeHour,
+        volumeHourTo = datum.volumeHourTo,
+        imageUrl = datum.imageUrl
     )
 }

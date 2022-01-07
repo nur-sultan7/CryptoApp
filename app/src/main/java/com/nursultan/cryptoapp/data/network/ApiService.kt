@@ -1,9 +1,8 @@
 package com.nursultan.cryptoapp.data.network
 
-import com.nursultan.cryptoapp.data.model.CoinNamesListDto
 import com.nursultan.cryptoapp.data.model.CoinInfoJsonContainerDto
+import com.nursultan.cryptoapp.data.model.CoinNamesListDto
 import com.nursultan.cryptoapp.data.model.CoinsDailyInfoListContainerDto
-import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 

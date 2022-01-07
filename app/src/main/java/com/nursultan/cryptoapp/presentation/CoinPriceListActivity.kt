@@ -45,6 +45,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         adapter = CoinInfoAdapter(this)
         binding.rvCoinPriceList.adapter = adapter
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        liveListData = viewModel.getCoinInfoList(true)
         binding.spinnerCoinPriceList.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(

@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.nursultan.cryptoapp.data.database.model.FavCoinInfoDbModel
-import com.nursultan.cryptoapp.data.model.CoinInfoDto
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.domain.usecases.GetCoinDailyInfoListUseCase
@@ -38,10 +36,10 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun getCoinInfo(fSym: String) = getCoinInfoUseCase.invoke()
+    fun getCoinInfo(fSym: String) = getCoinInfoUseCase.invoke(fSym)
 
     fun getCoinDailyInfo(fSym: String): LiveData<List<CoinDailyInfo>> =
-        getCoinDailyInfoLListUseCase.invoke()
+        getCoinDailyInfoLListUseCase.invoke(fSym)
 
     private fun deleteCoinDailyInfo(fSym: String) {
 
