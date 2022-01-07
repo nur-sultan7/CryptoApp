@@ -12,7 +12,7 @@ import com.nursultan.cryptoapp.mapper.CoinInfoMapper
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.delay
 
-class CoinRepositoryImp(private val application: Application): CoinRepository {
+class CoinRepositoryImp(private val application: Application) : CoinRepository {
 
     private val coinInfoDao = AppDatabase.getInstance(application).coinPriceInfoDao()
 
@@ -66,6 +66,7 @@ class CoinRepositoryImp(private val application: Application): CoinRepository {
             delay(5_000)
         }
     }
+
 
     override suspend fun loadCoinDailyData(fSymbol: String) {
         while (true) {

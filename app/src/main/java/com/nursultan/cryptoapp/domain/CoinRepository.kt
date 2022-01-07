@@ -16,6 +16,6 @@ interface CoinRepository {
 
     suspend fun loadCoinInfoData()
 
-    suspend fun loadCoinDailyData()
+    suspend fun loadCoinDailyData(fSymbol: String)
 
 }
