@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.nursultan.cryptoapp.R
-import com.nursultan.cryptoapp.data.model.CoinInfoDto
 import com.nursultan.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
