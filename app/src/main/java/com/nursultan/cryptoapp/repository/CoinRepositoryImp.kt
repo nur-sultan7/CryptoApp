@@ -8,7 +8,7 @@ import com.nursultan.cryptoapp.data.network.ApiFactory
 import com.nursultan.cryptoapp.domain.CoinRepository
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
-import com.nursultan.cryptoapp.mapper.CoinInfoMapper
+import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
 import kotlinx.coroutines.delay
 
 class CoinRepositoryImp(application: Application) : CoinRepository {

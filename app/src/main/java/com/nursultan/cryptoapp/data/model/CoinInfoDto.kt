@@ -1,10 +1,7 @@
 package com.nursultan.cryptoapp.data.model
 
 import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
-import com.nursultan.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
-import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 
 
 open class CoinInfoDto(
@@ -59,15 +56,7 @@ open class CoinInfoDto(
 
     @SerializedName("IMAGEURL")
     @Expose
-    var imageUrl: String? = null
-) {
+    var imageUrl: String? = null,
+
     var isFav: Boolean = false
-
-    fun getFormattedTime(): String {
-        return convertFromTimestampToTime(lastUpdate)
-    }
-
-    fun getFullImageURL(): String {
-        return BASE_IMAGE_URL + imageUrl
-    }
-}
+)

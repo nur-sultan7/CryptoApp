@@ -9,9 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.nursultan.cryptoapp.R
-import com.nursultan.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
-import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_coin_price_info.view.*
 
@@ -55,11 +53,11 @@ class CoinInfoAdapter(private val context: Context) :
                 tvPrice.text = price.toString().take(8)
                 tvLastUpdate.text = String.format(
                     context.resources.getString(R.string.last_update_template),
-                    convertFromTimestampToTime(lastUpdate)
+                    lastUpdate
                 )
                 btnFav.isLiked = isFav
                 Picasso.get()
-                    .load(BASE_IMAGE_URL + imageUrl)
+                    .load(imageUrl)
                     .into(ivLogoCoin)
             }
         }

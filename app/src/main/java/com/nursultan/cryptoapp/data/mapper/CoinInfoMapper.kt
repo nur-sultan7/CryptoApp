@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.mapper
+package com.nursultan.cryptoapp.data.mapper
 
 import com.google.gson.Gson
 import com.nursultan.cryptoapp.data.database.model.CoinDailyInfoDbModel
@@ -9,6 +9,8 @@ import com.nursultan.cryptoapp.data.model.CoinInfoJsonContainerDto
 import com.nursultan.cryptoapp.data.model.CoinNamesListDto
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CoinInfoMapper {
     fun mapCoinInfoDtoToModel(dto: CoinInfoDto) =
@@ -20,7 +22,7 @@ class CoinInfoMapper {
             lastUpdate = dto.lastUpdate,
             highDay = dto.highDay,
             lowDay = dto.lowDay,
-            imageUrl = dto.imageUrl
+            imageUrl = BASE_IMAGE_URL + dto.imageUrl
         )
 
     fun mapCoinInfoDbModelToEntity(dbModel: CoinInfoDbModel): CoinInfo = CoinInfo(
@@ -28,7 +30,7 @@ class CoinInfoMapper {
         toSymbol = dbModel.toSymbol,
         price = dbModel.price,
         lastMarket = dbModel.lastMarket,
-        lastUpdate = dbModel.lastUpdate,
+        lastUpdate = convertFromTimestampToTime(dbModel.lastUpdate),
         highDay = dbModel.highDay,
         lowDay = dbModel.lowDay,
         imageUrl = dbModel.imageUrl
@@ -72,4 +74,16 @@ class CoinInfoMapper {
         }?.joinToString(",") ?: ""
     }
 
+    private fun convertFromTimestampToTime(timestamp: Long?): String {
+        if (timestamp == null) return ""
+        val date = Date(timestamp * 1000)
+        val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        sdf.timeZone = TimeZone.getDefault()
+        return sdf.format(date)
+
+    }
+
+    companion object {
+        const val BASE_IMAGE_URL = "https://cryptocompare.com"
+    }
 }

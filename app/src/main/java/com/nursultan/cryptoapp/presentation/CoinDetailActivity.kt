@@ -5,15 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import com.nursultan.cryptoapp.data.network.ApiFactory.BASE_IMAGE_URL
 import com.nursultan.cryptoapp.databinding.ActivityCoinDetailBinding
-import com.nursultan.cryptoapp.utils.convertFromTimestampToTime
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -52,9 +49,9 @@ class CoinDetailActivity : AppCompatActivity() {
             binding.tvMinDay.text = it.lowDay.toString()
             binding.tvMaxDay.text = it.highDay.toString()
             binding.tvLastMarket.text = it.lastMarket
-            binding.tvLastUpdate.text = convertFromTimestampToTime(it.lastUpdate)
+            binding.tvLastUpdate.text = it.lastUpdate
             Picasso.get()
-                .load(BASE_IMAGE_URL + it.imageUrl)
+                .load(it.imageUrl)
                 .into(binding.ivLogoCoin10)
         }
 
