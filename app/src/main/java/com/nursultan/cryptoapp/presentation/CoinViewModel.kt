@@ -10,7 +10,7 @@ import com.nursultan.cryptoapp.domain.usecases.GetCoinDailyInfoListUseCase
 import com.nursultan.cryptoapp.domain.usecases.GetCoinInfoListAscUseCase
 import com.nursultan.cryptoapp.domain.usecases.GetCoinInfoListDescUseCase
 import com.nursultan.cryptoapp.domain.usecases.GetCoinInfoUseCase
-import com.nursultan.cryptoapp.repository.CoinRepositoryImp
+import com.nursultan.cryptoapp.data.repository.CoinRepositoryImp
 import kotlinx.coroutines.launch
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {

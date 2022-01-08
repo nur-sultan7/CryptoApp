@@ -17,6 +17,7 @@ import java.util.*
 import kotlin.math.round
 
 class CoinDetailActivity : AppCompatActivity() {
+
     private val binding by lazy {
         ActivityCoinDetailBinding.inflate(layoutInflater)
     }
@@ -36,6 +37,7 @@ class CoinDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         if (!intent.hasExtra(EXTRA_FROM_SYMBOL)) {
             finish()
             return
@@ -43,16 +45,20 @@ class CoinDetailActivity : AppCompatActivity() {
         val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: ""
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.getCoinInfo(fromSymbol).observe(this) {
-            binding.tvFSym.text = it.fromSymbol
-            binding.tvTSym.text = it.toSymbol
-            binding.tvPrice10.text = it.price.toString()
-            binding.tvMinDay.text = it.lowDay.toString()
-            binding.tvMaxDay.text = it.highDay.toString()
-            binding.tvLastMarket.text = it.lastMarket
-            binding.tvLastUpdate.text = it.lastUpdate
-            Picasso.get()
-                .load(it.imageUrl)
-                .into(binding.ivLogoCoin10)
+            with(binding)
+            {
+                tvFSym.text = it.fromSymbol
+                tvTSym.text = it.toSymbol
+                tvPrice10.text = it.price.toString()
+                tvMinDay.text = it.lowDay.toString()
+                tvMaxDay.text = it.highDay.toString()
+                tvLastMarket.text = it.lastMarket
+                tvLastUpdate.text = it.lastUpdate
+                Picasso.get()
+                    .load(it.imageUrl)
+                    .into(ivLogoCoin10)
+            }
+
         }
 
         viewModel.getCoinDailyInfo(fromSymbol)
@@ -76,11 +82,15 @@ class CoinDetailActivity : AppCompatActivity() {
                         8
                     )
                 }
-                binding.graphCoinPrice.addSeries(series)
-                // graphCoinPrice.gridLabelRenderer.setHorizontalLabelsAngle(90)
-                binding.graphCoinPrice.viewport.isXAxisBoundsManual = true
-                binding.graphCoinPrice.viewport.setMinX((it[0].time - 160_000).toDouble())
-                binding.graphCoinPrice.viewport.setMaxX((it[6].time + 160_000).toDouble())
+                with(binding)
+                {
+                    graphCoinPrice.addSeries(series)
+                    // graphCoinPrice.gridLabelRenderer.setHorizontalLabelsAngle(90)
+                    graphCoinPrice.viewport.isXAxisBoundsManual = true
+                    graphCoinPrice.viewport.setMinX((it[0].time - 160_000).toDouble())
+                    graphCoinPrice.viewport.setMaxX((it[6].time + 160_000).toDouble())
+                }
+
             }
         }
         binding.graphCoinPrice.gridLabelRenderer.labelFormatter = object : LabelFormatter {

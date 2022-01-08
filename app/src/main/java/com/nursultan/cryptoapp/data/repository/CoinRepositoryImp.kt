@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.repository
+package com.nursultan.cryptoapp.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData

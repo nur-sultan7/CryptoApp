@@ -16,6 +16,7 @@ import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter.OnCoinClick
 import com.nursultan.cryptoapp.utils.CoinDiffUtilCallback
 
 class CoinPriceListActivity : AppCompatActivity() {
+
     private val binding by lazy {
         ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
