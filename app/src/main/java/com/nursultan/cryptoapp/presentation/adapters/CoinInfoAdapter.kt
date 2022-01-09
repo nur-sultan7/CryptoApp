@@ -3,15 +3,15 @@ package com.nursultan.cryptoapp.presentation.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ItemCoinPriceInfoBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
+import com.nursultan.cryptoapp.utils.CoinInfoDiffUtilCallback
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
-    RecyclerView.Adapter<CoinInfoViewHolder>() {
-    var coinPriceInfoList = listOf<CoinInfo>()
+    ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffUtilCallback) {
 
     private var onCoinClickListener: OnCoinClickListener? = null
     var onFavClickListener: OnFavClickListener? = null
@@ -39,7 +39,7 @@ class CoinInfoAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: CoinInfoViewHolder, position: Int) {
-        val coinPI = coinPriceInfoList[position]
+        val coinPI = getItem(position)
         with(holder.binding)
         {
             with(coinPI)
@@ -60,11 +60,11 @@ class CoinInfoAdapter(private val context: Context) :
                     .into(ivLogoCoin10)
             }
             root.setOnClickListener {
-                onCoinClickListener?.onClick(coinPriceInfoList[position])
+                onCoinClickListener?.onClick(coinPI)
             }
             btnFav.setOnClickListener {
                 onFavClickListener?.onClick(
-                    coinPriceInfoList[position],
+                    coinPI,
                     btnFav.isLiked
                 )
                 btnFav.isLiked = !btnFav.isLiked
@@ -72,8 +72,4 @@ class CoinInfoAdapter(private val context: Context) :
         }
 
     }
-
-    override fun getItemCount() = coinPriceInfoList.size
-
-
 }

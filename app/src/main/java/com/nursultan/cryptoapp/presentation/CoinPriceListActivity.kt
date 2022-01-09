@@ -13,7 +13,7 @@ import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter.OnCoinClickListener
-import com.nursultan.cryptoapp.utils.CoinDiffUtilCallback
+import com.nursultan.cryptoapp.utils.CoinInfoDiffUtilCallback
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -45,6 +45,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         setContentView(binding.root)
         adapter = CoinInfoAdapter(this)
         binding.rvCoinPriceList.adapter = adapter
+        binding.rvCoinPriceList.itemAnimator = null
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         liveListData = viewModel.getCoinInfoList(true)
         binding.spinnerCoinPriceList.onItemSelectedListener =
@@ -55,7 +56,7 @@ class CoinPriceListActivity : AppCompatActivity() {
                     liveListData.removeObservers(this@CoinPriceListActivity)
                     liveListData = viewModel.getCoinInfoList(position == 0)
                     liveListData.observe(this@CoinPriceListActivity) {
-                        updateList(it)
+                        adapter.submitList(it)
                     }
                 }
 
@@ -88,12 +89,5 @@ class CoinPriceListActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun updateList(coinPriceList: List<CoinInfo>) {
-        val coinDiffUtilCallback = CoinDiffUtilCallback(adapter.coinPriceInfoList, coinPriceList)
-        val diffResult = DiffUtil.calculateDiff(coinDiffUtilCallback)
-        adapter.coinPriceInfoList = coinPriceList
-        diffResult.dispatchUpdatesTo(adapter)
     }
 }
