@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.utils
+package com.nursultan.cryptoapp.presentation.utils
 
 import com.jjoe64.graphview.series.DataPointInterface
 import java.io.Serializable

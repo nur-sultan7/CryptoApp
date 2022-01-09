@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp.utils
+package com.nursultan.cryptoapp.presentation.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.nursultan.cryptoapp.domain.entity.CoinInfo

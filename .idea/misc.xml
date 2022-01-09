@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/drawable/edit_text_border.xml" value="0.3828125" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/drawable/seporator.xml" value="0.3828125" />
+        <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout-w936dp/fragment_coin_detail.xml" value="0.275" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/activity_coin_detail.xml" value="0.33" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/activity_coin_fav.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/activity_coin_price_list.xml" value="0.17831813576494426" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/activity_registrate.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/activity_registration.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/activity_wallet.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/fragment_coin_detail.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/layout/item_coin_price_info.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/Public/AndroidProjects/CryptoApp/app/src/main/res/menu/main_menu.xml" value="0.31296296296296294" />
       </map>

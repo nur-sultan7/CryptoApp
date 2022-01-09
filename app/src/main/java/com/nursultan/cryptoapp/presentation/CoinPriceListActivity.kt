@@ -7,13 +7,11 @@ import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DiffUtil
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter.OnCoinClickListener
-import com.nursultan.cryptoapp.utils.CoinInfoDiffUtilCallback
 
 class CoinPriceListActivity : AppCompatActivity() {
 

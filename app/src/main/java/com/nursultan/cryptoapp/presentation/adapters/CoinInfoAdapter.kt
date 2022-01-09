@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ItemCoinPriceInfoBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
-import com.nursultan.cryptoapp.utils.CoinInfoDiffUtilCallback
+import com.nursultan.cryptoapp.presentation.utils.CoinInfoDiffUtilCallback
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
