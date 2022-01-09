@@ -65,11 +65,11 @@ class CoinPriceListActivity : AppCompatActivity() {
         binding.spinnerCoinPriceList.setSelection(0)
         adapter.setOnCoinClickListener(object : OnCoinClickListener {
             override fun onClick(coinPriceInfo: CoinInfo) {
-                val intent = CoinDetailActivity.newIntent(
-                    this@CoinPriceListActivity,
-                    coinPriceInfo.fromSymbol
-                )
-                startActivity(intent)
+                if (isOnePaneMode()) {
+                    launchActivityCoinDetail(coinPriceInfo.fromSymbol)
+                } else {
+                    launchFragmentCoinDetail(coinPriceInfo.fromSymbol)
+                }
             }
 
         })
@@ -87,5 +87,26 @@ class CoinPriceListActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun isOnePaneMode() = binding.fragmentContainer == null
+
+    private fun launchActivityCoinDetail(fSymbol: String) {
+        val intent = CoinDetailActivity.newIntent(
+            this@CoinPriceListActivity,
+            fSymbol
+        )
+        startActivity(intent)
+    }
+
+    private fun launchFragmentCoinDetail(fSymbol: String) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragment_container,
+                CoinDetailFragment.newInstance(fSymbol)
+            )
+            .addToBackStack(null)
+            .commit()
     }
 }
