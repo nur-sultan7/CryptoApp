@@ -14,7 +14,7 @@ interface CoinRepository {
 
     fun getCoinDailyInfoList(fSymbol: String): LiveData<List<CoinDailyInfo>>
 
-    suspend fun loadCoinInfoData()
+    fun loadCoinInfoData()
 
     suspend fun loadCoinDailyData(fSymbol: String)
 

@@ -6,11 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
-import com.nursultan.cryptoapp.domain.usecases.GetCoinDailyInfoListUseCase
-import com.nursultan.cryptoapp.domain.usecases.GetCoinInfoListAscUseCase
-import com.nursultan.cryptoapp.domain.usecases.GetCoinInfoListDescUseCase
-import com.nursultan.cryptoapp.domain.usecases.GetCoinInfoUseCase
 import com.nursultan.cryptoapp.data.repository.CoinRepositoryImp
+import com.nursultan.cryptoapp.domain.usecases.*
 import kotlinx.coroutines.launch
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,11 +18,10 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     private val getCoinInfoListDescUseCase = GetCoinInfoListDescUseCase(repository)
     private val getCoinInfoUseCase = GetCoinInfoUseCase(repository)
     private val getCoinDailyInfoLListUseCase = GetCoinDailyInfoListUseCase(repository)
+    private val coinInfoLoadDataUseCase = CoinInfoLoadDataUseCase(repository)
 
     init {
-        viewModelScope.launch {
-            repository.loadCoinInfoData()
-        }
+            coinInfoLoadDataUseCase.invoke()
     }
 
     fun getCoinInfoList(desc: Boolean): LiveData<List<CoinInfo>> {
