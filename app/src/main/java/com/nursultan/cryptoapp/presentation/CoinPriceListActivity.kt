@@ -20,6 +20,7 @@ class CoinPriceListActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -27,8 +28,8 @@ class CoinPriceListActivity : AppCompatActivity() {
         ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
     }
     private val component by lazy {
-            DaggerApplicationComponent.factory()
-                .create(application)
+        DaggerApplicationComponent.factory()
+            .create(application)
     }
 
     private lateinit var adapter: CoinInfoAdapter
