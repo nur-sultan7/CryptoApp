@@ -3,22 +3,21 @@ package com.nursultan.cryptoapp.presentation
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.ViewModel
+import com.nursultan.cryptoapp.data.repository.CoinRepositoryImp
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
-import com.nursultan.cryptoapp.data.repository.CoinRepositoryImp
 import com.nursultan.cryptoapp.domain.usecases.*
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CoinViewModel(application: Application) : AndroidViewModel(application) {
+class CoinViewModel @Inject constructor (
+    repositoryImp: CoinRepositoryImp) : ViewModel() {
 
-    private val repository = CoinRepositoryImp(application)
-
-    private val getCoinInfoListAscUseCase = GetCoinInfoListAscUseCase(repository)
-    private val getCoinInfoListDescUseCase = GetCoinInfoListDescUseCase(repository)
-    private val getCoinInfoUseCase = GetCoinInfoUseCase(repository)
-    private val getCoinDailyInfoLListUseCase = GetCoinDailyInfoListUseCase(repository)
-    private val coinInfoLoadDataUseCase = CoinInfoLoadDataUseCase(repository)
+    private val getCoinInfoListAscUseCase = GetCoinInfoListAscUseCase(repositoryImp)
+    private val getCoinInfoListDescUseCase = GetCoinInfoListDescUseCase(repositoryImp)
+    private val getCoinInfoUseCase = GetCoinInfoUseCase(repositoryImp)
+    private val getCoinDailyInfoLListUseCase = GetCoinDailyInfoListUseCase(repositoryImp)
+    private val coinInfoLoadDataUseCase = CoinInfoLoadDataUseCase(repositoryImp)
 
     init {
             coinInfoLoadDataUseCase.invoke()

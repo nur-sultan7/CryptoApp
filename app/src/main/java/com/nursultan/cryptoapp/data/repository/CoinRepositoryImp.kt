@@ -4,19 +4,18 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import androidx.work.Worker
 import com.nursultan.cryptoapp.data.database.AppDatabase
+import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
 import com.nursultan.cryptoapp.data.network.ApiFactory
+import com.nursultan.cryptoapp.data.workers.RefreshDataWorker
 import com.nursultan.cryptoapp.domain.CoinRepository
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
-import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
-import com.nursultan.cryptoapp.data.workers.RefreshDataWorker
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class CoinRepositoryImp(private val application: Application) : CoinRepository {
+class CoinRepositoryImp @Inject constructor (private val application: Application) : CoinRepository {
 
     private val coinInfoDao = AppDatabase.getInstance(application).coinPriceInfoDao()
 

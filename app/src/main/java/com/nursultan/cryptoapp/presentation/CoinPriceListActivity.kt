@@ -9,16 +9,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
+import com.nursultan.cryptoapp.di.DaggerApplicationComponent
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter.OnCoinClickListener
+import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
-    private lateinit var viewModel: CoinViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+    }
+    private val component by lazy {
+            DaggerApplicationComponent.factory()
+                .create(application)
+    }
+
     private lateinit var adapter: CoinInfoAdapter
     private lateinit var liveListData: LiveData<List<CoinInfo>>
 
@@ -39,12 +51,12 @@ class CoinPriceListActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         adapter = CoinInfoAdapter(this)
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         liveListData = viewModel.getCoinInfoList(true)
         binding.spinnerCoinPriceList.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
