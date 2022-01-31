@@ -10,8 +10,9 @@ import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.domain.usecases.*
 import javax.inject.Inject
 
-class CoinViewModel @Inject constructor (
-    repositoryImp: CoinRepositoryImp) : ViewModel() {
+class CoinViewModel @Inject constructor(
+    repositoryImp: CoinRepositoryImp
+) : ViewModel() {
 
     private val getCoinInfoListAscUseCase = GetCoinInfoListAscUseCase(repositoryImp)
     private val getCoinInfoListDescUseCase = GetCoinInfoListDescUseCase(repositoryImp)
@@ -20,7 +21,7 @@ class CoinViewModel @Inject constructor (
     private val coinInfoLoadDataUseCase = CoinInfoLoadDataUseCase(repositoryImp)
 
     init {
-            coinInfoLoadDataUseCase.invoke()
+        coinInfoLoadDataUseCase.invoke()
     }
 
     fun getCoinInfoList(desc: Boolean): LiveData<List<CoinInfo>> {
@@ -47,7 +48,6 @@ class CoinViewModel @Inject constructor (
     fun deleteFavCoin(coinPriceInfo: CoinInfo) {
 
     }
-
 
 
 }
