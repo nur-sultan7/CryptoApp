@@ -1,5 +1,6 @@
 package com.nursultan.cryptoapp.presentation
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -20,6 +21,7 @@ import com.squareup.picasso.Picasso
 import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.round
 
 class CoinDetailFragment : Fragment() {
@@ -28,8 +30,17 @@ class CoinDetailFragment : Fragment() {
     private val binding: FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailBinding is null")
 
-
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: CoinViewModel
+    private val component by lazy {
+        (requireActivity().application as CryptoApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +58,7 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fromSymbol = getSymbol()
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
         viewModel.getCoinInfo(fromSymbol).observe(viewLifecycleOwner) {
             with(binding)
             {
