@@ -11,8 +11,9 @@ import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class CoinInfoMapper {
+class CoinInfoMapper @Inject constructor() {
     fun mapCoinInfoDtoToModel(dto: CoinInfoDto) =
         CoinInfoDbModel(
             fromSymbol = dto.fromSymbol,

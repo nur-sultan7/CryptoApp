@@ -1,4 +1,4 @@
-package com.nursultan.cryptoapp
+package com.nursultan.cryptoapp.presentation
 
 import android.app.Application
 import com.nursultan.cryptoapp.di.DaggerApplicationComponent

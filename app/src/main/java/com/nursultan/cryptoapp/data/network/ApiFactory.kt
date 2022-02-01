@@ -2,6 +2,7 @@ package com.nursultan.cryptoapp.data.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 object ApiFactory {
     private const val BASE_URL = "https://min-api.cryptocompare.com/data/"
