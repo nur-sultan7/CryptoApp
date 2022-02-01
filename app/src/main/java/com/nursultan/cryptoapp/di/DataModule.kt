@@ -13,15 +13,18 @@ import dagger.Provides
 
 @Module
 interface DataModule {
+    @AppScope
     @Binds
     fun bindCoinRepository(coinRepositoryImp: CoinRepositoryImp): CoinRepository
     companion object
     {
+        @AppScope
         @Provides
         fun provideCoinInfoDao(application: Application): CoinInfoDao
         {
             return AppDatabase.getInstance(application).coinPriceInfoDao()
         }
+        @AppScope
         @Provides
         fun provideApiService():ApiService
         {
