@@ -2,18 +2,14 @@ package com.nursultan.cryptoapp.data.workers
 
 import android.content.Context
 import androidx.work.CoroutineWorker
-import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
-import com.nursultan.cryptoapp.data.database.AppDatabase
 import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
-import com.nursultan.cryptoapp.data.network.ApiFactory
 import com.nursultan.cryptoapp.data.network.ApiService
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
-class RefreshDataWorker @Inject constructor(
+class RefreshDataWorker (
     context: Context,
     workerParameters: WorkerParameters,
     private val coinInfoDao: CoinInfoDao,

@@ -2,26 +2,25 @@ package com.nursultan.cryptoapp.presentation
 
 import android.app.Application
 import androidx.work.Configuration
-import com.nursultan.cryptoapp.data.database.AppDatabase
-import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
-import com.nursultan.cryptoapp.data.network.ApiFactory
 import com.nursultan.cryptoapp.data.workers.RefreshDataWorkerFactory
 import com.nursultan.cryptoapp.di.DaggerApplicationComponent
+import javax.inject.Inject
 
 class CryptoApp : Application(), Configuration.Provider {
     val component by lazy {
         DaggerApplicationComponent.factory()
             .create(this)
     }
+    @Inject
+    lateinit var workerFactory: RefreshDataWorkerFactory
+
+    override fun onCreate() {
+        component.inject(this)
+        super.onCreate()
+    }
 
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder()
-            .setWorkerFactory(
-                RefreshDataWorkerFactory(
-                    AppDatabase.getInstance(this).coinPriceInfoDao(),
-                    ApiFactory.apiService,
-                    CoinInfoMapper()
-                )
-            ).build()
+            .setWorkerFactory(workerFactory).build()
     }
 }

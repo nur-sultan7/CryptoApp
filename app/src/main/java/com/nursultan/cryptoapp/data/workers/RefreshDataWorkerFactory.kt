@@ -7,9 +7,10 @@ import androidx.work.WorkerParameters
 import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
 import com.nursultan.cryptoapp.data.network.ApiService
+import javax.inject.Inject
 
 class RefreshDataWorkerFactory
-    (
+    @Inject constructor(
     private val coinInfoDao: CoinInfoDao,
     private val apiService: ApiService,
     private val mapper: CoinInfoMapper
