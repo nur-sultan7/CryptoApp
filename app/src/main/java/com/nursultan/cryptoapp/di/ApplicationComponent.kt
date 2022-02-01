@@ -5,7 +5,7 @@ import com.nursultan.cryptoapp.presentation.CoinPriceListActivity
 import dagger.BindsInstance
 import dagger.Component
 
-@Component(modules = [ViewModelModule::class])
+@Component(modules = [ViewModelModule::class, DomainModule::class])
 interface ApplicationComponent {
 
 

@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import com.nursultan.cryptoapp.CryptoApp
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.di.DaggerApplicationComponent
@@ -28,8 +29,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
     }
     private val component by lazy {
-        DaggerApplicationComponent.factory()
-            .create(application)
+        (application as CryptoApp).component
     }
 
     private lateinit var adapter: CoinInfoAdapter

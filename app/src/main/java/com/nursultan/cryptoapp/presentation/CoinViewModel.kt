@@ -1,7 +1,5 @@
 package com.nursultan.cryptoapp.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.nursultan.cryptoapp.data.repository.CoinRepositoryImp
@@ -11,15 +9,13 @@ import com.nursultan.cryptoapp.domain.usecases.*
 import javax.inject.Inject
 
 class CoinViewModel @Inject constructor(
-    repositoryImp: CoinRepositoryImp
+    private val getCoinDailyInfoLListUseCase: GetCoinDailyInfoListUseCase,
+    private val getCoinInfoListAscUseCase: GetCoinInfoListAscUseCase,
+    private val getCoinInfoListDescUseCase: GetCoinInfoListDescUseCase,
+    private val getCoinInfoUseCase: GetCoinInfoUseCase,
+    coinInfoLoadDataUseCase: GetCoinDataUseCase
+
 ) : ViewModel() {
-
-    private val getCoinInfoListAscUseCase = GetCoinInfoListAscUseCase(repositoryImp)
-    private val getCoinInfoListDescUseCase = GetCoinInfoListDescUseCase(repositoryImp)
-    private val getCoinInfoUseCase = GetCoinInfoUseCase(repositoryImp)
-    private val getCoinDailyInfoLListUseCase = GetCoinDailyInfoListUseCase(repositoryImp)
-    private val coinInfoLoadDataUseCase = CoinInfoLoadDataUseCase(repositoryImp)
-
     init {
         coinInfoLoadDataUseCase.invoke()
     }
