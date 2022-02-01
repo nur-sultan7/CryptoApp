@@ -9,6 +9,7 @@ import com.nursultan.cryptoapp.data.database.AppDatabase
 import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
 import com.nursultan.cryptoapp.data.network.ApiFactory
+import com.nursultan.cryptoapp.data.network.ApiService
 import com.nursultan.cryptoapp.data.workers.RefreshDataWorker
 import com.nursultan.cryptoapp.domain.CoinRepository
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
@@ -21,9 +22,6 @@ class CoinRepositoryImp @Inject constructor (
     private val mapper: CoinInfoMapper,
     private val coinInfoDao: CoinInfoDao
     ) : CoinRepository {
-
-    private val apiService = ApiFactory.apiService
-
 
     override fun getCoinInfoListAsc(): LiveData<List<CoinInfo>> {
         return Transformations.map(coinInfoDao.getPriceListAsc())
@@ -73,7 +71,7 @@ class CoinRepositoryImp @Inject constructor (
         while (true) {
             try {
                 coinInfoDao.deleteCoinDailyInfo(fSymbol)
-                val coinDailyData = apiService.getCoinDailyData(fSym = fSymbol)
+                val coinDailyData = ApiFactory.apiService.getCoinDailyData(fSym = fSymbol)
                 val coinDailyInfoList = coinDailyData.data.coinsDailyInfo.map {
                     mapper.mapCoinDailyInfoDtoToModel(it)
                 }
