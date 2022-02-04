@@ -74,7 +74,7 @@ class CoinDetailFragment : Fragment() {
                     .into(ivLogoCoin10)
             }
         }
-        viewModel.getCoinDailyInfo(fromSymbol)
+        viewModel.loadCoinDailyInfo(fromSymbol)
         val dataFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
         dataFormat.timeZone = TimeZone.getDefault()
         binding.graphCoinPrice.title = "За последнюю неделю"
@@ -85,7 +85,7 @@ class CoinDetailFragment : Fragment() {
         series.thickness = 8
         // graphCoinPrice.gridLabelRenderer.numVerticalLabels=5
         // graphCoinPrice.gridLabelRenderer.numHorizontalLabels=4
-        viewModel.getCoinDailyInfo(fromSymbol).observe(this) {
+        viewModel.getCoinDailyInfo(fromSymbol).observe(viewLifecycleOwner) {
 
             if (it.isNotEmpty()) {
                 for (di in it) {

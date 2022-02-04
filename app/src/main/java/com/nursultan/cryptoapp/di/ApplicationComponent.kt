@@ -10,6 +10,7 @@ import dagger.Component
 @Component(modules = [ViewModelModule::class, DataModule::class, WorkerModule::class])
 interface ApplicationComponent {
 
+    fun coinDetailSubcomponent():CoinDetailSubcomponent.CoinDetailComponentFactory
 
     fun inject(coinPriceListActivity: CoinPriceListActivity)
     fun inject(coinDetailFragment: CoinDetailFragment)

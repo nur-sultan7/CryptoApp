@@ -8,6 +8,7 @@ import androidx.work.WorkManager
 import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
 import com.nursultan.cryptoapp.data.network.ApiFactory
+import com.nursultan.cryptoapp.data.workers.RefreshCoinDailyInfoWorker
 import com.nursultan.cryptoapp.data.workers.RefreshDataWorker
 import com.nursultan.cryptoapp.domain.CoinRepository
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
@@ -47,7 +48,7 @@ class CoinRepositoryImp @Inject constructor (
     }
 
     override fun getCoinDailyInfoList(fSymbol: String): LiveData<List<CoinDailyInfo>> {
-        return Transformations.map(coinInfoDao.getListCoinDailyInfo(fSymbol))
+        return Transformations.map(coinInfoDao.getCoinDailyInfoList(fSymbol))
         {
             it.map {
                 mapper.mapCoinDailyInfoDbModelToEntity(it)
@@ -65,19 +66,12 @@ class CoinRepositoryImp @Inject constructor (
     }
 
 
-    override suspend fun loadCoinDailyData(fSymbol: String) {
-        while (true) {
-            try {
-                coinInfoDao.deleteCoinDailyInfo(fSymbol)
-                val coinDailyData = ApiFactory.apiService.getCoinDailyData(fSym = fSymbol)
-                val coinDailyInfoList = coinDailyData.data.coinsDailyInfo.map {
-                    mapper.mapCoinDailyInfoDtoToModel(it)
-                }
-                coinInfoDao.insertDailyInfo(coinDailyInfoList)
-            } finally {
-
-            }
-            delay(5_000)
-        }
+    override fun loadCoinDailyData(fSymbol: String) {
+        val workerManager = WorkManager.getInstance(application)
+        workerManager.enqueueUniqueWork(
+            RefreshCoinDailyInfoWorker.NAME,
+            ExistingWorkPolicy.REPLACE,
+            RefreshCoinDailyInfoWorker.makeRequest()
+        )
     }
 }

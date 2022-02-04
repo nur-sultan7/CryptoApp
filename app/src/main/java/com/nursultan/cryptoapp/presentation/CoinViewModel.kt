@@ -13,7 +13,8 @@ class CoinViewModel @Inject constructor(
     private val getCoinInfoListAscUseCase: GetCoinInfoListAscUseCase,
     private val getCoinInfoListDescUseCase: GetCoinInfoListDescUseCase,
     private val getCoinInfoUseCase: GetCoinInfoUseCase,
-    coinInfoLoadDataUseCase: GetCoinDataUseCase
+    coinInfoLoadDataUseCase: GetCoinDataUseCase,
+    private val loadCoinDailyInfo: LoadCoinDailyInfo
 
 ) : ViewModel() {
     init {
@@ -32,6 +33,10 @@ class CoinViewModel @Inject constructor(
 
     fun getCoinDailyInfo(fSym: String): LiveData<List<CoinDailyInfo>> =
         getCoinDailyInfoLListUseCase.invoke(fSym)
+
+    fun loadCoinDailyInfo(fSym: String) {
+        loadCoinDailyInfo.invoke(fSym)
+    }
 
     private fun deleteCoinDailyInfo(fSym: String) {
 

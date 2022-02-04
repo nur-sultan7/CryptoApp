@@ -28,10 +28,10 @@ interface CoinInfoDao {
     suspend fun insertCoinInfoList(priceList: List<CoinInfoDbModel>)
 
     @Insert
-    fun insertDailyInfo(listCoinDailyInfo: List<CoinDailyInfoDbModel>)
+    fun insertCoinDailyInfoList(listCoinDailyInfo: List<CoinDailyInfoDbModel>)
 
     @Query("select * from daily_info_data where fSym==:fSym order by time ")
-    fun getListCoinDailyInfo(fSym: String): LiveData<List<CoinDailyInfoDbModel>>
+    fun getCoinDailyInfoList(fSym: String): LiveData<List<CoinDailyInfoDbModel>>
 
     @Query("delete from daily_info_data where fSym==:fSym")
     fun deleteCoinDailyInfo(fSym: String)
