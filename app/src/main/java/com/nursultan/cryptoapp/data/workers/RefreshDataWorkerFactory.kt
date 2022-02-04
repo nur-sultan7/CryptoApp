@@ -8,24 +8,27 @@ import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
 import com.nursultan.cryptoapp.data.network.ApiService
 import javax.inject.Inject
+import javax.inject.Provider
+import kotlin.reflect.KClass
 
 class RefreshDataWorkerFactory
     @Inject constructor(
-    private val coinInfoDao: CoinInfoDao,
-    private val apiService: ApiService,
-    private val mapper: CoinInfoMapper
+        private val workerProviders: @JvmSuppressWildcards Map<Class<out ListenableWorker>, Provider<ChildWorkerFactory>>
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
         workerClassName: String,
         workerParameters: WorkerParameters,
     ): ListenableWorker? {
-        return RefreshDataWorker(
-            appContext,
-            workerParameters,
-            coinInfoDao,
-            apiService,
-            mapper
-        )
+        for ( (k,v) in workerProviders)
+        {
+            if (k::class.qualifiedName == workerClassName)
+            {
+                return v.get().create(
+                    appContext, workerParameters
+                )
+            }
+        }
+        return null
     }
 }
