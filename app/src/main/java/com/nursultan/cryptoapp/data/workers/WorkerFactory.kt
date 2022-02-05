@@ -4,12 +4,8 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.nursultan.cryptoapp.data.database.CoinInfoDao
-import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
-import com.nursultan.cryptoapp.data.network.ApiService
 import javax.inject.Inject
 import javax.inject.Provider
-import kotlin.reflect.KClass
 
 class WorkerFactory
 @Inject constructor(

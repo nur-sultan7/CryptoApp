@@ -11,7 +11,7 @@ import com.nursultan.cryptoapp.data.network.ApiService
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class RefreshDataWorker (
+class RefreshDataWorker(
     context: Context,
     workerParameters: WorkerParameters,
     private val coinInfoDao: CoinInfoDao,
@@ -45,9 +45,11 @@ class RefreshDataWorker (
         private val coinInfoDao: CoinInfoDao,
         private val apiService: ApiService,
         private val mapper: CoinInfoMapper
-    ):ChildWorkerFactory
-    {
-        override fun create(context: Context, workerParameters: WorkerParameters): ListenableWorker {
+    ) : ChildWorkerFactory {
+        override fun create(
+            context: Context,
+            workerParameters: WorkerParameters
+        ): ListenableWorker {
             return RefreshDataWorker(
                 context, workerParameters, coinInfoDao, apiService, mapper
             )

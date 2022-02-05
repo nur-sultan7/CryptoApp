@@ -7,10 +7,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
 import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
-import com.nursultan.cryptoapp.data.network.ApiFactory
 import com.nursultan.cryptoapp.data.network.ApiService
-import com.nursultan.cryptoapp.di.QualifierFSymbol
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class RefreshCoinDailyInfoWorker(
@@ -20,18 +17,18 @@ class RefreshCoinDailyInfoWorker(
     private val apiService: ApiService,
     private val mapper: CoinInfoMapper,
 
-) : CoroutineWorker(context, workerParameters) {
-    private val fSymbol: String ="BTC"
+    ) : CoroutineWorker(context, workerParameters) {
+    private val fSymbol: String = "BTC"
     override suspend fun doWork(): Result {
 
-            try {
-                coinInfoDao.deleteCoinDailyInfo(fSymbol)
-                val coinDailyData = apiService.getCoinDailyData(fSym = fSymbol)
-                val coinDailyInfoList = coinDailyData.data.coinsDailyInfo.map {
-                    mapper.mapCoinDailyInfoDtoToModel(it, fSymbol)
-                }
-                coinInfoDao.insertCoinDailyInfoList(coinDailyInfoList)
-            } finally {
+        try {
+            coinInfoDao.deleteCoinDailyInfo(fSymbol)
+            val coinDailyData = apiService.getCoinDailyData(fSym = fSymbol)
+            val coinDailyInfoList = coinDailyData.data.coinsDailyInfo.map {
+                mapper.mapCoinDailyInfoDtoToModel(it, fSymbol)
+            }
+            coinInfoDao.insertCoinDailyInfoList(coinDailyInfoList)
+        } finally {
 
 
         }
