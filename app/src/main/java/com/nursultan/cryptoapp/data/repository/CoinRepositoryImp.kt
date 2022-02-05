@@ -7,20 +7,18 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
-import com.nursultan.cryptoapp.data.network.ApiFactory
 import com.nursultan.cryptoapp.data.workers.RefreshCoinDailyInfoWorker
 import com.nursultan.cryptoapp.data.workers.RefreshDataWorker
 import com.nursultan.cryptoapp.domain.CoinRepository
 import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class CoinRepositoryImp @Inject constructor (
+class CoinRepositoryImp @Inject constructor(
     private val application: Application,
     private val mapper: CoinInfoMapper,
     private val coinInfoDao: CoinInfoDao
-    ) : CoinRepository {
+) : CoinRepository {
 
     override fun getCoinInfoListAsc(): LiveData<List<CoinInfo>> {
         return Transformations.map(coinInfoDao.getPriceListAsc())

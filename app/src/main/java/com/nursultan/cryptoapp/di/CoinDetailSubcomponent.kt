@@ -10,10 +10,9 @@ interface CoinDetailSubcomponent {
     fun inject(coinDetailFragment: CoinDetailFragment)
 
     @Subcomponent.Factory
-    interface CoinDetailComponentFactory
-    {
+    interface CoinDetailComponentFactory {
         fun create(
             @BindsInstance @QualifierFSymbol fSymbol: String
-        ):CoinDetailSubcomponent
+        ): CoinDetailSubcomponent
     }
 }
