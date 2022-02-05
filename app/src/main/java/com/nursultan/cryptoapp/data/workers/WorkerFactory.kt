@@ -12,23 +12,22 @@ import javax.inject.Provider
 import kotlin.reflect.KClass
 
 class WorkerFactory
-    @Inject constructor(
-        private val workerProviders: @JvmSuppressWildcards Map<Class<out ListenableWorker>, Provider<ChildWorkerFactory>>
+@Inject constructor(
+    private val workerProviders: @JvmSuppressWildcards Map<Class<out ListenableWorker>, Provider<ChildWorkerFactory>>
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
         workerClassName: String,
         workerParameters: WorkerParameters,
     ): ListenableWorker? {
-        for ( (k,v) in workerProviders)
-        {
-            if (k::class.qualifiedName == workerClassName)
-            {
-                return v.get().create(
-                    appContext, workerParameters
-                )
-            }
+        return when (workerClassName) {
+            RefreshDataWorker::class.qualifiedName ->
+                workerProviders[RefreshDataWorker::class.java]?.get()
+                    ?.create(appContext, workerParameters)
+            RefreshCoinDailyInfoWorker::class.qualifiedName ->
+                workerProviders[RefreshCoinDailyInfoWorker::class.java]?.get()
+                    ?.create(appContext, workerParameters)
+            else -> null
         }
-        return null
     }
 }

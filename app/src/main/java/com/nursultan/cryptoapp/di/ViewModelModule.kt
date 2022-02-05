@@ -1,6 +1,7 @@
 package com.nursultan.cryptoapp.di
 
 import androidx.lifecycle.ViewModel
+import com.nursultan.cryptoapp.presentation.CoinDetailViewModel
 import com.nursultan.cryptoapp.presentation.CoinViewModel
 import dagger.Binds
 import dagger.Module
@@ -12,5 +13,10 @@ interface ViewModelModule {
     @Binds
     @ViewModelKey(CoinViewModel::class)
     fun bindCoinViewModel(coinViewModel: CoinViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(CoinDetailViewModel::class)
+    fun bindCoinDetailViewModel(coinDetailViewModel: CoinDetailViewModel): ViewModel
 
 }

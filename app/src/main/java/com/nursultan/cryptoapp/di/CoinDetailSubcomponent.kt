@@ -6,13 +6,14 @@ import dagger.Subcomponent
 
 @Subcomponent
 interface CoinDetailSubcomponent {
+
     fun inject(coinDetailFragment: CoinDetailFragment)
 
     @Subcomponent.Factory
     interface CoinDetailComponentFactory
     {
         fun create(
-            @BindsInstance fSymbol: String
+            @BindsInstance @QualifierFSymbol fSymbol: String
         ):CoinDetailSubcomponent
     }
 }

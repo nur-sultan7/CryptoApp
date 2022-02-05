@@ -44,8 +44,8 @@ class CoinInfoMapper @Inject constructor() {
         close = dbModel.close
     )
 
-    fun mapCoinDailyInfoDtoToModel(coinDailyInfoDto: CoinDailyInfoDto) = CoinDailyInfoDbModel(
-        fSym = coinDailyInfoDto.fSym,
+    fun mapCoinDailyInfoDtoToModel(coinDailyInfoDto: CoinDailyInfoDto, fSymbol: String) = CoinDailyInfoDbModel(
+        fSym = fSymbol,
         time = coinDailyInfoDto.time,
         close = coinDailyInfoDto.close
     )

@@ -12,7 +12,7 @@ import com.nursultan.cryptoapp.data.database.model.FavCoinInfoDbModel
 
 @Database(
     entities = [CoinInfoDbModel::class, CoinDailyInfoDbModel::class, FavCoinInfoDbModel::class],
-    version = 31,
+    version = 32,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

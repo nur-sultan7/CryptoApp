@@ -26,19 +26,24 @@ import kotlin.math.round
 
 class CoinDetailFragment : Fragment() {
 
+    private lateinit var fromSymbol: String
+
     private var _binding: FragmentCoinDetailBinding? = null
     private val binding: FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailBinding is null")
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: CoinViewModel
+    private lateinit var viewModel: CoinDetailViewModel
     private val component by lazy {
         (requireActivity().application as CryptoApp).component
+            .coinDetailSubcomponent().create("32423")
+
     }
 
     override fun onAttach(context: Context) {
         component.inject(this)
+        fromSymbol = getSymbol()
         super.onAttach(context)
     }
 
@@ -57,8 +62,7 @@ class CoinDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fromSymbol = getSymbol()
-        viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[CoinDetailViewModel::class.java]
         viewModel.getCoinInfo(fromSymbol).observe(viewLifecycleOwner) {
             with(binding)
             {
