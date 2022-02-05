@@ -23,7 +23,7 @@ class RefreshCoinDailyInfoWorker(
 ) : CoroutineWorker(context, workerParameters) {
     private val fSymbol: String ="BTC"
     override suspend fun doWork(): Result {
-        while (true) {
+
             try {
                 coinInfoDao.deleteCoinDailyInfo(fSymbol)
                 val coinDailyData = apiService.getCoinDailyData(fSym = fSymbol)
@@ -33,9 +33,9 @@ class RefreshCoinDailyInfoWorker(
                 coinInfoDao.insertCoinDailyInfoList(coinDailyInfoList)
             } finally {
 
-            }
-            delay(5_000)
+
         }
+        return Result.success()
     }
 
     companion object {

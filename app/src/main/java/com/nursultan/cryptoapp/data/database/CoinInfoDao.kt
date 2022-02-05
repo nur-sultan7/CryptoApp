@@ -30,11 +30,11 @@ interface CoinInfoDao {
     @Insert
     fun insertCoinDailyInfoList(listCoinDailyInfo: List<CoinDailyInfoDbModel>)
 
-    @Query("select * from daily_info_data where fSym==:fSym order by time ")
+    @Query("select * from daily_info_data where fSym==:fSym order by time asc ")
     fun getCoinDailyInfoList(fSym: String): LiveData<List<CoinDailyInfoDbModel>>
 
     @Query("delete from daily_info_data where fSym==:fSym")
-    fun deleteCoinDailyInfo(fSym: String)
+    suspend fun deleteCoinDailyInfo(fSym: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavCoinPriceInfo(favCoin: FavCoinInfoDbModel)
