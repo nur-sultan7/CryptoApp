@@ -82,16 +82,16 @@ class CoinDetailFragment : Fragment() {
         val dataFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
         dataFormat.timeZone = TimeZone.getDefault()
         binding.graphCoinPrice.title = "За последнюю неделю"
-        val series = LineGraphSeries<DataPoint>()
-        series.color = Color.GREEN
-        series.isDrawDataPoints = true
-        series.dataPointsRadius = 10F
-        series.thickness = 8
         // graphCoinPrice.gridLabelRenderer.numVerticalLabels=5
         // graphCoinPrice.gridLabelRenderer.numHorizontalLabels=4
         viewModel.getCoinDailyInfo(fromSymbol).observe(viewLifecycleOwner) {
 
             if (it.isNotEmpty()) {
+                val series = LineGraphSeries<DataPoint>()
+                series.color = Color.GREEN
+                series.isDrawDataPoints = true
+                series.dataPointsRadius = 10F
+                series.thickness = 8
                 for (di in it) {
                     series.appendData(
                         DataPoint(di.time.toDouble(), di.close),
