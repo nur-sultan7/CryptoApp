@@ -12,11 +12,11 @@ interface WorkerModule {
     @Binds
     @IntoMap
     @WorkerKey(RefreshDataWorker::class)
-    fun bindRefreshDataWorker(worker: RefreshDataWorker.Factory):ChildWorkerFactory
+    fun bindRefreshDataWorker(worker: RefreshDataWorker.Factory): ChildWorkerFactory
 
     @Binds
     @IntoMap
     @WorkerKey(RefreshCoinDailyInfoWorker::class)
-    fun bindRefreshCoinDailyInfoWorker(worker: RefreshCoinDailyInfoWorker.Factory):ChildWorkerFactory
+    fun bindRefreshCoinDailyInfoWorker(worker: RefreshCoinDailyInfoWorker.Factory): ChildWorkerFactory
 
 }

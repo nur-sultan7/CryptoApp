@@ -16,18 +16,17 @@ interface DataModule {
     @AppScope
     @Binds
     fun bindCoinRepository(coinRepositoryImp: CoinRepositoryImp): CoinRepository
-    companion object
-    {
+
+    companion object {
         @AppScope
         @Provides
-        fun provideCoinInfoDao(application: Application): CoinInfoDao
-        {
+        fun provideCoinInfoDao(application: Application): CoinInfoDao {
             return AppDatabase.getInstance(application).coinPriceInfoDao()
         }
+
         @AppScope
         @Provides
-        fun provideApiService():ApiService
-        {
+        fun provideApiService(): ApiService {
             return ApiFactory.apiService
         }
     }
