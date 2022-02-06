@@ -1,13 +1,11 @@
 package com.nursultan.cryptoapp.data.workers
 
 import android.content.Context
-import androidx.work.CoroutineWorker
-import androidx.work.ListenableWorker
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.nursultan.cryptoapp.data.database.CoinInfoDao
 import com.nursultan.cryptoapp.data.mapper.CoinInfoMapper
 import com.nursultan.cryptoapp.data.network.ApiService
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 class RefreshCoinDailyInfoWorker(
@@ -18,9 +16,9 @@ class RefreshCoinDailyInfoWorker(
     private val mapper: CoinInfoMapper,
 
     ) : CoroutineWorker(context, workerParameters) {
-    private val fSymbol: String = "BTC"
-    override suspend fun doWork(): Result {
 
+    override suspend fun doWork(): Result {
+        val fSymbol = inputData.getString(DATA_KEY) ?: throw RuntimeException("FSymbol is null")
         try {
             coinInfoDao.deleteCoinDailyInfo(fSymbol)
             val coinDailyData = apiService.getCoinDailyData(fSym = fSymbol)
@@ -37,8 +35,11 @@ class RefreshCoinDailyInfoWorker(
 
     companion object {
         const val NAME = "RefreshCoinDailyInfoWorker"
-        fun makeRequest() =
-            OneTimeWorkRequestBuilder<RefreshCoinDailyInfoWorker>().build()
+        const val DATA_KEY = "fSymbol"
+        fun makeRequest(fSymbol: String) =
+            OneTimeWorkRequestBuilder<RefreshCoinDailyInfoWorker>()
+                .setInputData(workDataOf(DATA_KEY to fSymbol))
+                .build()
     }
 
     class Factory @Inject constructor(

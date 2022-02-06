@@ -69,7 +69,7 @@ class CoinRepositoryImp @Inject constructor(
         workerManager.enqueueUniqueWork(
             RefreshCoinDailyInfoWorker.NAME,
             ExistingWorkPolicy.REPLACE,
-            RefreshCoinDailyInfoWorker.makeRequest()
+            RefreshCoinDailyInfoWorker.makeRequest(fSymbol)
         )
     }
 }
