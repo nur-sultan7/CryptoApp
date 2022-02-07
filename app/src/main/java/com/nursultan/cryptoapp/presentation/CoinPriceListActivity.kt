@@ -66,7 +66,8 @@ class CoinPriceListActivity : AppCompatActivity() {
                     liveListData.removeObservers(this@CoinPriceListActivity)
                     liveListData = viewModel.getCoinInfoList(position == 0)
                     liveListData.observe(this@CoinPriceListActivity) {
-                        adapter.submitList(it)
+                        if (it != null && it.isNotEmpty())
+                            adapter.submitList(it)
                     }
                 }
 

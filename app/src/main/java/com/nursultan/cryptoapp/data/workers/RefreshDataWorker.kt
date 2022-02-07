@@ -20,6 +20,7 @@ class RefreshDataWorker(
 ) : CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
+        coinInfoDao.deletePriceList()
         while (true) {
             try {
                 val topCoins = apiService.getTopCoinsInfo(limit = 50)

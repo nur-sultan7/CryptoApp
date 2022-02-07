@@ -24,6 +24,9 @@ interface CoinInfoDao {
     @Query("select * from full_price_list where fromSymbol==:fSym limit 1")
     fun getCoinInfo(fSym: String): LiveData<CoinInfoDbModel>
 
+    @Query("delete from full_price_list ")
+    suspend fun deletePriceList()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCoinInfoList(priceList: List<CoinInfoDbModel>)
 

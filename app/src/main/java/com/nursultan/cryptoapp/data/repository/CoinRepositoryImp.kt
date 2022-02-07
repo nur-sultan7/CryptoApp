@@ -55,6 +55,7 @@ class CoinRepositoryImp @Inject constructor(
     }
 
     override fun loadCoinInfoData() {
+
         val workerManager = WorkManager.getInstance(application)
         workerManager.enqueueUniqueWork(
             RefreshDataWorker.NAME,
