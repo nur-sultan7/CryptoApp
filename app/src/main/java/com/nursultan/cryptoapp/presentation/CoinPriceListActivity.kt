@@ -11,7 +11,6 @@ import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
-import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter.OnCoinClickListener
 import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
@@ -76,28 +75,22 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
 
         binding.spinnerCoinPriceList.setSelection(0)
-        adapter.setOnCoinClickListener(object : OnCoinClickListener {
-            override fun onClick(coinPriceInfo: CoinInfo) {
-                if (isOnePaneMode()) {
-                    launchActivityCoinDetail(coinPriceInfo.fromSymbol)
-                } else {
-                    launchFragmentCoinDetail(coinPriceInfo.fromSymbol)
-                }
+        adapter.onCoinClickListener = {
+            if (isOnePaneMode()) {
+                launchActivityCoinDetail(it.fromSymbol)
+            } else {
+                launchFragmentCoinDetail(it.fromSymbol)
             }
-
-        })
-        adapter.onFavClickListener = object : CoinInfoAdapter.OnFavClickListener {
-            override fun onClick(coinPriceInfo: CoinInfo, isFav: Boolean) {
-
-                with(viewModel)
-                {
+        }
+        adapter.onFavClickListener = { coinInfo:CoinInfo, isFav:Boolean->
+            with(viewModel)
+            {
 //                    when (isFav) {
 //                        true ->
 //                            deleteFavCoin(FavCoinInfoDbModel(coinPriceInfo))
 //                        false ->
 //                            insertFavCoin(FavCoinInfoDbModel(coinPriceInfo))
 //                    }
-                }
             }
         }
     }

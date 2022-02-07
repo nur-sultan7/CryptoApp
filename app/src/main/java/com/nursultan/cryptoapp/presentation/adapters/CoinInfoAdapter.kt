@@ -13,21 +13,8 @@ import com.squareup.picasso.Picasso
 class CoinInfoAdapter(private val context: Context) :
     ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffUtilCallback) {
 
-    private var onCoinClickListener: OnCoinClickListener? = null
-    var onFavClickListener: OnFavClickListener? = null
-
-
-    interface OnCoinClickListener {
-        fun onClick(coinPriceInfo: CoinInfo)
-    }
-
-    interface OnFavClickListener {
-        fun onClick(coinPriceInfo: CoinInfo, isFav: Boolean)
-    }
-
-    fun setOnCoinClickListener(onClickListener: OnCoinClickListener) {
-        this.onCoinClickListener = onClickListener
-    }
+    var onCoinClickListener: ((CoinInfo) -> Unit)? = null
+    var onFavClickListener: ((CoinInfo, Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val binding = ItemCoinPriceInfoBinding.inflate(
@@ -60,10 +47,10 @@ class CoinInfoAdapter(private val context: Context) :
                     .into(ivLogoCoin10)
             }
             root.setOnClickListener {
-                onCoinClickListener?.onClick(coinPI)
+                onCoinClickListener?.invoke(coinPI)
             }
             btnFav.setOnClickListener {
-                onFavClickListener?.onClick(
+                onFavClickListener?.invoke(
                     coinPI,
                     btnFav.isLiked
                 )
