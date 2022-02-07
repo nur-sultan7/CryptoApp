@@ -28,6 +28,7 @@ class CoinPriceListActivity : AppCompatActivity() {
     }
     private val component by lazy {
         (application as CryptoApp).component
+            .activitySubcomponent().create()
     }
 
     private lateinit var adapter: CoinInfoAdapter

@@ -1,24 +1,19 @@
 package com.nursultan.cryptoapp.presentation
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import com.nursultan.cryptoapp.databinding.ActivityCoinDetailBinding
 import com.nursultan.cryptoapp.databinding.FragmentCoinDetailBinding
 import com.squareup.picasso.Picasso
-import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -36,14 +31,14 @@ class CoinDetailFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: CoinDetailViewModel
     private val component by lazy {
+        fromSymbol = getSymbol()
         (requireActivity().application as CryptoApp).component
-            .coinDetailSubcomponent().create("32423")
+            .activitySubcomponent().create(fromSymbol)
 
     }
 
     override fun onAttach(context: Context) {
         component.inject(this)
-        fromSymbol = getSymbol()
         super.onAttach(context)
     }
 
@@ -78,7 +73,6 @@ class CoinDetailFragment : Fragment() {
                     .into(ivLogoCoin10)
             }
         }
-        viewModel.loadCoinDailyInfo(fromSymbol)
         val dataFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
         dataFormat.timeZone = TimeZone.getDefault()
         binding.graphCoinPrice.title = "За последнюю неделю"
