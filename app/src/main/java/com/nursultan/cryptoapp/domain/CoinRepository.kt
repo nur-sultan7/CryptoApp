@@ -22,4 +22,6 @@ interface CoinRepository {
 
     suspend fun deleteFavCoinInfo(fSymbol: String)
 
+    fun getFavCoinList():LiveData<List<CoinInfo>>
+
 }

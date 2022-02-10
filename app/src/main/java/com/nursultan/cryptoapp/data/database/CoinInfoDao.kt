@@ -39,6 +39,9 @@ interface CoinInfoDao {
     @Query("delete from daily_info_data where fSym==:fSym")
     suspend fun deleteCoinDailyInfo(fSym: String)
 
+    @Query("select * from fav_coin_info_table")
+    fun getFavCoinList(): LiveData<List<FavCoinInfoDbModel>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavCoinInfo(favCoin: FavCoinInfoDbModel)
 

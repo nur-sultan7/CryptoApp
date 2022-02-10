@@ -16,6 +16,18 @@ import javax.inject.Inject
 
 class CoinInfoMapper @Inject constructor() {
 
+    fun mapFavCoinDbModelToCoinInfo(fav: FavCoinInfoDbModel)=
+        CoinInfo(
+            fromSymbol = fav.fromSymbol,
+            toSymbol = fav.toSymbol,
+            price = fav.price,
+            lastUpdate = fav.lastUpdate,
+            highDay = fav.highDay,
+            lowDay = fav.lowDay,
+            lastMarket = fav.lastMarket,
+            imageUrl = fav.imageUrl,
+            isFav = true
+        )
     fun mapCoinInfoEntityToFavDbModel(coinInfo: CoinInfo) =
         FavCoinInfoDbModel(
             fromSymbol = coinInfo.fromSymbol,

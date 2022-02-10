@@ -80,4 +80,13 @@ class CoinRepositoryImp @Inject constructor(
     override suspend fun deleteFavCoinInfo(fSymbol: String) {
         coinInfoDao.deleteCoinDailyInfo(fSymbol)
     }
+
+    override fun getFavCoinList(): LiveData<List<CoinInfo>> {
+        return Transformations.map(coinInfoDao.getFavCoinList())
+        {
+            it.map {
+                mapper.mapFavCoinDbModelToCoinInfo(it)
+            }
+        }
+    }
 }
