@@ -2,9 +2,9 @@ package com.nursultan.cryptoapp.presentation
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import com.nursultan.cryptoapp.R
@@ -38,8 +38,8 @@ class CoinFavActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        liveFavCoin=viewModel.getFavCoinList()
-        liveFavCoin.observe(this){
+        liveFavCoin = viewModel.getFavCoinList()
+        liveFavCoin.observe(this) {
             adapter.submitList(it)
         }
     }
