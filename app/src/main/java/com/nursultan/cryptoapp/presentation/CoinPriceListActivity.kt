@@ -82,16 +82,12 @@ class CoinPriceListActivity : AppCompatActivity() {
                 launchFragmentCoinDetail(it.fromSymbol)
             }
         }
-        adapter.onFavClickListener = { coinInfo:CoinInfo, isFav:Boolean->
-            with(viewModel)
-            {
-//                    when (isFav) {
-//                        true ->
-//                            deleteFavCoin(FavCoinInfoDbModel(coinPriceInfo))
-//                        false ->
-//                            insertFavCoin(FavCoinInfoDbModel(coinPriceInfo))
-//                    }
+        adapter.onFavClickListener = { coinInfo: CoinInfo, isFav: Boolean ->
+            when (isFav) {
+                false -> viewModel.insertFavCoin(coinInfo)
+                true -> viewModel.deleteFavCoin(coinInfo.fromSymbol)
             }
+
         }
     }
 

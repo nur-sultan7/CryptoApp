@@ -28,7 +28,7 @@ class RefreshDataWorker(
                 val jsonContainer = apiService.getFullPriceList(fSyms = fSymbols)
                 val coinInfoListDto = mapper.mapJsonContainerToCoinInfoList(jsonContainer)
                 coinInfoDao.insertCoinInfoList(coinInfoListDto.map {
-                    mapper.mapCoinInfoDtoToModel(it)
+                    mapper.mapCoinInfoDtoToModel(it, coinInfoDao.isFav(it.fromSymbol))
                 })
             } catch (e: Exception) {
             }

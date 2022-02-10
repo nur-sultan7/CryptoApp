@@ -5,15 +5,29 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import androidx.lifecycle.ViewModelProvider
 import com.nursultan.cryptoapp.R
+import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
+import javax.inject.Inject
 
 class CoinFavActivity : AppCompatActivity() {
 
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, CoinFavActivity::class.java)
-        }
+    private val binding by lazy {
+        ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CoinFavModel::class.java]
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -32,8 +46,9 @@ class CoinFavActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_fav)
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, CoinFavActivity::class.java)
+        }
     }
 }

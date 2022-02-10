@@ -3,6 +3,7 @@ package com.nursultan.cryptoapp.data.mapper
 import com.google.gson.Gson
 import com.nursultan.cryptoapp.data.database.model.CoinDailyInfoDbModel
 import com.nursultan.cryptoapp.data.database.model.CoinInfoDbModel
+import com.nursultan.cryptoapp.data.database.model.FavCoinInfoDbModel
 import com.nursultan.cryptoapp.data.model.CoinDailyInfoDto
 import com.nursultan.cryptoapp.data.model.CoinInfoDto
 import com.nursultan.cryptoapp.data.model.CoinInfoJsonContainerDto
@@ -14,7 +15,20 @@ import java.util.*
 import javax.inject.Inject
 
 class CoinInfoMapper @Inject constructor() {
-    fun mapCoinInfoDtoToModel(dto: CoinInfoDto) =
+
+    fun mapCoinInfoEntityToFavDbModel(coinInfo: CoinInfo) =
+        FavCoinInfoDbModel(
+            fromSymbol = coinInfo.fromSymbol,
+            coinInfo.toSymbol,
+            price = coinInfo.price,
+            lastUpdate = coinInfo.lastUpdate,
+            highDay = coinInfo.highDay,
+            lowDay = coinInfo.lowDay,
+            lastMarket = coinInfo.lastMarket,
+            imageUrl = coinInfo.imageUrl,
+        )
+
+    fun mapCoinInfoDtoToModel(dto: CoinInfoDto, isFav: Boolean) =
         CoinInfoDbModel(
             fromSymbol = dto.fromSymbol,
             toSymbol = dto.toSymbol,
@@ -23,7 +37,8 @@ class CoinInfoMapper @Inject constructor() {
             lastUpdate = dto.lastUpdate,
             highDay = dto.highDay,
             lowDay = dto.lowDay,
-            imageUrl = BASE_IMAGE_URL + dto.imageUrl
+            imageUrl = BASE_IMAGE_URL + dto.imageUrl,
+            isFav = isFav
         )
 
     fun mapCoinInfoDbModelToEntity(dbModel: CoinInfoDbModel): CoinInfo = CoinInfo(
@@ -34,8 +49,9 @@ class CoinInfoMapper @Inject constructor() {
         lastUpdate = convertFromTimestampToTime(dbModel.lastUpdate),
         highDay = dbModel.highDay,
         lowDay = dbModel.lowDay,
-        imageUrl = dbModel.imageUrl
-    )
+        imageUrl = dbModel.imageUrl,
+        isFav = dbModel.isFav
+        )
 
     fun mapCoinDailyInfoDbModelToEntity(dbModel: CoinDailyInfoDbModel) = CoinDailyInfo(
         id = dbModel.id,
@@ -44,11 +60,12 @@ class CoinInfoMapper @Inject constructor() {
         close = dbModel.close
     )
 
-    fun mapCoinDailyInfoDtoToModel(coinDailyInfoDto: CoinDailyInfoDto, fSymbol: String) = CoinDailyInfoDbModel(
-        fSym = fSymbol,
-        time = coinDailyInfoDto.time,
-        close = coinDailyInfoDto.close
-    )
+    fun mapCoinDailyInfoDtoToModel(coinDailyInfoDto: CoinDailyInfoDto, fSymbol: String) =
+        CoinDailyInfoDbModel(
+            fSym = fSymbol,
+            time = coinDailyInfoDto.time,
+            close = coinDailyInfoDto.close
+        )
 
     fun mapJsonContainerToCoinInfoList(jsonContainer: CoinInfoJsonContainerDto): List<CoinInfoDto> {
         val result = mutableListOf<CoinInfoDto>()

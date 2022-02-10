@@ -64,7 +64,6 @@ class CoinRepositoryImp @Inject constructor(
         )
     }
 
-
     override fun loadCoinDailyData(fSymbol: String) {
         val workerManager = WorkManager.getInstance(application)
         workerManager.enqueueUniqueWork(
@@ -72,5 +71,13 @@ class CoinRepositoryImp @Inject constructor(
             ExistingWorkPolicy.REPLACE,
             RefreshCoinDailyInfoWorker.makeRequest(fSymbol)
         )
+    }
+
+    override suspend fun insertFavCoinInfo(favCoinInfo: CoinInfo) {
+        coinInfoDao.insertFavCoinInfo(mapper.mapCoinInfoEntityToFavDbModel(favCoinInfo))
+    }
+
+    override suspend fun deleteFavCoinInfo(fSymbol: String) {
+        coinInfoDao.deleteCoinDailyInfo(fSymbol)
     }
 }

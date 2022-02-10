@@ -58,5 +58,4 @@ open class CoinInfoDto(
     @Expose
     var imageUrl: String? = null,
 
-    var isFav: Boolean = false
 )

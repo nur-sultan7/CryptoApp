@@ -18,4 +18,8 @@ interface CoinRepository {
 
     fun loadCoinDailyData(fSymbol: String)
 
+    suspend fun insertFavCoinInfo(favCoinInfo: CoinInfo)
+
+    suspend fun deleteFavCoinInfo(fSymbol: String)
+
 }

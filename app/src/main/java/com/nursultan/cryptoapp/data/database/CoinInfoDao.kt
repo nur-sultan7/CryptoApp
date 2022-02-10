@@ -40,11 +40,11 @@ interface CoinInfoDao {
     suspend fun deleteCoinDailyInfo(fSym: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavCoinPriceInfo(favCoin: FavCoinInfoDbModel)
+    suspend fun insertFavCoinInfo(favCoin: FavCoinInfoDbModel)
 
-    @Query("delete from fav_coin_price_info_table where fromSymbol==:fSym")
-    fun deleteFavCoinPriceInfo(fSym: String)
+    @Query("delete from fav_coin_info_table where fromSymbol==:fSym")
+    suspend fun deleteFavCoinInfo(fSym: String)
 
-    @Query("select exists (select * from fav_coin_price_info_table where fromSymbol==:fSym limit 1)")
-    fun isItFav(fSym: String): Boolean
+    @Query("select exists (select * from fav_coin_info_table where fromSymbol==:fSym limit 1)")
+    fun isFav(fSym: String): Boolean
 }
