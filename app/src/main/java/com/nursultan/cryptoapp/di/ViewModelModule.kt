@@ -2,7 +2,7 @@ package com.nursultan.cryptoapp.di
 
 import androidx.lifecycle.ViewModel
 import com.nursultan.cryptoapp.presentation.CoinDetailViewModel
-import com.nursultan.cryptoapp.presentation.CoinFavModel
+import com.nursultan.cryptoapp.presentation.CoinFavViewModel
 import com.nursultan.cryptoapp.presentation.CoinViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,7 +22,7 @@ interface ViewModelModule {
 
     @IntoMap
     @Binds
-    @ViewModelKey(CoinFavModel::class)
-    fun bindCoinFavModel(coinFavModel: CoinFavModel): ViewModel
+    @ViewModelKey(CoinFavViewModel::class)
+    fun bindCoinFavModel(coinFavViewModel: CoinFavViewModel): ViewModel
 
 }

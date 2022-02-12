@@ -4,14 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.nursultan.cryptoapp.R
-import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
+import com.nursultan.cryptoapp.databinding.ActivityFavCoinListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinFavAdapter
 import javax.inject.Inject
@@ -19,7 +16,7 @@ import javax.inject.Inject
 class CoinFavActivity : AppCompatActivity() {
 
     private val binding by lazy {
-        ActivityCoinPriceListBinding.inflate(layoutInflater)
+        ActivityFavCoinListBinding.inflate(layoutInflater)
     }
     private val component by lazy {
         (application as CryptoApp).component
@@ -30,7 +27,7 @@ class CoinFavActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelFactory
 
     val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[CoinFavModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[CoinFavViewModel::class.java]
     }
     private val adapter by lazy {
         CoinFavAdapter(this)
@@ -41,10 +38,15 @@ class CoinFavActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        binding.rvCoinPriceList.adapter = adapter
+        binding.rvFavCoins.adapter = adapter
+        binding.rvFavCoins.itemAnimator = null
         liveFavCoin = viewModel.getFavCoinList()
         liveFavCoin.observe(this) {
             adapter.submitList(it)
+        }
+        adapter.onFavClickListener = { coinInfo, isFav ->
+            if (isFav) viewModel.deleteFavCoin(coinInfo.fromSymbol)
+            else viewModel.addToFavCoin(coinInfo)
         }
     }
 
@@ -58,7 +60,7 @@ class CoinFavActivity : AppCompatActivity() {
                 true
             }
             top30Category.setOnMenuItemClickListener {
-                this@CoinFavActivity.finish()
+                this.finish()
                 true
             }
         }
