@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso
 class CoinFavAdapter(private val context: Context) :
     ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffUtilCallback) {
     lateinit var onFavClickListener: (CoinInfo, Boolean) -> Unit
+    lateinit var onItemClick: (String) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val binding = ItemCoinPriceInfoBinding.inflate(
@@ -42,6 +43,9 @@ class CoinFavAdapter(private val context: Context) :
                     onFavClickListener.invoke(favCoinInfo, btnFav.isLiked)
                 }
             }
+        }
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(favCoinInfo.fromSymbol)
         }
     }
 

@@ -3,7 +3,7 @@ package com.nursultan.cryptoapp.domain.usecases
 import com.nursultan.cryptoapp.data.repository.CoinRepositoryImp
 import javax.inject.Inject
 
-class deleteFavCoinInfoUseCase @Inject constructor(
+class DeleteFavCoinInfoUseCase @Inject constructor(
     private val repositoryImp: CoinRepositoryImp
 ) {
     suspend operator fun invoke(fSymbol: String)

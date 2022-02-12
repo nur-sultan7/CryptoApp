@@ -1,10 +1,7 @@
 package com.nursultan.cryptoapp.data.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.nursultan.cryptoapp.data.database.model.CoinDailyInfoDbModel
 import com.nursultan.cryptoapp.data.database.model.CoinInfoDbModel
 import com.nursultan.cryptoapp.data.database.model.FavCoinInfoDbModel

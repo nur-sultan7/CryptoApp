@@ -1,11 +1,8 @@
 package com.nursultan.cryptoapp.presentation
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nursultan.cryptoapp.di.QualifierFSymbol
-import com.nursultan.cryptoapp.domain.entity.CoinDailyInfo
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.domain.usecases.*
 import kotlinx.coroutines.launch
@@ -15,7 +12,7 @@ class CoinViewModel @Inject constructor(
     private val getCoinInfoListAscUseCase: GetCoinInfoListAscUseCase,
     private val getCoinInfoListDescUseCase: GetCoinInfoListDescUseCase,
     private val insertFavCoinInfoUseCase: InsertFavCoinInfoUseCase,
-    private val deleteFavCoinInfoUseCase: deleteFavCoinInfoUseCase,
+    private val DeleteFavCoinInfoUseCase: DeleteFavCoinInfoUseCase,
     coinInfoLoadDataUseCase: GetCoinDataUseCase,
 ) : ViewModel() {
     init {
@@ -37,7 +34,7 @@ class CoinViewModel @Inject constructor(
 
     fun deleteFavCoin(fSymbol: String) {
         viewModelScope.launch {
-            deleteFavCoinInfoUseCase.invoke(fSymbol)
+            DeleteFavCoinInfoUseCase.invoke(fSymbol)
         }
     }
 }

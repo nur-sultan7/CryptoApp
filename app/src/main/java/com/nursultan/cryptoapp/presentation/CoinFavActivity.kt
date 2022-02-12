@@ -39,7 +39,6 @@ class CoinFavActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.rvFavCoins.adapter = adapter
-        binding.rvFavCoins.itemAnimator = null
         liveFavCoin = viewModel.getFavCoinList()
         liveFavCoin.observe(this) {
             adapter.submitList(it)
@@ -47,6 +46,9 @@ class CoinFavActivity : AppCompatActivity() {
         adapter.onFavClickListener = { coinInfo, isFav ->
             if (isFav) viewModel.deleteFavCoin(coinInfo.fromSymbol)
             else viewModel.addToFavCoin(coinInfo)
+        }
+        adapter.onItemClick = {
+            launchCoinDetailActivity(it)
         }
     }
 
@@ -65,6 +67,10 @@ class CoinFavActivity : AppCompatActivity() {
             }
         }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun launchCoinDetailActivity(fSymbol: String) {
+        startActivity(CoinDetailActivity.newIntent(this, fSymbol))
     }
 
     companion object {

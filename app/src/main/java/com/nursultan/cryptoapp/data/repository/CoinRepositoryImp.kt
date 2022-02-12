@@ -78,7 +78,7 @@ class CoinRepositoryImp @Inject constructor(
     }
 
     override suspend fun deleteFavCoinInfo(fSymbol: String) {
-        coinInfoDao.deleteCoinDailyInfo(fSymbol)
+        coinInfoDao.deleteFavCoinInfo(fSymbol)
     }
 
     override fun getFavCoinList(): LiveData<List<CoinInfo>> {

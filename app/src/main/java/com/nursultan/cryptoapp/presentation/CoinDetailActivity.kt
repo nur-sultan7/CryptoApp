@@ -44,8 +44,9 @@ class CoinDetailActivity : AppCompatActivity() {
         const val EXTRA_FROM_SYMBOL = "fSym"
 
         fun newIntent(context: Context, fromSymbol: String): Intent {
-            val intent = Intent(context, CoinDetailActivity::class.java)
-            intent.putExtra(EXTRA_FROM_SYMBOL, fromSymbol)
+            val intent = Intent(context, CoinDetailActivity::class.java).apply {
+                putExtra(EXTRA_FROM_SYMBOL, fromSymbol)
+            }
             return intent
         }
     }
