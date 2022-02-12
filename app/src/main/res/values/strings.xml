@@ -39,5 +39,6 @@
     <string name="main_menu_profile_profile">Профиль</string>
     <string name="main_menu_wallet_title">Кошелёк</string>
     <string name="usdt">Баланс \n USDT:</string>
+    <string name="favourite_title">Избранное</string>
 
 </resources>

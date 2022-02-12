@@ -38,6 +38,7 @@ class CoinFavActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        title = getString(R.string.favourite_title)
         binding.rvFavCoins.adapter = adapter
         liveFavCoin = viewModel.getFavCoinList()
         liveFavCoin.observe(this) {
