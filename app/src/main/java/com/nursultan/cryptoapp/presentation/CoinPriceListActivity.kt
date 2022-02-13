@@ -6,7 +6,9 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,6 +59,8 @@ class CoinPriceListActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
 
         adapter = CoinInfoAdapter(this)
         binding.rvCoinPriceList.isNestedScrollingEnabled = false
@@ -64,11 +68,11 @@ class CoinPriceListActivity : AppCompatActivity() {
         binding.rvCoinPriceList.itemAnimator = null
         binding.rvCoinPriceList.addOnScrollListener(object : MyRecyclerScroll() {
             override fun hide() {
-                binding.spinnerCoinPriceList.visibility = View.GONE
+               // binding.spinnerCoinPriceList.visibility = View.GONE
             }
 
             override fun show() {
-                binding.spinnerCoinPriceList.visibility = View.VISIBLE
+             //   binding.spinnerCoinPriceList.visibility = View.VISIBLE
             }
 
         })
