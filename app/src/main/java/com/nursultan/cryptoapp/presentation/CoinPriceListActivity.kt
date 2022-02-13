@@ -3,14 +3,18 @@ package com.nursultan.cryptoapp.presentation
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
+import com.nursultan.cryptoapp.presentation.utils.MyRecyclerScroll
 import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
@@ -55,10 +59,20 @@ class CoinPriceListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         adapter = CoinInfoAdapter(this)
-        binding.rvCoinPriceList.setItemViewCacheSize(4)
-        binding.rvCoinPriceList.isNestedScrollingEnabled=false
+        binding.rvCoinPriceList.isNestedScrollingEnabled = false
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null
+        binding.rvCoinPriceList.addOnScrollListener(object : MyRecyclerScroll() {
+            override fun hide() {
+                binding.spinnerCoinPriceList.visibility = View.GONE
+            }
+
+            override fun show() {
+                binding.spinnerCoinPriceList.visibility = View.VISIBLE
+            }
+
+        })
+
 
         liveListData = viewModel.getCoinInfoList(true)
         binding.spinnerCoinPriceList.onItemSelectedListener =
