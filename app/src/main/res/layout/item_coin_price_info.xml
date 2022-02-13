@@ -57,6 +57,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tvLastUpdateLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck"
             tools:srcCompat="@tools:sample/avatars" />
 
         <com.like.LikeButton
@@ -64,6 +65,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
+            app:icon_size="25dp"
             app:icon_type="Star"
             app:layout_constraintBottom_toTopOf="@+id/tvLastUpdateLabel"
             app:layout_constraintEnd_toEndOf="parent"
