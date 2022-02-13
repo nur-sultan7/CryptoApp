@@ -53,8 +53,10 @@ class CoinPriceListActivity : AppCompatActivity() {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        binding.rvCoinPriceList.setItemViewCacheSize(7)
+
         adapter = CoinInfoAdapter(this)
+        binding.rvCoinPriceList.setItemViewCacheSize(4)
+        binding.rvCoinPriceList.isNestedScrollingEnabled=false
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null
 

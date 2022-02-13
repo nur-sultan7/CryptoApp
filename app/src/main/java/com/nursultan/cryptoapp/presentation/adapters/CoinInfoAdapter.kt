@@ -1,6 +1,7 @@
 package com.nursultan.cryptoapp.presentation.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -15,8 +16,10 @@ class CoinInfoAdapter(private val context: Context) :
 
     lateinit var onCoinClickListener: (CoinInfo) -> Unit
     var onFavClickListener: ((CoinInfo, Boolean) -> Unit)? = null
+    var count = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
+        Log.d("onCreateViewHolder", "created: ${++count}")
         val binding = ItemCoinPriceInfoBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
