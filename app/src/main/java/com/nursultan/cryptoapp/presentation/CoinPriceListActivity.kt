@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
@@ -45,30 +44,21 @@ class CoinPriceListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(findViewById(R.id.toolbar))
-        setUpAnimation()
+        setUpSpinnerAnimation()
         setUpSpinner()
-
         adapter = CoinInfoAdapter(this)
         binding.rvCoinPriceList.isNestedScrollingEnabled = false
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null
         binding.rvCoinPriceList.addOnScrollListener(object : CoinInfoRecyclerScroll() {
             override fun hide() {
-                binding.spinnerCoinPriceList.animate()
-                    .translationY((-binding.spinnerCoinPriceList.height - 40).toFloat())
-                    .setInterpolator(
-                        AccelerateInterpolator(2F)
-                    ).start()
+                hideAnimation()
             }
 
             override fun show() {
-                binding.spinnerCoinPriceList.animate().translationY(0F).setInterpolator(
-                    DecelerateInterpolator(2F)
-                ).start()
+                showAnimation()
             }
-
         })
-
 
         liveListData = viewModel.getCoinInfoList(true)
         binding.spinnerCoinPriceList.onItemSelectedListener =
@@ -142,11 +132,6 @@ class CoinPriceListActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun setUpAnimation() {
-        val anim = AnimationUtils.loadAnimation(this, R.anim.spinner_grow)
-        binding.spinnerCoinPriceList.startAnimation(anim)
-    }
-
     private fun setUpSpinner() {
         val adapter = ArrayAdapter.createFromResource(
             this,
@@ -155,5 +140,24 @@ class CoinPriceListActivity : AppCompatActivity() {
         )
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
         binding.spinnerCoinPriceList.adapter = adapter
+    }
+
+    private fun setUpSpinnerAnimation() {
+        val anim = AnimationUtils.loadAnimation(this, R.anim.spinner_grow)
+        binding.spinnerCoinPriceList.startAnimation(anim)
+    }
+
+    private fun showAnimation() {
+        binding.spinnerCoinPriceList.animate().translationY(0F).setInterpolator(
+            DecelerateInterpolator(2F)
+        ).start()
+    }
+
+    private fun hideAnimation() {
+        binding.spinnerCoinPriceList.animate()
+            .translationY((-binding.spinnerCoinPriceList.height - 40).toFloat())
+            .setInterpolator(
+                AccelerateInterpolator(2F)
+            ).start()
     }
 }
