@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
@@ -45,6 +46,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(findViewById(R.id.toolbar))
         setUpAnimation()
+        setUpSpinner()
 
         adapter = CoinInfoAdapter(this)
         binding.rvCoinPriceList.isNestedScrollingEnabled = false
@@ -53,9 +55,10 @@ class CoinPriceListActivity : AppCompatActivity() {
         binding.rvCoinPriceList.addOnScrollListener(object : CoinInfoRecyclerScroll() {
             override fun hide() {
                 binding.spinnerCoinPriceList.animate()
-                    .translationY((-binding.spinnerCoinPriceList.height-40).toFloat()).setInterpolator(
-                    AccelerateInterpolator(2F)
-                ).start()
+                    .translationY((-binding.spinnerCoinPriceList.height - 40).toFloat())
+                    .setInterpolator(
+                        AccelerateInterpolator(2F)
+                    ).start()
             }
 
             override fun show() {
@@ -118,11 +121,6 @@ class CoinPriceListActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun setUpAnimation() {
-        val anim = AnimationUtils.loadAnimation(this, R.anim.spinner_grow)
-        binding.spinnerCoinPriceList.startAnimation(anim)
-    }
-
     private fun isOnePaneMode() = binding.fragmentContainer == null
 
     private fun launchActivityCoinDetail(fSymbol: String) {
@@ -142,5 +140,20 @@ class CoinPriceListActivity : AppCompatActivity() {
             )
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun setUpAnimation() {
+        val anim = AnimationUtils.loadAnimation(this, R.anim.spinner_grow)
+        binding.spinnerCoinPriceList.startAnimation(anim)
+    }
+
+    private fun setUpSpinner() {
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.sortCategories,
+            R.layout.spinner_layout
+        )
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        binding.spinnerCoinPriceList.adapter = adapter
     }
 }

@@ -20,15 +20,17 @@
     <Spinner
         android:id="@+id/spinnerCoinPriceList"
         android:layout_width="0dp"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
-
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:entries="@array/sortCategories"
         android:background="@drawable/rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="RtlSymmetry,TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
