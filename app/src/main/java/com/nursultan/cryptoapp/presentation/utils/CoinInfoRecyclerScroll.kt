@@ -2,7 +2,7 @@ package com.nursultan.cryptoapp.presentation.utils
 
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class MyRecyclerScroll : RecyclerView.OnScrollListener() {
+abstract class CoinInfoRecyclerScroll : RecyclerView.OnScrollListener() {
     var scrollDist = 0
     var isVisible = true
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

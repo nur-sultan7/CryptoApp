@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
-import com.nursultan.cryptoapp.presentation.utils.MyRecyclerScroll
+import com.nursultan.cryptoapp.presentation.utils.CoinInfoRecyclerScroll
 import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
@@ -39,40 +38,32 @@ class CoinPriceListActivity : AppCompatActivity() {
     private lateinit var adapter: CoinInfoAdapter
     private lateinit var liveListData: LiveData<List<CoinInfo>>
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        menu?.let {
-            val favCategory = menu.findItem(R.id.main_menu_fav_cat)
-            val top30Category = menu.findItem(R.id.main_menu_top_30_cat)
-            favCategory.setOnMenuItemClickListener {
-                startActivity(CoinFavActivity.newIntent(this@CoinPriceListActivity))
-                true
-            }
-            top30Category.setOnMenuItemClickListener {
-                true
-            }
-        }
-        return super.onCreateOptionsMenu(menu)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(findViewById(R.id.toolbar))
-
+        setUpAnimation()
 
         adapter = CoinInfoAdapter(this)
         binding.rvCoinPriceList.isNestedScrollingEnabled = false
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null
-        binding.rvCoinPriceList.addOnScrollListener(object : MyRecyclerScroll() {
+        binding.rvCoinPriceList.addOnScrollListener(object : CoinInfoRecyclerScroll() {
             override fun hide() {
-               // binding.spinnerCoinPriceList.visibility = View.GONE
+                // binding.spinnerCoinPriceList.visibility = View.GONE
+                binding.spinnerCoinPriceList.animate()
+                    .translationY((binding.spinnerCoinPriceList.height + 16).toFloat()).setInterpolator(
+                    AccelerateInterpolator(2F)
+                ).start();
             }
 
             override fun show() {
-             //   binding.spinnerCoinPriceList.visibility = View.VISIBLE
+                //   binding.spinnerCoinPriceList.visibility = View.VISIBLE
+                binding.spinnerCoinPriceList.animate().translationY(0F).setInterpolator(
+                    DecelerateInterpolator(2F)
+                ).start()
             }
 
         })
@@ -111,6 +102,27 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        menu?.let {
+            val favCategory = menu.findItem(R.id.main_menu_fav_cat)
+            val top30Category = menu.findItem(R.id.main_menu_top_30_cat)
+            favCategory.setOnMenuItemClickListener {
+                startActivity(CoinFavActivity.newIntent(this@CoinPriceListActivity))
+                true
+            }
+            top30Category.setOnMenuItemClickListener {
+                true
+            }
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun setUpAnimation() {
+        val anim = AnimationUtils.loadAnimation(this, R.anim.spinner_grow)
+        binding.spinnerCoinPriceList.startAnimation(anim)
     }
 
     private fun isOnePaneMode() = binding.fragmentContainer == null
