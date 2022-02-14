@@ -53,7 +53,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         binding.rvCoinPriceList.addOnScrollListener(object : CoinInfoRecyclerScroll() {
             override fun hide() {
                 binding.spinnerCoinPriceList.animate()
-                    .translationY((-binding.spinnerCoinPriceList.height).toFloat()).setInterpolator(
+                    .translationY((-binding.spinnerCoinPriceList.height-40).toFloat()).setInterpolator(
                     AccelerateInterpolator(2F)
                 ).start()
             }
