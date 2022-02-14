@@ -52,15 +52,13 @@ class CoinPriceListActivity : AppCompatActivity() {
         binding.rvCoinPriceList.itemAnimator = null
         binding.rvCoinPriceList.addOnScrollListener(object : CoinInfoRecyclerScroll() {
             override fun hide() {
-                // binding.spinnerCoinPriceList.visibility = View.GONE
                 binding.spinnerCoinPriceList.animate()
-                    .translationY((binding.spinnerCoinPriceList.height + 16).toFloat()).setInterpolator(
+                    .translationY((-binding.spinnerCoinPriceList.height).toFloat()).setInterpolator(
                     AccelerateInterpolator(2F)
-                ).start();
+                ).start()
             }
 
             override fun show() {
-                //   binding.spinnerCoinPriceList.visibility = View.VISIBLE
                 binding.spinnerCoinPriceList.animate().translationY(0F).setInterpolator(
                     DecelerateInterpolator(2F)
                 ).start()
