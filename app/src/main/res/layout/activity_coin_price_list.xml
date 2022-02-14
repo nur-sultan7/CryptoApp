@@ -19,12 +19,14 @@
 
     <Spinner
         android:id="@+id/spinnerCoinPriceList"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:paddingStart="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
         android:entries="@array/sortCategories"
         android:background="@drawable/rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.54" />
+        app:layout_constraintGuide_percent="0.57" />
 
     <include
         android:id="@+id/include"
