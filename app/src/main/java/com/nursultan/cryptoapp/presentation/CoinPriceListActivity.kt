@@ -1,5 +1,7 @@
 package com.nursultan.cryptoapp.presentation
 
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -10,6 +12,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ActionMenuView
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +22,7 @@ import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.presentation.utils.CoinInfoRecyclerScroll
+import com.nursultan.cryptoapp.presentation.utils.ViewResizeAnimator
 import java.lang.RuntimeException
 import javax.inject.Inject
 
@@ -149,32 +153,36 @@ class CoinPriceListActivity : AppCompatActivity() {
     private fun setUpSpinnerAnimation() {
         val anim = AnimationUtils.loadAnimation(this, R.anim.spinner_grow)
         binding.spinnerCoinPriceList.startAnimation(anim)
+        binding.includedToolbar.root.startAnimation(anim)
     }
 
     private fun showAnimation() {
-        binding.spinnerCoinPriceList.animate().translationY(0F).setInterpolator(
-            DecelerateInterpolator(1.5F)
-        ).start()
-
-        binding.includedToolbar.root.animate().translationY(0F).setInterpolator(
-            DecelerateInterpolator(1.5F)
-        ).start()
-        binding.rvCoinPriceList.invalidate()
+        animate(binding.spinnerCoinPriceList,0)
+        animate(binding.includedToolbar.root, 0)
+        resizeRV()
     }
 
     private fun hideAnimation() {
-        binding.spinnerCoinPriceList.animate()
-            .translationY((-(binding.spinnerCoinPriceList.height + 300)).toFloat())
-            .setInterpolator(
-                AccelerateInterpolator(1.5F)
-            ).start()
-        binding.includedToolbar.root.animate()
-            .translationY((-binding.includedToolbar.root.height - 40).toFloat())
-            .setInterpolator(
-                AccelerateInterpolator(1.5F)
-            ).start()
-//        binding.rvCoinPriceList.updateLayoutParams<RecyclerView.LayoutParams> {
-//            height=ViewGroup.LayoutParams.MATCH_PARENT
-//        }
+        with(binding)
+        {
+            animate(spinnerCoinPriceList, -(spinnerCoinPriceList.height + 300))
+            animate(includedToolbar.root, -(includedToolbar.root.height + 40))
+        }
+        resizeRV()
+    }
+    private fun animate(view: View, translationY: Int)
+    {
+        view.animate().translationY(translationY.toFloat()).setInterpolator(
+            DecelerateInterpolator(1.5F)
+        ).start()
+    }
+    private fun resizeRV()
+    {
+        ViewResizeAnimator.changeHeight(
+            binding.rvCoinPriceList,
+            binding.rvCoinPriceList.height,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            700
+        )
     }
 }

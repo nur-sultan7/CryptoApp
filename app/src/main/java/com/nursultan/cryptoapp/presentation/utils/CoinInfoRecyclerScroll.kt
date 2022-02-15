@@ -12,17 +12,17 @@ abstract class CoinInfoRecyclerScroll : RecyclerView.OnScrollListener() {
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         if (isVisible && scrollDist > MINIMUM) {
-            hide();
-            scrollDist = 0;
-            isVisible = false;
+            hide()
+            scrollDist = 0
+            isVisible = false
         } else if (!isVisible && scrollDist < -MINIMUM) {
-            show();
-            scrollDist = 0;
-            isVisible = true;
+            show()
+            scrollDist = 0
+            isVisible = true
         }
 
         if ((isVisible && dy > 0) || (!isVisible && dy < 0)) {
-            scrollDist += dy;
+            scrollDist += dy
         }
     }
 
