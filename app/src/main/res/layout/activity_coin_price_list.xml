@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/includedToolbar"
         tools:listitem="@layout/item_coin_price_info" />
 
     <Spinner
@@ -31,7 +32,7 @@
         android:background="@drawable/rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/includedToolbar"
         tools:ignore="RtlSymmetry,TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -42,8 +43,8 @@
         app:layout_constraintGuide_percent="0.57" />
 
     <include
-        android:id="@+id/include"
-        layout="@layout/app_bar_main"
+        android:id="@+id/includedToolbar"
+        layout="@layout/toolbar_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,19 +3,23 @@ package com.nursultan.cryptoapp.presentation
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.presentation.utils.CoinInfoRecyclerScroll
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
@@ -149,15 +153,28 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     private fun showAnimation() {
         binding.spinnerCoinPriceList.animate().translationY(0F).setInterpolator(
-            DecelerateInterpolator(2F)
+            DecelerateInterpolator(1.5F)
         ).start()
+
+        binding.includedToolbar.root.animate().translationY(0F).setInterpolator(
+            DecelerateInterpolator(1.5F)
+        ).start()
+        binding.rvCoinPriceList.invalidate()
     }
 
     private fun hideAnimation() {
         binding.spinnerCoinPriceList.animate()
-            .translationY((-binding.spinnerCoinPriceList.height - 40).toFloat())
+            .translationY((-(binding.spinnerCoinPriceList.height + 300)).toFloat())
             .setInterpolator(
-                AccelerateInterpolator(2F)
+                AccelerateInterpolator(1.5F)
             ).start()
+        binding.includedToolbar.root.animate()
+            .translationY((-binding.includedToolbar.root.height - 40).toFloat())
+            .setInterpolator(
+                AccelerateInterpolator(1.5F)
+            ).start()
+//        binding.rvCoinPriceList.updateLayoutParams<RecyclerView.LayoutParams> {
+//            height=ViewGroup.LayoutParams.MATCH_PARENT
+//        }
     }
 }
