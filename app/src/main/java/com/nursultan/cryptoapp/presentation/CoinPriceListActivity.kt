@@ -1,24 +1,19 @@
 package com.nursultan.cryptoapp.presentation
 
-import android.animation.AnimatorListenerAdapter
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.ActionMenuView
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.nursultan.cryptoapp.R
 import com.nursultan.cryptoapp.databinding.ActivityCoinPriceListBinding
+import com.nursultan.cryptoapp.databinding.ToolbarMainBinding
 import com.nursultan.cryptoapp.domain.entity.CoinInfo
 import com.nursultan.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.nursultan.cryptoapp.presentation.utils.CoinInfoRecyclerScroll
@@ -55,7 +50,6 @@ class CoinPriceListActivity : AppCompatActivity() {
         setUpSpinnerAnimation()
         setUpSpinner()
         adapter = CoinInfoAdapter(this)
-        binding.rvCoinPriceList.isNestedScrollingEnabled = false
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null
         binding.rvCoinPriceList.addOnScrollListener(object : CoinInfoRecyclerScroll() {
@@ -69,38 +63,10 @@ class CoinPriceListActivity : AppCompatActivity() {
         })
 
         liveListData = viewModel.getCoinInfoList(true)
-        binding.spinnerCoinPriceList.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
-                ) {
-                    liveListData.removeObservers(this@CoinPriceListActivity)
-                    liveListData = viewModel.getCoinInfoList(position == 0)
-                    liveListData.observe(this@CoinPriceListActivity) {
-                        if (it != null && it.isNotEmpty())
-                            adapter.submitList(it)
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-            }
+        setUpSpinnerItemSelectedListener()
 
         binding.spinnerCoinPriceList.setSelection(0)
-        adapter.onCoinClickListener = {
-            if (isOnePaneMode()) {
-                launchActivityCoinDetail(it.fromSymbol)
-            } else {
-                launchFragmentCoinDetail(it.fromSymbol)
-            }
-        }
-        adapter.onFavClickListener = { coinInfo: CoinInfo, isFav: Boolean ->
-            when (isFav) {
-                false -> viewModel.insertFavCoin(coinInfo)
-                true -> viewModel.deleteFavCoin(coinInfo.fromSymbol)
-            }
-
-        }
+        setUpOnClickListeners()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -153,36 +119,62 @@ class CoinPriceListActivity : AppCompatActivity() {
     private fun setUpSpinnerAnimation() {
         val anim = AnimationUtils.loadAnimation(this, R.anim.spinner_grow)
         binding.spinnerCoinPriceList.startAnimation(anim)
-        binding.includedToolbar.root.startAnimation(anim)
+        binding.includedToolbar?.root?.startAnimation(anim)
     }
 
     private fun showAnimation() {
-        animate(binding.spinnerCoinPriceList,0)
-        animate(binding.includedToolbar.root, 0)
-        resizeRV()
+        animate(binding.spinnerCoinPriceList, 0)
+    //    animate(binding.includedToolbar.root, 0)
+       // resizeRV()
     }
 
     private fun hideAnimation() {
         with(binding)
         {
-            animate(spinnerCoinPriceList, -(spinnerCoinPriceList.height + 300))
-            animate(includedToolbar.root, -(includedToolbar.root.height + 40))
+            animate(spinnerCoinPriceList, -(spinnerCoinPriceList.height + 400))
+          //  animate(includedToolbar.root, -(includedToolbar.root.height + 40))
         }
-        resizeRV()
     }
-    private fun animate(view: View, translationY: Int)
-    {
+
+    private fun animate(view: View, translationY: Int) {
         view.animate().translationY(translationY.toFloat()).setInterpolator(
             DecelerateInterpolator(1.5F)
         ).start()
     }
-    private fun resizeRV()
-    {
-        ViewResizeAnimator.changeHeight(
-            binding.rvCoinPriceList,
-            binding.rvCoinPriceList.height,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            700
-        )
+
+    private fun setUpSpinnerItemSelectedListener() {
+        binding.spinnerCoinPriceList.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    liveListData.removeObservers(this@CoinPriceListActivity)
+                    liveListData = viewModel.getCoinInfoList(position == 0)
+                    liveListData.observe(this@CoinPriceListActivity) {
+                        if (it != null && it.isNotEmpty())
+                            adapter.submitList(it)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+    }
+
+    private fun setUpOnClickListeners() {
+        adapter.onCoinClickListener = {
+            if (isOnePaneMode()) {
+                launchActivityCoinDetail(it.fromSymbol)
+            } else {
+                launchFragmentCoinDetail(it.fromSymbol)
+            }
+        }
+        adapter.onFavClickListener = { coinInfo: CoinInfo, isFav: Boolean ->
+            when (isFav) {
+                false -> viewModel.insertFavCoin(coinInfo)
+                true -> viewModel.deleteFavCoin(coinInfo.fromSymbol)
+            }
+
+        }
     }
 }
