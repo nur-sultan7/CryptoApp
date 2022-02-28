@@ -21,14 +21,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline8"
-            app:layout_constraintTop_toTopOf="parent"
-            >
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            tools:context=".presentation.CoinDetailFragment" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                tools:context=".presentation.CoinDetailFragment" />
         </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.Guideline
@@ -71,15 +71,14 @@
 
         </LinearLayout>
 
-            <include
-                android:id="@+id/includedToolbar"
-                layout="@layout/toolbar_main"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+        <include
+            android:id="@+id/includedToolbar"
+            layout="@layout/toolbar_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
